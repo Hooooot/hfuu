@@ -78,7 +78,7 @@
                             <a href="javascript:;">页面</a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="${crx}/test">其他页面</a>
+                                    <a href="${crx}/test?asd=123456">其他页面</a>
                                 </dd>
                             </dl>
                         </dd>

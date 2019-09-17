@@ -62,9 +62,9 @@ layui.define(['element', 'form', "layer"], function(exports) {
     });
 
     /*获取项目的根路径*/
-    function progecepath() {
+   /* function progecepath() {
         return window.document.location.href;
-    };
+    };*/
 
     /*弹出框 */
     $('.showNotice').on('click', function(event) {
@@ -107,7 +107,7 @@ layui.define(['element', 'form', "layer"], function(exports) {
             title: false,
             id: 'LAY_layuipro', //设定一个id，防止重复弹出
             shadeClose: true,
-            content: "http://localhost:8080/hfuu/" + 'login'
+            content: "http://localhost:8080/hfuu/" + 'login',
 
         });
 

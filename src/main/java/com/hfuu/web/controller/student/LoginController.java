@@ -24,14 +24,19 @@ public class LoginController {
         return "index";
     }
 
+
+    /*@RequestMapping(value = {"/uindex"}, method = RequestMethod.GET)
+    public String toUindex(@RequestParam(value = "asd", required = false) String asd) {
+        System.err.println(asd);
+        return "student/uindex";
+    }*/
     /**
      * 前往学生端主页面
      *
      * @return
      */
-    @RequestMapping(value = {"/uindex"}, method = RequestMethod.POST)
-    public String toUindex(@RequestParam(value = "asd", required = false) String asd) {
-        System.err.println(asd);
+    @RequestMapping(value = {"/uindex"}, method = RequestMethod.GET)
+    public String toUindex() {
         return "student/uindex";
     }
 
@@ -40,7 +45,7 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
     public String toLogin() {
         return "student/ulogin";
     }
@@ -61,7 +66,9 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
-    public String toTest() {
+    public String toTest(@RequestParam(value = "asd", required = false) String asd,HttpServletRequest request) {
+        System.err.println(asd);
+        request.setAttribute("asd",asd);
         return "student/test";
     }
 

@@ -11,6 +11,6 @@
     <title>Title</title>
 </head>
 <body>
-<a href="${crx}/uindex?asd=4564d">学生页面</a>
+<a href="${crx}/uindex">学生页面</a>
 </body>
 </html>
