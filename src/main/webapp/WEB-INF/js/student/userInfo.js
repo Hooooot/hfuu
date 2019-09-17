@@ -1,6 +1,6 @@
 var form, $,areaData;
 layui.config({
-    base : "js/"
+    base: "js/student/"
 }).extend({
     "address" : "address"
 })

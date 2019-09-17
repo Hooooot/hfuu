@@ -1,7 +1,0 @@
-/*个人资料*/
-form input.layui-input[disabled]{ background:#f2f2f2; color:#595963!important; }
-.user_right{ text-align: center; }
-.user_right p{ margin:10px 0 25px; font-size: 12px; text-align: center; color: #FF5722;}
-.user_right img#userFace{ width:200px; height:200px; margin-top:20px; cursor:pointer; box-shadow:0 0 50px #44576b; }
-.userAddress.layui-form-item .layui-input-inline{ width:23%; }
-.userAddress.layui-form-item .layui-input-inline:last-child{ margin-right:0; }

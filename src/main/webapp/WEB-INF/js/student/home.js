@@ -176,5 +176,5 @@ layui.define(['element','layer'],function(exports){
         }
     };
 
-    exports('home');
+    exports('home', new Home());
 });

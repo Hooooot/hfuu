@@ -10,8 +10,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="laui/css/layui.css">
-    <link rel="stylesheet" href="css/userInfo.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="css/student/userInfo.css">
     <link rel="icon" href="/favicon.ico">
     <title>个人资料</title>
 </head>
@@ -116,7 +116,7 @@
         </div>
     </div>
 </form>
-<script src="laui/layui.js"></script>
-<script src="js/userInfo.js"></script>
+<script src="layui/layui.js"></script>
+<script src="js/student/userInfo.js"></script>
 </body>
 </html>

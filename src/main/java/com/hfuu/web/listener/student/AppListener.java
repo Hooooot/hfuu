@@ -1,4 +1,4 @@
-package com.hfuu.web.listener;
+package com.hfuu.web.listener.student;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;

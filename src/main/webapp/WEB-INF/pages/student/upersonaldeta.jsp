@@ -10,10 +10,10 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="laui/css/layui.css">
-    <link rel="stylesheet" href="laui/css/admin.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="layui/css/admin.css">
     <link rel="icon" href="/favicon.ico">
-    <title>管理后台</title>
+    <title>信息</title>
 </head>
 <body class="layui-view-body">
 <div class="layui-content">
@@ -78,7 +78,7 @@
         </div>
     </div>
 </div>
-<script src="laui/layui.all.js"></script>
+<script src="layui/layui.all.js"></script>
 <script>
     var form = layui.form
         ,layer = layui.layer;

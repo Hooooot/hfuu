@@ -10,10 +10,10 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="laui/css/layui.css">
-    <link rel="stylesheet" href="laui/css/login.css">
+    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="layui/css/login.css">
     <link rel="icon" href="/favicon.ico">
-    <title>管理后台</title>
+    <title>登录</title>
 </head>
 <body class="login-wrap">
     <div class="login-container">
@@ -34,6 +34,6 @@
         </form>
     </div>
 </body>
-<script src="laui/layui.js"></script>
-<script src="js/login.js"></script>
+<script src="layui/layui.js"></script>
+<script src="js/student/login.js"></script>
 </html>
