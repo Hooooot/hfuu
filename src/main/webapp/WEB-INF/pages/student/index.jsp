@@ -84,6 +84,9 @@
                                 <dd>
                                     <a href="${crx}/test?asd=123456">其他页面</a>
                                 </dd>
+                                <dd>
+                                    <a href="${crx}/uploads">上传</a>
+                                </dd>
                             </dl>
                         </dd>
                     </dl>

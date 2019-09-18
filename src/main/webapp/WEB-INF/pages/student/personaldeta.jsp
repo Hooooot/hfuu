@@ -79,9 +79,5 @@
     </div>
 </div>
 <script src="layui/layui.all.js"></script>
-<script>
-    var form = layui.form
-        ,layer = layui.layer;
-</script>
 </body>
 </html>

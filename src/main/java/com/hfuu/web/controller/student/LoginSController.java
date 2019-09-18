@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("")
-public class LoginController {
+public class LoginSController {
 
 
     /**
@@ -36,7 +36,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/indexs"}, method = RequestMethod.GET)
-    public String toUindex() {
+    public String toindexS() {
         return "student/index";
     }
 
@@ -46,7 +46,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/logins"}, method = RequestMethod.GET)
-    public String toLogin() {
+    public String toLoginS() {
         return "student/login";
     }
 
@@ -56,7 +56,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/consoles"}, method = RequestMethod.GET)
-    public String toConsole() {
+    public String toConsoleS() {
         return "student/console";
     }
 
@@ -66,7 +66,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
-    public String toTest(@RequestParam(value = "asd", required = false) String asd,HttpServletRequest request) {
+    public String toTestS(@RequestParam(value = "asd", required = false) String asd,HttpServletRequest request) {
         System.err.println(asd);
         request.setAttribute("asd",asd);
         return "student/test";
@@ -78,7 +78,7 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/personaldetas"}, method = RequestMethod.GET)
-    public String toPersonalDeta() {
+    public String toPersonalDetaS() {
         return "student/personaldeta";
     }
 
@@ -88,7 +88,17 @@ public class LoginController {
      * @return
      */
     @RequestMapping(value = {"/userinfos"}, method = RequestMethod.GET)
-    public String toUserInfo() {
+    public String toUserInfoS() {
         return "student/userInfo";
+    }
+
+    /**
+     * 前往子界面--文件上传
+     *
+     * @return
+     */
+    @RequestMapping(value = {"/uploads"}, method = RequestMethod.GET)
+    public String toUploadS() {
+        return "student/upload";
     }
 }
