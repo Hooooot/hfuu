@@ -107,7 +107,7 @@ layui.define(['element', 'form', "layer"], function(exports) {
             title: false,
             id: 'LAY_layuipro', //设定一个id，防止重复弹出
             shadeClose: true,
-            content: "http://localhost:8080/hfuu/" + 'login',
+            content: 'http://localhost:8080/hfuu/'+ 'logins',
 
         });
 

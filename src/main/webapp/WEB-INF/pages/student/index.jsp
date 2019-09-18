@@ -32,6 +32,10 @@
 
         <%--和下方隐藏区域对应--%>
         <ul class="layui-nav layui-layout-right">
+            <%--显示时间--%>
+            <li class="layui-nav-item" >
+                <i id="nowTime"></i>
+            </li>
             <li class="layui-nav-item lockpc">
                 <a href="javascript:;">锁屏</a>
             </li>
@@ -64,7 +68,7 @@
                         <em>主页</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd class="comm"><a href="${crx}/console">控制台</a></dd>
+                        <dd class="comm"><a href="${crx}/consoles">控制台</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -73,7 +77,7 @@
                         <em>作业</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="${crx}/personaldeta">表单</a></dd>
+                        <dd><a href="${crx}/personaldetas">表单</a></dd>
                         <dd>
                             <a href="javascript:;">页面</a>
                             <dl class="layui-nav-child">
@@ -90,7 +94,7 @@
                         <em>用户</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="${crx}/login">登录</a></dd>
+                        <dd><a href="${crx}/logins">登录</a></dd>
                     </dl>
                 </li>
 
@@ -98,8 +102,8 @@
                 <%--隐藏区域--!!!!!!!!!!!!!!!!!!! --%>
                 <li class="layui-nav-item layui-hide">
                     <dl class="layui-nav-child">
-                        <dd><a href="${crx}/userinfo" class="userInfo">个人信息</a></dd>
-                        <dd><a href="${crx}/personaldeta" class="changePassword">修改密码</a></dd>
+                        <dd><a href="${crx}/userinfos" class="userInfo">个人信息</a></dd>
+                        <dd><a href="${crx}/personaldetas" class="changePassword">修改密码</a></dd>
                     </dl>
                 </li>
             </ul>

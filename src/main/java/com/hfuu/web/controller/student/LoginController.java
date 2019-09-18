@@ -35,9 +35,9 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = {"/uindex"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/indexs"}, method = RequestMethod.GET)
     public String toUindex() {
-        return "student/uindex";
+        return "student/index";
     }
 
     /**
@@ -45,9 +45,9 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = {"/login"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/logins"}, method = RequestMethod.GET)
     public String toLogin() {
-        return "student/ulogin";
+        return "student/login";
     }
 
     /**
@@ -55,9 +55,9 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = {"/console"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/consoles"}, method = RequestMethod.GET)
     public String toConsole() {
-        return "student/uconsole";
+        return "student/console";
     }
 
     /**
@@ -77,9 +77,9 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = {"/personaldeta"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/personaldetas"}, method = RequestMethod.GET)
     public String toPersonalDeta() {
-        return "student/upersonaldeta";
+        return "student/personaldeta";
     }
 
     /**
@@ -87,7 +87,7 @@ public class LoginController {
      *
      * @return
      */
-    @RequestMapping(value = {"/userinfo"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/userinfos"}, method = RequestMethod.GET)
     public String toUserInfo() {
         return "student/userInfo";
     }
