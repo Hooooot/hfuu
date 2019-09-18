@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("")
@@ -100,5 +98,16 @@ public class LoginSController {
     @RequestMapping(value = {"/uploads"}, method = RequestMethod.GET)
     public String toUploadS() {
         return "student/upload";
+    }
+
+
+    /**
+     * 前往子界面--文件上传 带有进度条
+     *
+     * @return
+     */
+    @RequestMapping(value = {"/uploadbars"}, method = RequestMethod.GET)
+    public String toUpTestS() {
+        return "student/uploadBar";
     }
 }

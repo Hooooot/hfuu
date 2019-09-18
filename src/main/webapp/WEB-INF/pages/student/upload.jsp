@@ -22,7 +22,7 @@
            <p>点击上传，或将文件拖拽到此处</p>
        </div>
        <div class="layui-upload-list">
-           <table class="layui-table">
+           <table class="layui-table" style="table-layout:fixed">
                <thead>
                <tr>
                    <th>文件名</th>
