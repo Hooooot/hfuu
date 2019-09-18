@@ -12,5 +12,6 @@
 </head>
 <body>
 <a href="${crx}/indexs">学生页面</a>
+<a href="${tcr}/logint">教师页面</a>
 </body>
 </html>
