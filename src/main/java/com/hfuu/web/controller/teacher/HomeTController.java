@@ -11,9 +11,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeTController {
     static private Logger log = Logger.getLogger(HomeTController.class);
 
-    @RequestMapping(value = {"/homet"}, method = RequestMethod.GET)
-    public String toHomeT() {
-        log.debug("跳转到:teacher/homet.jsp");
-        return "teacher/homet";
+    @RequestMapping(value = {"/teacher/home"}, method = RequestMethod.GET)
+    public String toHome() {
+        log.debug("跳转到:teacher/home.jsp");
+        return "teacher/home";
+    }
+
+    @RequestMapping(value = {"/teacher/console"}, method = RequestMethod.GET)
+    public String toConsole() {
+        log.debug("跳转到:teacher/console.jsp");
+        return "teacher/console";
+    }
+
+    @RequestMapping(value = {"/teacher/already_homework"}, method = RequestMethod.GET)
+    public String toTest() {
+        log.debug("跳转到:teacher/already_homework.jsp");
+        return "teacher/already_homework";
+    }
+
+    @RequestMapping(value = {"/teacher/deploy_homework"}, method = RequestMethod.GET)
+    public String toDeployHomework() {
+        log.debug("跳转到:teacher/deploy_homework.jsp");
+        return "teacher/deploy_homework";
     }
 }

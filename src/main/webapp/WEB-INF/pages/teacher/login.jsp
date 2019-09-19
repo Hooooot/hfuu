@@ -13,9 +13,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>先登录</title>
     <link rel="stylesheet" href="layui/css/layui.css">
-    <script src="js/teacher/logint.js"></script>
+    <script src="layui/layui.js"></script>
+    <script src="js/teacher/login.js"></script>
 </head>
 <body class="layui-layout-body">
-<a class="layui-btn" href="${tcr}/homet">跳转到首页</a>
+<a class="layui-btn" href="${tcr}/teacher/home" target="_blank">跳转到首页</a>
+<input class="layui-btn test" type="button" value="测试">
 </body>
 </html>

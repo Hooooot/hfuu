@@ -13,8 +13,8 @@ public class LoginTController {
 
     @RequestMapping(value = {"/logint"}, method = RequestMethod.GET)
     public String toLoginT() {
-        logger.debug("跳转到：\"teacher/logint\"");
-        return "teacher/logint";
+        logger.debug("跳转到：\"teacher/login\"");
+        return "teacher/login";
     }
 
 
