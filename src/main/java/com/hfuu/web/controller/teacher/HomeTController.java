@@ -37,6 +37,7 @@ public class HomeTController {
 
     @RequestMapping(value = {"/teacher/account"}, method = RequestMethod.GET)
     public String toAccount() {
+        log.debug("跳转到:teacher/account.jsp");
         return "teacher/account";
     }
 }
