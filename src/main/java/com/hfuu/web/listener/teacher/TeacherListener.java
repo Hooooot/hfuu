@@ -13,7 +13,7 @@ public class TeacherListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext application = servletContextEvent.getServletContext();
-        application.setAttribute("tcr", "http://localhost:8080" + application.getContextPath());
+        application.setAttribute("tcr", "http://localhost:8080" + application.getContextPath() + "/teacher");
         System.out.println(application.getContextPath());
     }
 
