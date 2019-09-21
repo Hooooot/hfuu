@@ -12,7 +12,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="layui/css/layui.css">
     <link rel="stylesheet" href="layui/css/admin.css">
-    <link rel="stylesheet" href="layui/css/iconfont.css">
     <%--自定义图标--%>
     <link rel="stylesheet" href="css/student/lock.css">
     <link rel="icon" href="/favicon.ico">

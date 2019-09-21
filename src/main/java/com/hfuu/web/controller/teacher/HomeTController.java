@@ -34,4 +34,9 @@ public class HomeTController {
         log.debug("跳转到:teacher/deploy_homework.jsp");
         return "teacher/deploy_homework";
     }
+
+    @RequestMapping(value = {"/teacher/account"}, method = RequestMethod.GET)
+    public String toAccount() {
+        return "teacher/account";
+    }
 }
