@@ -8,10 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>首页</title>
 </head>
 <body>
 <a href="${crx}/indexs">学生页面</a>
 <a href="${tcr}/logint">教师页面</a>
+<a href="${adm}/admin/login">管理员页面</a>
 </body>
 </html>
