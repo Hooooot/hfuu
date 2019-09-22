@@ -4,4 +4,5 @@ import com.hfuu.web.entity.TeacherEntity;
 
 public interface ITeacherDao {
     int addTeacher(TeacherEntity teacher);
+    boolean isExist(TeacherEntity teacher);
 }

@@ -4,7 +4,6 @@ import com.hfuu.web.dao.ITeacherDao;
 import com.hfuu.web.entity.TeacherEntity;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
-
 import javax.annotation.Resource;
 
 @Service("teacherService")
@@ -16,6 +15,11 @@ public class TeacherServiceImpl implements ITeacherService {
     public int addTeacher(TeacherEntity teacherEntity) {
         log.info("teacher service impl");
         return 0;
+    }
+
+    @Override
+    public boolean isExist(TeacherEntity teacherEntity) {
+        return dao.isExist(teacherEntity);
     }
 
     public ITeacherDao getDao() {
