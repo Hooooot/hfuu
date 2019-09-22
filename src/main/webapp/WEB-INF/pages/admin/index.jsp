@@ -5,13 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../layui/css/admin.css">
-    <%--自定义图标--%>
-    <link rel="stylesheet" href="../css/teacher/lock.css">
-    <script src="../layui/layui.js"></script>
-    <script src="../js/teacher/lock.js"></script>
-    <script src="../js/teacher/home.js"></script>
+    <link rel="stylesheet" href="../css/admin/lock.css">
     <link rel="icon" href="../favicon.ico">
-    <title>主页</title>
+    <title>管理员首页</title>
 
 </head>
 <body class="layui-layout-body">
@@ -51,7 +47,7 @@
         <div class="layui-side-scroll">
             <div class="custom-logo">
                 <img src="../layui/images/logo.png" alt="logo"/>
-                <h1>作业提交系统管理员端</h1>
+                <h1>作业提交系统后台</h1>
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
@@ -95,5 +91,9 @@
 
     <div class="mobile-mask"></div>
 </div>
+<%--script  script  script  script--%>
+<script src="../layui/layui.js"></script>
+<script src="../js/admin/lock.js"></script>
+<script src="../js/admin/home.js"></script>
 </body>
 </html>
