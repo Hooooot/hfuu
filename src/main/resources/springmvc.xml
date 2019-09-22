@@ -24,7 +24,6 @@
     <!-- 配置前视图解析器 -->
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-
         <property name="prefix" value="/WEB-INF/pages/" />      <!-- 前缀 -->
         <property name="suffix" value=".jsp" />   <!-- 后缀 -->
     </bean>
@@ -48,5 +47,7 @@
     <mvc:resources location="/WEB-INF/js/" mapping="/js/**"/>
     <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
     <mvc:resources location="/WEB-INF/json/" mapping="/json/**"/>
+    <mvc:resources location="/WEB-INF/wangEditor/" mapping="/weditor/**"/>
+<!--    <mvc:resources location="/WEB-INF/pages/favicon.ico" mapping="/favicon.ico"/>-->
 
 </beans>
