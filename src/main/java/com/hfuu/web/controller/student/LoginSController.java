@@ -23,6 +23,22 @@ public class LoginSController {
     }
 
 
+
+    /**
+     * 前往主页面
+     *
+     * @return
+     */
+    @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
+    public String toHomeS() {
+        return "student/home";
+    }
+
+
+
+
+
+
     /*@RequestMapping(value = {"/uindex"}, method = RequestMethod.GET)
     public String toUindex(@RequestParam(value = "asd", required = false) String asd) {
         System.err.println(asd);

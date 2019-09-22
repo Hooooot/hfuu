@@ -24,7 +24,7 @@
 
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item slide-sidebar" lay-unselect>
-                <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
+                <p href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></p>
             </li>
         </ul>
 
@@ -67,7 +67,7 @@
                         <em>主页</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd class="comm"><a href="${crx}/consoles">控制台</a></dd>
+                        <dd class="comm"><a href="${crx}/homes">控制台</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -131,6 +131,6 @@
 </div>
 <script src="layui/layui.js"></script>
 <script src="js/student/lock.js"></script>
-<script src="js/student/home.js"></script>
+<script src="js/student/index.js"></script>
 </body>
 </html>
