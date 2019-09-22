@@ -18,19 +18,11 @@
             overflow:auto;//当页面的可视区域的宽度小于页面设置的最小宽度的时候，出现滚动条
         }
 
-        .demo-carousel {
-            height: 200px;
-            line-height: 200px;
-            text-align: center;
-        }
-
         h2 {
             font-weight: bold;
         }
 
-        em{
-            margin-right: 80px;
-        }
+
 
         .positionRight {
             float: right;
@@ -57,6 +49,11 @@
             line-height: 50px;
             margin-left: 30px;
         }
+        .floatright{
+            float:right;
+            margin-right: 50px;
+        }
+
 
     </style>
     <title></title>
@@ -65,32 +62,52 @@
 <body>
 <div class="layui-collapse " id="content">
     <div class="layui-colla-item clearfix">
-        <h2 class="layui-colla-title">C++<span class="positionRight">待加功能<em class="layui-hide">这是个测试</em></span><span class="positionRight time">2019-10-01<em class="layui-hide">最近的截止提交时间</em></span>
+        <h2 class="layui-colla-title">Python<span class="positionRight">待加功能<em class="layui-hide">这是个测试</em></span><span class="positionRight time">2019-10-01<em class="layui-hide">最近的截止提交时间</em></span>
             <span class="positionRight">3/5<em class="layui-hide">作业已提交数/总作业数</em></span>
         </h2>
         <div class="layui-colla-content">
             <div class="positionLeft">任课考试：XXX </div>
             <div class="positionLeft">实验课时：XXX </div>
-            <div class="experiment"><em>实验：XXXXXXXXXXXXXXXXXXXXX</em><em>分数：00</em><span>截止时间:</span><span class="time">2018-10-10 24:00:00</span><em></em><em>上传时间：--:--:--</em>
-                <div class="layui-btn-group" style="float:right;margin-right: 50px;">
-                <button type="button" class="layui-btn layui-btn-primary" date-url="实验一编辑">编辑</button>
-                <button type="button" class="layui-btn layui-btn-primary" date-url="实验一上传">上传</button>
-            </div></div>
-            <div class="experiment"><em>实验：XXXXXXXXXXXXXXXXXXXXX</em><em>分数：00</em><span>截止时间:</span><span class="time">2019-09-10 24:00:00</span><em></em><em>上传时间：--:--:--</em>
-                <div class="layui-btn-group" style="float:right;margin-right: 50px;">
-                    <button type="button" class="layui-btn layui-btn-primary" date-url="实验二编辑">编辑</button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-url="实验二上传">上传</button>
-                </div></div>
-            <div class="experiment"><em>实验：XXXXXXXXXXXXXXXXXXXXX</em><em>分数：00</em><span>截止时间:</span><span class="time">2019-10-10 24:00:00</span><em></em><em>上传时间：--:--:--</em>
-                <div class="layui-btn-group" style="float:right;margin-right: 50px;">
-                    <button type="button" class="layui-btn layui-btn-primary" date-url="实验三编辑">编辑</button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-url="实验三上传">上传</button>
-                </div></div>
-            <div class="experiment"><em>实验：XXXXXXXXXXXXXXXXXXXXX</em><em>分数：00</em><span>截止时间:</span><span class="time">2019-10-24 24:00:00</span><em></em><em>上传时间：--:--:--</em>
-                <div class="layui-btn-group" style="float:right;margin-right: 50px;">
-                    <button type="button" class="layui-btn layui-btn-primary" date-url="实验四编辑">编辑</button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-url="实验四上传">上传</button>
-                </div></div>
+            <div class="experiment"><span>实验1:图像梳理的基本操作</span>
+                <div class="layui-btn-group floatright" >
+                <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验1:图像梳理的基本操作">编辑</button>
+                <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验1:图像梳理的基本操作">上传</button>
+            </div>
+                <em class="floatright">上传时间：--:--:--</em>
+                <span class="time floatright" style="margin-left: -50px;">2018-10-10 24:00:00</span>
+                <span class="floatright">截止时间:</span>
+                <em class="floatright">分数：00</em>
+            </div>
+            <div class="experiment"><span >实验2:图像的傅里叶变换</span>
+                <div class="layui-btn-group floatright" >
+                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验2:图像的傅里叶变换">编辑</button>
+                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验2:图像的傅里叶变换">上传</button>
+                </div>
+                <em class="floatright">上传时间：--:--:--</em>
+                <span class="time floatright" style="margin-left: -50px;">2018-12-10 24:00:00</span>
+                <span class="floatright">截止时间:</span>
+                <em class="floatright">分数：00</em>
+            </div>
+            <div class="experiment"><span>实验3:图像的卷积和滤波</span>
+                <div class="layui-btn-group floatright" >
+                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验3:图像的卷积和滤波">编辑</button>
+                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验3:图像的卷积和滤波">上传</button>
+                </div>
+                <em class="floatright">上传时间：--:--:--</em>
+                <span class="time floatright" style="margin-left: -50px;">2019-10-10 24:00:00</span>
+                <span class="floatright">截止时间:</span>
+                <em class="floatright">分数：00</em>
+            </div>
+            <div class="experiment"><span>实验4:图像的边缘检测</span>
+                <div class="layui-btn-group floatright" >
+                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验4:图像的边缘检测">编辑</button>
+                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验4:图像的边缘检测">上传</button>
+                </div>
+                <em class="floatright">上传时间：--:--:--</em>
+                <span class="time floatright" style="margin-left: -50px;">2019-12-10 24:00:00</span>
+                <span class="floatright">截止时间:</span>
+                <em class="floatright">分数：00</em>
+            </div>
 
         </div>
     </div>
@@ -133,9 +150,11 @@
 
 
         $(document).ready(function() {
-            //获取a标签 date-url 值
-            $("button").click(function() {
-                alert($(this).attr("date-url"))
+            //获取button标签 date-url 值
+            $(".edit").click(function() {
+                //alert($(this).attr("date-experiment"))
+                localStorage.setItem("text",$(this).attr("date-experiment"));//传值
+                $(location).attr('href', "${crx}/edits");//页面跳转
             });
 
 
@@ -191,6 +210,8 @@
             layer.close(tipIndex);
             tipIndex = null
         });
+
+
 
 
     });

@@ -25,7 +25,7 @@ public class LoginSController {
 
 
     /**
-     * 前往主页面
+     * 前往子主页面
      *
      * @return
      */
@@ -35,7 +35,15 @@ public class LoginSController {
     }
 
 
-
+    /**
+     * 前往子主页面
+     *
+     * @return
+     */
+    @RequestMapping(value = {"/edits"}, method = RequestMethod.GET)
+    public String toEditS() {
+        return "student/edit";
+    }
 
 
 
