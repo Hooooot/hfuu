@@ -13,6 +13,6 @@
 <body>
 <a href="${crx}/indexs">学生页面</a>
 <a href="${tcr}/logint">教师页面</a>
-<a href="${adm}/admin/login">管理员页面</a>
+<a href="${adm}/login">管理员页面</a>
 </body>
 </html>

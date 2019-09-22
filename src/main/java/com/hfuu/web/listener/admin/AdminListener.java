@@ -10,7 +10,7 @@ public class AdminListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext application = servletContextEvent.getServletContext();
-        application.setAttribute("adm", "http://localhost:8080" + application.getContextPath());
+        application.setAttribute("adm", "http://localhost:8080" + application.getContextPath() + "/admin");
     }
 
     @Override
