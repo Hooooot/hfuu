@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.hfuu.web.entity.TeacherEntity" table="teacher" schema="hfuutest">
+        <id name="tcId">
+            <column name="tcId" sql-type="int(11)"/>
+        </id>
+        <property name="tcNum">
+            <column name="tcNum" sql-type="char(10)" length="10"/>
+        </property>
+        <property name="tcName">
+            <column name="tcName" sql-type="varchar(8)" length="8"/>
+        </property>
+        <property name="tcPw">
+            <column name="tcPw" sql-type="varchar(20)" length="20"/>
+        </property>
+        <property name="depNum">
+            <column name="depNum" sql-type="char(2)" length="2" not-null="true"/>
+        </property>
+        <property name="tcSex">
+            <column name="tcSex" sql-type="char(2)" length="2" not-null="true"/>
+        </property>
+        <property name="tcPhone">
+            <column name="tcPhone" sql-type="char(11)" length="11" not-null="true"/>
+        </property>
+        <property name="tcAvatar">
+            <column name="tcAvatar" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

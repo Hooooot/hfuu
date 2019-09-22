@@ -16,15 +16,15 @@
         <mapping resource="com/hfuu/web/entity/ClazzEntity.hbm.xml"/>
         <mapping class="com.hfuu.web.entity.CourseEntity"/>
         <mapping resource="com/hfuu/web/entity/CourseEntity.hbm.xml"/>
-        <mapping resource="com/hfuu/web/entity/DepartmentEntity.hbm.xml"/>
         <mapping class="com.hfuu.web.entity.DepartmentEntity"/>
+        <mapping resource="com/hfuu/web/entity/DepartmentEntity.hbm.xml"/>
         <mapping class="com.hfuu.web.entity.StudentEntity"/>
         <mapping resource="com/hfuu/web/entity/StudentEntity.hbm.xml"/>
-        <mapping resource="com/hfuu/web/entity/SubmitEntity.hbm.xml"/>
         <mapping class="com.hfuu.web.entity.SubmitEntity"/>
+        <mapping resource="com/hfuu/web/entity/SubmitEntity.hbm.xml"/>
         <mapping class="com.hfuu.web.entity.TaskEntity"/>
         <mapping resource="com/hfuu/web/entity/TaskEntity.hbm.xml"/>
+        <mapping class="com.hfuu.web.entity.TeacherEntity"/>
         <mapping resource="com/hfuu/web/entity/TeacherEntity.hbm.xml"/>
-        <mapping class="com.hfuu.web.entity.TeacherEntity"/>     <!--在控制台显示执行的数据哭操作语句（格式） -->
     </session-factory>
 </hibernate-configuration>

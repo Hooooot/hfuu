@@ -27,7 +27,7 @@
 
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item slide-sidebar" lay-unselect>
-                <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
+                <a href="javascript:" class="icon-font"><i class="ai ai-menufold"></i></a>
             </li>
         </ul>
 
@@ -39,16 +39,16 @@
                 <i id="nowTime"></i>
             </li>
             <li class="layui-nav-item lockpc">
-                <a href="javascript:;">锁屏</a>
+                <a href="javascript:">锁屏</a>
             </li>
             <%-- 右上角的用户 --%>
             <li class="layui-nav-item " lay-unselect>
-                <a href="javascript:;"><img src="../images/face.jpg" class="layui-nav-img">我</a>
+                <a href="javascript:"><img src="../images/face.jpg" class="layui-nav-img">我</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
+                    <dd><a href="javascript:" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
                     </dd>
-                    <dd><a href="javascript:;" class="showChangePassword">修改密码</a></dd>
-                    <dd><a href="javascript:;">退出</a></dd>
+                    <dd><a href="javascript:" class="showChangePassword">修改密码</a></dd>
+                    <dd><a href="javascript:">退出</a></dd>
                     <%--                    公告系统，待定         --%>
                     <%--                    <dd><a href="javascript:;" class="showNotice"><i--%>
                     <%--                            class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a>--%>
@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon">&#xe857;</i>
                         <em>作业</em>
                     </a>
@@ -96,7 +96,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon">&#xe612;</i>
                         <em>用户</em>
                     </a>
@@ -104,7 +104,6 @@
                         <dd><a href="login">登录</a></dd>
                     </dl>
                 </li>
-
 
                 <%--隐藏区域--!!!!!!!!!!!!!!!!!!! --%>
                 <li class="layui-nav-item layui-hide">
