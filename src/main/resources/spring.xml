@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/tx
 	    http://www.springframework.org/schema/tx/spring-tx.xsd ">
 
-    <!--配置spring的扫描的注解，目的和spring mvc区别开 ,避免重复扫描 -->
+    <!--配置spring的扫描的注解，不扫描Controller、ControllerAdvice，目的和spring mvc区别开 ,避免重复扫描 -->
     <context:component-scan
             base-package="com.hfuu.web">
         <context:exclude-filter type="annotation"
