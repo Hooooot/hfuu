@@ -19,9 +19,9 @@ public class HomeTController {
 
     @RequestMapping(value = {"/teacher/home"}, method = RequestMethod.GET)
     public String toHome() {
-        TeacherEntity teacherEntity = new TeacherEntity();
-        teacherEntity.setTcId(1);
-        System.err.println(teacherService.isExist(teacherEntity));
+        TeacherEntity t = (TeacherEntity) teacherService.getById(2);
+        System.err.println(t.getTcName());
+
         log.debug("跳转到:teacher/home.jsp");
         return "teacher/home";
     }
