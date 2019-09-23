@@ -6,11 +6,14 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
+
 @Service("teacherService")
 public class TeacherServiceImpl implements ITeacherService {
     static private Logger log = Logger.getLogger(TeacherServiceImpl.class);
+
     @Resource()
     private ITeacherDao dao;
+
     @Override
     public int addTeacher(TeacherEntity teacherEntity) {
         log.info("teacher service impl");
