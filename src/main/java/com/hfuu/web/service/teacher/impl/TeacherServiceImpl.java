@@ -1,6 +1,6 @@
 package com.hfuu.web.service.teacher.impl;
 
-import com.hfuu.web.dao.ITeacherDao;
+import com.hfuu.web.dao.IBaseDao;
 import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.service.teacher.ITeacherService;
 import org.apache.log4j.Logger;
@@ -15,12 +15,12 @@ import java.util.List;
 public class TeacherServiceImpl implements ITeacherService {
     static private Logger log = Logger.getLogger(TeacherServiceImpl.class);
     @Resource
-    private ITeacherDao<TeacherEntity> teacherDAO;
+    private IBaseDao<TeacherEntity> teacherDAO;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void save(Object entity) {
-        teacherDAO.insert(entity);
+        teacherDAO.insert((TeacherEntity) entity);
     }
 
     @Override
@@ -46,13 +46,13 @@ public class TeacherServiceImpl implements ITeacherService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void updateById(Object entity) {
-        teacherDAO.updateById(entity);
+        teacherDAO.updateById((TeacherEntity)entity);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean isExist(Object entity) {
-        return teacherDAO.isExist(entity);
+        return teacherDAO.isExist((TeacherEntity)entity);
     }
 
     @Override
@@ -63,11 +63,11 @@ public class TeacherServiceImpl implements ITeacherService {
         return teacherDAO.select(e).size() > 0;
     }
 
-    public ITeacherDao<TeacherEntity> getTeacherDAO() {
+    public IBaseDao<TeacherEntity> getTeacherDAO() {
         return teacherDAO;
     }
 
-    public void setTeacherDAO(ITeacherDao<TeacherEntity> teacherDAO) {
+    public void setTeacherDAO(IBaseDao<TeacherEntity> teacherDAO) {
         this.teacherDAO = teacherDAO;
     }
 }
