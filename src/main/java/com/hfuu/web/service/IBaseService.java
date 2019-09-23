@@ -1,4 +1,4 @@
-package com.hfuu.web.service.teacher;
+package com.hfuu.web.service;
 
 
 import java.io.Serializable;

@@ -19,57 +19,30 @@ public abstract class BaseDaoImpl implements IBaseDao {
 
     @Override
     public void insert(Object entity) {
-        String className = entity.getClass().getSimpleName();
         Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
-        switch (className) {
-            case "TeacherEntity":
-                session.save(entity);
-                break;
-            case "StudentEntity":
-                session.save(entity);
-                break;
-            case "AdminEntity":
-                session.save(entity);
-                break;
-            case "ClazzEntity":
-                session.save(entity);
-                break;
-            case "CourseEntity":
-                session.save(entity);
-                break;
-            case "DepartmentEntity":
-                session.save(entity);
-                break;
-            case "SubmitEntity":
-                session.save(entity);
-                break;
-            case "TaskEntity":
-                session.save(entity);
-                break;
-        }
+        session.save(entity);
         transaction.commit();
         session.close();
     }
 
     private List studentSelect(StudentEntity entity) {
-        String hql = "";
+        String hql;
         Query query = null;
         Session session = sessionFactory.openSession();
         if (entity.getStuId() != 0){
             hql = "from StudentEntity as t where t.stuId = ?1";
             query = session.createQuery(hql);
             query.setParameter(1, entity.getStuId());
-        }else if (entity.getStuNum() != null){
-            hql = "from StudentEntity as t where t.stuNum = ?1";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getStuNum());
-
         }else if (entity.getStuNum()!=null && entity.getStuPw()!=null){
             hql = "from StudentEntity as t where t.stuName = ?1 and t.stuPw = ?2";
             query = session.createQuery(hql);
             query.setParameter(1, entity.getStuName());
             query.setParameter(2, entity.getStuPw());
+        }else if (entity.getStuNum() != null){
+            hql = "from StudentEntity as t where t.stuNum = ?1";
+            query = session.createQuery(hql);
+            query.setParameter(1, entity.getStuNum());
         }
         if (query == null){
             return null;
@@ -79,7 +52,7 @@ public abstract class BaseDaoImpl implements IBaseDao {
     }
 
     private List teacherSelect(TeacherEntity entity) {
-        String hql = "";
+        String hql;
         Query query = null;
         Session session = sessionFactory.openSession();
         if (entity.getTcId() != 0){
