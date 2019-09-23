@@ -1,11 +1,10 @@
-package com.hfuu.web.service.teacher.impl;
+package com.hfuu.web.service;
 
 import com.hfuu.web.dao.impl.BaseDaoImpl;
-import com.hfuu.web.service.teacher.IBaseService;
+import com.hfuu.web.service.IBaseService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 @Service("baseService")
 public abstract class BaseServiceImpl implements IBaseService {
