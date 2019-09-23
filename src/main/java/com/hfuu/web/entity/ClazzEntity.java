@@ -1,6 +1,7 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 班级类
@@ -24,7 +25,7 @@ public class ClazzEntity {
     }
 
     @Basic
-    @Column(name = "classNum", nullable = true, length = 7)
+    @Column(name = "classNum", nullable = true, unique = true, length = 7)
     public String getClassNum() {
         return classNum;
     }
@@ -55,15 +56,29 @@ public class ClazzEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         ClazzEntity that = (ClazzEntity) o;
 
-        if (classId != that.classId) return false;
-        if (classNum != null ? !classNum.equals(that.classNum) : that.classNum != null) return false;
-        if (className != null ? !className.equals(that.className) : that.className != null) return false;
-        return depNum != null ? depNum.equals(that.depNum) : that.depNum == null;
+        if (classId != that.classId) {
+
+            return false;
+        }
+        if (!Objects.equals(classNum, that.classNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(className, that.className)) {
+            return false;
+        }
+        return Objects.equals(depNum, that.depNum);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 院系类
@@ -13,6 +14,7 @@ public class DepartmentEntity {
     private String depName;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "depId", nullable = false)
     public int getDepId() {
         return depId;
@@ -23,7 +25,7 @@ public class DepartmentEntity {
     }
 
     @Basic
-    @Column(name = "depNum", nullable = true, length = 2)
+    @Column(name = "depNum", nullable = true, unique = true, length = 2)
     public String getDepNum() {
         return depNum;
     }
@@ -44,14 +46,26 @@ public class DepartmentEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         DepartmentEntity that = (DepartmentEntity) o;
 
-        if (depId != that.depId) return false;
-        if (depNum != null ? !depNum.equals(that.depNum) : that.depNum != null) return false;
-        return depName != null ? depName.equals(that.depName) : that.depName == null;
+        if (depId != that.depId) {
+
+            return false;
+        }
+        if (!Objects.equals(depNum, that.depNum)) {
+
+            return false;
+        }
+        return Objects.equals(depName, that.depName);
     }
 
     @Override

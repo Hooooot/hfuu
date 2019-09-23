@@ -2,6 +2,7 @@ package com.hfuu.web.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * 学生提交的作业类
@@ -17,6 +18,7 @@ public class SubmitEntity {
     private String subFile;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subId", nullable = false)
     public int getSubId() {
         return subId;
@@ -27,7 +29,7 @@ public class SubmitEntity {
     }
 
     @Basic
-    @Column(name = "taskId", nullable = true)
+    @Column(name = "taskId", nullable = false)
     public Integer getTaskId() {
         return taskId;
     }
@@ -47,7 +49,7 @@ public class SubmitEntity {
     }
 
     @Basic
-    @Column(name = "subTime", nullable = true)
+    @Column(name = "subTime", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     public Timestamp getSubTime() {
         return subTime;
     }
@@ -78,17 +80,31 @@ public class SubmitEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         SubmitEntity that = (SubmitEntity) o;
 
-        if (subId != that.subId) return false;
-        if (taskId != null ? !taskId.equals(that.taskId) : that.taskId != null) return false;
-        if (stuNum != null ? !stuNum.equals(that.stuNum) : that.stuNum != null) return false;
-        if (subTime != null ? !subTime.equals(that.subTime) : that.subTime != null) return false;
-        if (subState != null ? !subState.equals(that.subState) : that.subState != null) return false;
-        return subFile != null ? subFile.equals(that.subFile) : that.subFile == null;
+        if (subId != that.subId) {
+            return false;
+        }
+        if (!Objects.equals(taskId, that.taskId)) {
+            return false;
+        }
+        if (!Objects.equals(stuNum, that.stuNum)) {
+            return false;
+        }
+        if (!Objects.equals(subTime, that.subTime)) {
+            return false;
+        }
+        if (!Objects.equals(subState, that.subState)) {
+            return false;
+        }
+        return Objects.equals(subFile, that.subFile);
     }
 
     @Override

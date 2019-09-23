@@ -2,6 +2,7 @@ package com.hfuu.web.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * 教师布置的作业类
@@ -18,6 +19,7 @@ public class TaskEntity {
     private Timestamp deadline;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "taskId", nullable = false)
     public int getTaskId() {
         return taskId;
@@ -68,7 +70,7 @@ public class TaskEntity {
     }
 
     @Basic
-    @Column(name = "pubTime", nullable = true)
+    @Column(name = "pubTime", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     public Timestamp getPubTime() {
         return pubTime;
     }
@@ -89,18 +91,34 @@ public class TaskEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         TaskEntity that = (TaskEntity) o;
 
-        if (taskId != that.taskId) return false;
-        if (taskName != null ? !taskName.equals(that.taskName) : that.taskName != null) return false;
-        if (taskDesc != null ? !taskDesc.equals(that.taskDesc) : that.taskDesc != null) return false;
-        if (cozNum != null ? !cozNum.equals(that.cozNum) : that.cozNum != null) return false;
-        if (tcNum != null ? !tcNum.equals(that.tcNum) : that.tcNum != null) return false;
-        if (pubTime != null ? !pubTime.equals(that.pubTime) : that.pubTime != null) return false;
-        return deadline != null ? deadline.equals(that.deadline) : that.deadline == null;
+        if (taskId != that.taskId) {
+            return false;
+        }
+        if (!Objects.equals(taskName, that.taskName)) {
+            return false;
+        }
+        if (!Objects.equals(taskDesc, that.taskDesc)) {
+            return false;
+        }
+        if (!Objects.equals(cozNum, that.cozNum)) {
+            return false;
+        }
+        if (!Objects.equals(tcNum, that.tcNum)) {
+            return false;
+        }
+        if (!Objects.equals(pubTime, that.pubTime)) {
+            return false;
+        }
+        return Objects.equals(deadline, that.deadline);
     }
 
     @Override

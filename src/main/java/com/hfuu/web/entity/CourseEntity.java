@@ -1,6 +1,7 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 课程类
@@ -15,6 +16,7 @@ public class CourseEntity {
     private String tcNum;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cozId", nullable = false)
     public int getCozId() {
         return cozId;
@@ -25,7 +27,7 @@ public class CourseEntity {
     }
 
     @Basic
-    @Column(name = "cozNum", nullable = true, length = 9)
+    @Column(name = "cozNum", nullable = true, unique = true, length = 9)
     public String getCozNum() {
         return cozNum;
     }
@@ -66,16 +68,34 @@ public class CourseEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         CourseEntity that = (CourseEntity) o;
 
-        if (cozId != that.cozId) return false;
-        if (cozNum != null ? !cozNum.equals(that.cozNum) : that.cozNum != null) return false;
-        if (cozName != null ? !cozName.equals(that.cozName) : that.cozName != null) return false;
-        if (classNum != null ? !classNum.equals(that.classNum) : that.classNum != null) return false;
-        return tcNum != null ? tcNum.equals(that.tcNum) : that.tcNum == null;
+        if (cozId != that.cozId) {
+
+            return false;
+        }
+        if (!Objects.equals(cozNum, that.cozNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(cozName, that.cozName)) {
+
+            return false;
+        }
+        if (!Objects.equals(classNum, that.classNum)) {
+
+            return false;
+        }
+        return Objects.equals(tcNum, that.tcNum);
     }
 
     @Override

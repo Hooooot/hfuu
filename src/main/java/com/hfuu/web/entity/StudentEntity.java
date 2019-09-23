@@ -1,6 +1,7 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 学生类
@@ -18,6 +19,7 @@ public class StudentEntity {
     private String stuAvatar;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stuId", nullable = false)
     public int getStuId() {
         return stuId;
@@ -28,7 +30,7 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "stuNum", nullable = false, length = 10)
+    @Column(name = "stuNum", nullable = false, unique = true, length = 10)
     public String getStuNum() {
         return stuNum;
     }
@@ -99,19 +101,46 @@ public class StudentEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         StudentEntity that = (StudentEntity) o;
 
-        if (stuId != that.stuId) return false;
-        if (stuNum != null ? !stuNum.equals(that.stuNum) : that.stuNum != null) return false;
-        if (stuName != null ? !stuName.equals(that.stuName) : that.stuName != null) return false;
-        if (stuPw != null ? !stuPw.equals(that.stuPw) : that.stuPw != null) return false;
-        if (classNum != null ? !classNum.equals(that.classNum) : that.classNum != null) return false;
-        if (stuSex != null ? !stuSex.equals(that.stuSex) : that.stuSex != null) return false;
-        if (stuPhone != null ? !stuPhone.equals(that.stuPhone) : that.stuPhone != null) return false;
-        return stuAvatar != null ? stuAvatar.equals(that.stuAvatar) : that.stuAvatar == null;
+        if (stuId != that.stuId) {
+
+            return false;
+        }
+        if (!Objects.equals(stuNum, that.stuNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(stuName, that.stuName)) {
+
+            return false;
+        }
+        if (!Objects.equals(stuPw, that.stuPw)) {
+
+            return false;
+        }
+        if (!Objects.equals(classNum, that.classNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(stuSex, that.stuSex)) {
+
+            return false;
+        }
+        if (!Objects.equals(stuPhone, that.stuPhone)) {
+
+            return false;
+        }
+        return Objects.equals(stuAvatar, that.stuAvatar);
     }
 
     @Override

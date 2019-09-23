@@ -1,6 +1,7 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 管理员类
@@ -27,7 +28,7 @@ public class AdminEntity {
     }
 
     @Basic
-    @Column(name = "adminNum", nullable = false, length = 10)
+    @Column(name = "adminNum", nullable = false, unique = true, length = 10)
     public String getAdminNum() {
         return adminNum;
     }
@@ -88,18 +89,42 @@ public class AdminEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         AdminEntity that = (AdminEntity) o;
 
-        if (adminId != that.adminId) return false;
-        if (adminNum != null ? !adminNum.equals(that.adminNum) : that.adminNum != null) return false;
-        if (adminName != null ? !adminName.equals(that.adminName) : that.adminName != null) return false;
-        if (adminPw != null ? !adminPw.equals(that.adminPw) : that.adminPw != null) return false;
-        if (adminSex != null ? !adminSex.equals(that.adminSex) : that.adminSex != null) return false;
-        if (adminPhone != null ? !adminPhone.equals(that.adminPhone) : that.adminPhone != null) return false;
-        return adminAvatar != null ? adminAvatar.equals(that.adminAvatar) : that.adminAvatar == null;
+        if (adminId != that.adminId) {
+
+            return false;
+        }
+        if (!Objects.equals(adminNum, that.adminNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(adminName, that.adminName)) {
+
+            return false;
+        }
+        if (!Objects.equals(adminPw, that.adminPw)) {
+
+            return false;
+        }
+        if (!Objects.equals(adminSex, that.adminSex)) {
+
+            return false;
+        }
+        if (!Objects.equals(adminPhone, that.adminPhone)) {
+
+            return false;
+        }
+        return Objects.equals(adminAvatar, that.adminAvatar);
     }
 
     @Override
