@@ -4,7 +4,12 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 课程类
+ * 课程类：由班级代码classNum和教师工号tcNum确定一门课程
+ *  cozId:自增主键
+ *  cozNum:课程代码，9位（如041320013离散结构，可以重复）
+ *  cozName:课程名称
+ *  classNum:外键，开设班级代码
+ *  tcNum:外键，授课教师工号
  * */
 @Entity
 @Table(name = "course", schema = "hfuutest")
@@ -27,7 +32,7 @@ public class CourseEntity {
     }
 
     @Basic
-    @Column(name = "cozNum", nullable = true, unique = true, length = 9)
+    @Column(name = "cozNum", nullable = true, length = 9)
     public String getCozNum() {
         return cozNum;
     }

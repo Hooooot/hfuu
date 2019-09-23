@@ -1,9 +1,18 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 /**
- * 教师类
+ * 教师类：院系包括教师
+ *  tcId:自增主键
+ *  tcNum:教师工号，10位
+ *  tcName:教师姓名
+ *  tcPw:教师登录密码
+ *  depNum:外键，指向院系代码，删除院系前需先修改其下教师
+ *  tcSex:教师性别，男或女
+ *  tcPhone:教师联系方式，11位
+ *  tcAvatar:教师头像，目前设为varchar(64)保存图片名称
  * */
 @Entity
 @Table(name = "teacher", schema = "hfuutest")
@@ -18,6 +27,7 @@ public class TeacherEntity {
     private String tcAvatar;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tcId", nullable = false)
     public int getTcId() {
         return tcId;
@@ -28,7 +38,7 @@ public class TeacherEntity {
     }
 
     @Basic
-    @Column(name = "tcNum", nullable = false, length = 10)
+    @Column(name = "tcNum", nullable = false, unique = true, length = 10)
     public String getTcNum() {
         return tcNum;
     }
@@ -99,19 +109,46 @@ public class TeacherEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         TeacherEntity that = (TeacherEntity) o;
 
-        if (tcId != that.tcId) return false;
-        if (tcNum != null ? !tcNum.equals(that.tcNum) : that.tcNum != null) return false;
-        if (tcName != null ? !tcName.equals(that.tcName) : that.tcName != null) return false;
-        if (tcPw != null ? !tcPw.equals(that.tcPw) : that.tcPw != null) return false;
-        if (depNum != null ? !depNum.equals(that.depNum) : that.depNum != null) return false;
-        if (tcSex != null ? !tcSex.equals(that.tcSex) : that.tcSex != null) return false;
-        if (tcPhone != null ? !tcPhone.equals(that.tcPhone) : that.tcPhone != null) return false;
-        return tcAvatar != null ? tcAvatar.equals(that.tcAvatar) : that.tcAvatar == null;
+        if (tcId != that.tcId) {
+
+            return false;
+        }
+        if (!Objects.equals(tcNum, that.tcNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(tcName, that.tcName)) {
+
+            return false;
+        }
+        if (!Objects.equals(tcPw, that.tcPw)) {
+
+            return false;
+        }
+        if (!Objects.equals(depNum, that.depNum)) {
+
+            return false;
+        }
+        if (!Objects.equals(tcSex, that.tcSex)) {
+
+            return false;
+        }
+        if (!Objects.equals(tcPhone, that.tcPhone)) {
+
+            return false;
+        }
+        return Objects.equals(tcAvatar, that.tcAvatar);
     }
 
     @Override

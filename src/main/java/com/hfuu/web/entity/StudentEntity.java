@@ -4,7 +4,15 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 学生类
+ * 学生类：班级包括学生
+ *  stuId:自增主键
+ *  stuNum:学号，10位
+ *  stuName:学生姓名
+ *  stuPw:学生登录密码
+ *  classNum:外键，指向班级代码
+ *  stuSex:学生性别，男或女
+ *  stuPhone:学生联系方式，11位
+ *  stuAvatar:学生头像，目前设为varchar(64)保存图片名称
  * */
 @Entity
 @Table(name = "student", schema = "hfuutest")

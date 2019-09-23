@@ -4,7 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 管理员类
+ * 管理员类：使用工号和密码登录
+ *  adminId:自增主键
+ *  adminNum:管理员工号
+ *  adminName:管理员姓名
+ *  adminPw:管理员登录密码
+ *  adminSex:管理员性别，男或女
+ *  adminPhone:管理员联系方式，11位
+ *  adminAvatar:管理员头像，目前设为varchar(64)保存图片名称
  * */
 @Entity
 @Table(name = "admin", schema = "hfuutest")

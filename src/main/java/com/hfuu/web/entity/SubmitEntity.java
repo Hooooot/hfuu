@@ -5,7 +5,14 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * 学生提交的作业类
+ * 提交类：任务布置后，自动分发给开设班级下的学生。
+ *      具体而言，每插入一条任务记录，就会为任务所属课程的这门课所在开设班级下的每位学生生成一条提交记录，提交状态为待提交。
+ *  sbuId:自增主键
+ *  taskId:外键，任务id，指出是哪个任务下的提交记录
+ *  stuNum:外键，学生学号，指出提交人
+ *  subTime:学生提交时间，默认为当前系统时间。数据类型Timestamp
+ *  subState:提交状态，分为待提交、待批阅和已批阅。默认待提交
+ *  subFile:提交的文件，类型暂时为varchar(64)
  * */
 @Entity
 @Table(name = "submit", schema = "hfuutest")

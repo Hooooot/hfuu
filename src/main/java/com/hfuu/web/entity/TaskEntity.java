@@ -5,7 +5,15 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
- * 教师布置的作业类
+ * 任务类：教师选择课程，布置课程任务
+ *  taskId:自增主键
+ *  taskName:任务名称
+ *  taskDesc:任务具体描述(description)
+ *  cozNum:外键，指向课程代码，表明是哪门课的任务。一门课程可包括多个任务
+ *  tcNum:外键，指向教师工号，表明布置任务的教师
+        （tNum可以通过cozNum查询course表获得，方便起见单独设立字段）
+ *  pubTime:布置任务的时间，默认为当前系统时间。数据类型Timestamp
+ *  deadline:任务提交的截至时间，建议在教师未设置的情况下设置为七天后。数据类型Timestamp
  * */
 @Entity
 @Table(name = "task", schema = "hfuutest")

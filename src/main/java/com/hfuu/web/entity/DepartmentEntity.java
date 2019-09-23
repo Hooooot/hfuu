@@ -4,7 +4,10 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 院系类
+ * 院系类：
+ *  depId:自增主键
+ *  depNum:院系代码，2位（如计科系04）
+ *  depName:院系名称
  * */
 @Entity
 @Table(name = "department", schema = "hfuutest")
