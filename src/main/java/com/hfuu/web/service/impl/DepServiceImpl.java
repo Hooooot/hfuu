@@ -59,4 +59,22 @@ public class DepServiceImpl implements DepService {
     public List<DepartmentEntity> findAll() {
         return depDao.findAll(DepartmentEntity.class);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Long count() {
+        return depDao.count(DepartmentEntity.class);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List findByHql(String hql) {
+        return depDao.findByHql(hql);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List findByHql(String hql, Object... param) {
+        return depDao.findByHql(hql, param);
+    }
 }

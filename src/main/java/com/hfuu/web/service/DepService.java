@@ -13,13 +13,6 @@ import java.util.List;
  * 最后修改时间：
  * 最后修改人：
  */
-/**
- * @Decription: 机构Service类
- * @CreateDate: 2019/9/24 10:25
- * @Author: Ciel-08
- * 最后修改时间：
- * 最后修改人：
- */
 
 @Service
 public interface DepService {
@@ -29,4 +22,7 @@ public interface DepService {
     DepartmentEntity findById(Serializable id);
     boolean isExist(Serializable id);
     List<DepartmentEntity> findAll();
+    Long count();
+    List findByHql(String hql);
+    List findByHql(String hql, Object... param);
 }

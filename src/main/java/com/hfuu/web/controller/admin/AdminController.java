@@ -42,7 +42,8 @@ public class AdminController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
-        System.err.println(depService.isExist(4));
+        List<DepartmentEntity> list =depService.findByHql("from DepartmentEntity where depId = ?", 1);
+        System.err.println(list.get(0).getDepName());
     }
 
 
