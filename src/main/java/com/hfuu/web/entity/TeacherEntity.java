@@ -1,34 +1,19 @@
 package com.hfuu.web.entity;
 
-import javax.persistence.*;
-import java.util.Objects;
+import java.util.List;
 
-/**
- * 教师类：院系包括教师
- *  tcId:自增主键
- *  tcNum:教师工号，10位
- *  tcName:教师姓名
- *  tcPw:教师登录密码
- *  depNum:外键，指向院系代码，删除院系前需先修改其下教师
- *  tcSex:教师性别，男或女
- *  tcPhone:教师联系方式，11位
- *  tcAvatar:教师头像，目前设为varchar(64)保存图片名称
- * */
-@Entity
-@Table(name = "teacher", schema = "hfuutest")
 public class TeacherEntity {
     private int tcId;
     private String tcNum;
     private String tcName;
     private String tcPw;
-    private String depNum;
     private String tcSex;
     private String tcPhone;
     private String tcAvatar;
+    private List<CourseEntity> course;
+    private List<TaskEntity> task;
+    private DepartmentEntity depNum;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "tcId", nullable = false)
     public int getTcId() {
         return tcId;
     }
@@ -37,8 +22,6 @@ public class TeacherEntity {
         this.tcId = tcId;
     }
 
-    @Basic
-    @Column(name = "tcNum", nullable = false, unique = true, length = 10)
     public String getTcNum() {
         return tcNum;
     }
@@ -47,8 +30,6 @@ public class TeacherEntity {
         this.tcNum = tcNum;
     }
 
-    @Basic
-    @Column(name = "tcName", nullable = false, length = 8)
     public String getTcName() {
         return tcName;
     }
@@ -57,8 +38,6 @@ public class TeacherEntity {
         this.tcName = tcName;
     }
 
-    @Basic
-    @Column(name = "tcPw", nullable = false, length = 20)
     public String getTcPw() {
         return tcPw;
     }
@@ -67,18 +46,6 @@ public class TeacherEntity {
         this.tcPw = tcPw;
     }
 
-    @Basic
-    @Column(name = "depNum", nullable = true, length = 2)
-    public String getDepNum() {
-        return depNum;
-    }
-
-    public void setDepNum(String depNum) {
-        this.depNum = depNum;
-    }
-
-    @Basic
-    @Column(name = "tcSex", nullable = true, length = 2)
     public String getTcSex() {
         return tcSex;
     }
@@ -87,8 +54,6 @@ public class TeacherEntity {
         this.tcSex = tcSex;
     }
 
-    @Basic
-    @Column(name = "tcPhone", nullable = true, length = 11)
     public String getTcPhone() {
         return tcPhone;
     }
@@ -97,8 +62,6 @@ public class TeacherEntity {
         this.tcPhone = tcPhone;
     }
 
-    @Basic
-    @Column(name = "tcAvatar", nullable = true, length = 64)
     public String getTcAvatar() {
         return tcAvatar;
     }
@@ -109,46 +72,20 @@ public class TeacherEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         TeacherEntity that = (TeacherEntity) o;
 
-        if (tcId != that.tcId) {
+        if (tcId != that.tcId) return false;
+        if (tcNum != null ? !tcNum.equals(that.tcNum) : that.tcNum != null) return false;
+        if (tcName != null ? !tcName.equals(that.tcName) : that.tcName != null) return false;
+        if (tcPw != null ? !tcPw.equals(that.tcPw) : that.tcPw != null) return false;
+        if (tcSex != null ? !tcSex.equals(that.tcSex) : that.tcSex != null) return false;
+        if (tcPhone != null ? !tcPhone.equals(that.tcPhone) : that.tcPhone != null) return false;
+        if (tcAvatar != null ? !tcAvatar.equals(that.tcAvatar) : that.tcAvatar != null) return false;
 
-            return false;
-        }
-        if (!Objects.equals(tcNum, that.tcNum)) {
-
-            return false;
-        }
-        if (!Objects.equals(tcName, that.tcName)) {
-
-            return false;
-        }
-        if (!Objects.equals(tcPw, that.tcPw)) {
-
-            return false;
-        }
-        if (!Objects.equals(depNum, that.depNum)) {
-
-            return false;
-        }
-        if (!Objects.equals(tcSex, that.tcSex)) {
-
-            return false;
-        }
-        if (!Objects.equals(tcPhone, that.tcPhone)) {
-
-            return false;
-        }
-        return Objects.equals(tcAvatar, that.tcAvatar);
+        return true;
     }
 
     @Override
@@ -157,10 +94,33 @@ public class TeacherEntity {
         result = 31 * result + (tcNum != null ? tcNum.hashCode() : 0);
         result = 31 * result + (tcName != null ? tcName.hashCode() : 0);
         result = 31 * result + (tcPw != null ? tcPw.hashCode() : 0);
-        result = 31 * result + (depNum != null ? depNum.hashCode() : 0);
         result = 31 * result + (tcSex != null ? tcSex.hashCode() : 0);
         result = 31 * result + (tcPhone != null ? tcPhone.hashCode() : 0);
         result = 31 * result + (tcAvatar != null ? tcAvatar.hashCode() : 0);
         return result;
+    }
+
+    public List<CourseEntity> getCourse() {
+        return course;
+    }
+
+    public void setCourse(List<CourseEntity> course) {
+        this.course = course;
+    }
+
+    public List<TaskEntity> getTask() {
+        return task;
+    }
+
+    public void setTask(List<TaskEntity> task) {
+        this.task = task;
+    }
+
+    public DepartmentEntity getDepNum() {
+        return depNum;
+    }
+
+    public void setDepNum(DepartmentEntity depNum) {
+        this.depNum = depNum;
     }
 }
