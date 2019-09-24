@@ -4,6 +4,7 @@ import com.hfuu.web.dao.DepDao;
 import com.hfuu.web.entity.DepartmentEntity;
 import com.hfuu.web.service.DepService;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -17,7 +18,7 @@ import java.util.List;
  * 最后修改时间：
  * 最后修改人：
  */
-@Repository("depService")
+@Service("depService")
 public class DepServiceImpl implements DepService {
 
     @Resource
