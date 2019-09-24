@@ -53,16 +53,8 @@ public class AdminController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
-//        List list =depService.findByHql("from DepartmentEntity where depId = ?", 1);
-//        System.err.println(((DepartmentEntity)list.get(0)).getDepName());
-//        AdminEntity adminEntity = new AdminEntity();
-//        adminEntity.setAdminId(1);
-//        adminEntity.setAdminName("test");
-//        adminEntity.setAdminPhone("12345678910");
-//        adminService.insert(adminEntity);
-//        System.err.println("测试：");
-        System.err.println(adminService.isExist(1));
 
+        System.err.println(depService.findById(1).toString());
 
     }
 }

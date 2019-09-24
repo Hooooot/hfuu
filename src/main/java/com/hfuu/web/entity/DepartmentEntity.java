@@ -1,14 +1,24 @@
 package com.hfuu.web.entity;
 
-import java.util.List;
+import javax.persistence.*;
+import java.util.Objects;
 
+/**
+ * 院系类：
+ *  depId:自增主键
+ *  depNum:院系代码，2位（如计科系04）
+ *  depName:院系名称
+ * */
+@Entity
+@Table(name = "department", schema = "hfuutest")
 public class DepartmentEntity {
     private int depId;
     private String depNum;
     private String depName;
-    private List<ClazzEntity> clazz;
-    private List<TeacherEntity> teacher;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "depId", nullable = false)
     public int getDepId() {
         return depId;
     }
@@ -17,6 +27,8 @@ public class DepartmentEntity {
         this.depId = depId;
     }
 
+    @Basic
+    @Column(name = "depNum", nullable = true, unique = true, length = 2)
     public String getDepNum() {
         return depNum;
     }
@@ -25,6 +37,8 @@ public class DepartmentEntity {
         this.depNum = depNum;
     }
 
+    @Basic
+    @Column(name = "depName", nullable = true, length = 64)
     public String getDepName() {
         return depName;
     }
@@ -35,16 +49,26 @@ public class DepartmentEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+
+            return false;
+        }
 
         DepartmentEntity that = (DepartmentEntity) o;
 
-        if (depId != that.depId) return false;
-        if (depNum != null ? !depNum.equals(that.depNum) : that.depNum != null) return false;
-        if (depName != null ? !depName.equals(that.depName) : that.depName != null) return false;
+        if (depId != that.depId) {
 
-        return true;
+            return false;
+        }
+        if (!Objects.equals(depNum, that.depNum)) {
+
+            return false;
+        }
+        return Objects.equals(depName, that.depName);
     }
 
     @Override
@@ -55,19 +79,9 @@ public class DepartmentEntity {
         return result;
     }
 
-    public List<ClazzEntity> getClazz() {
-        return clazz;
-    }
-
-    public void setClazz(List<ClazzEntity> clazz) {
-        this.clazz = clazz;
-    }
-
-    public List<TeacherEntity> getTeacher() {
-        return teacher;
-    }
-
-    public void setTeacher(List<TeacherEntity> teacher) {
-        this.teacher = teacher;
+    @Override
+    public String toString() {
+        String department = "[#" + depId + ": " + depNum + ", " + depName + "]";
+        return department;
     }
 }
