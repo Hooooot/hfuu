@@ -51,4 +51,19 @@ public interface BaseDao<T> {
      */
     List<T> findAll(Class<T> c);
 
+    /**
+     * 查询表中有多少条记录
+     * @param c
+     * @return
+     */
+    Long count(Class<T> c);
+
+    /**
+     * 通过hql语句查询
+     * @param hql
+     * @return
+     */
+    List findByHql(String hql);
+
+
 }

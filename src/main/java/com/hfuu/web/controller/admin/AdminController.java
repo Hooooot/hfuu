@@ -42,7 +42,8 @@ public class AdminController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
-        System.err.println(depService.isExist(4));
+
+        System.err.println(depService.count());
     }
 
 
