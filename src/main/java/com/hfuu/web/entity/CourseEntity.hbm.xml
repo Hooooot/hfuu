@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+
+    <class name="com.hfuu.web.entity.CourseEntity" table="course" schema="hfuutest">
+        <id name="cozId">
+            <column name="cozId" sql-type="int(11)"/>
+        </id>
+        <property name="cozNum">
+            <column name="cozNum" sql-type="char(9)" length="9" not-null="true"/>
+        </property>
+        <property name="cozName">
+            <column name="cozName" sql-type="varchar(64)" length="64" not-null="true"/>
+        </property>
+        <list name="classNum" table="course" schema="hfuutest" catalog="">
+            <key>
+                <column name="classNum" not-null="true"/>
+            </key>
+            <many-to-many not-found="ignore" class="com.hfuu.web.entity.ClazzEntity">
+                <column name="classNum" not-null="true"/>
+            </many-to-many>
+        </list>
+        <list name="tcNum" table="course" schema="hfuutest" catalog="">
+            <key>
+                <column name="tcNum" not-null="true"/>
+            </key>
+            <many-to-many not-found="ignore" class="com.hfuu.web.entity.TeacherEntity">
+                <column name="tcNum" not-null="true"/>
+            </many-to-many>
+        </list>
+        <list name="task" inverse="true">
+            <key>
+                <column name="cozNum" not-null="true"/>
+            </key>
+            <one-to-many not-found="ignore" class="com.hfuu.web.entity.TaskEntity"/>
+        </list>
+    </class>
+</hibernate-mapping>

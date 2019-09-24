@@ -1,34 +1,18 @@
 package com.hfuu.web.entity;
 
-import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.List;
 
-/**
- * 任务类：教师选择课程，布置课程任务
- *  taskId:自增主键
- *  taskName:任务名称
- *  taskDesc:任务具体描述(description)
- *  cozNum:外键，指向课程代码，表明是哪门课的任务。一门课程可包括多个任务
- *  tcNum:外键，指向教师工号，表明布置任务的教师
-        （tNum可以通过cozNum查询course表获得，方便起见单独设立字段）
- *  pubTime:布置任务的时间，默认为当前系统时间。数据类型Timestamp
- *  deadline:任务提交的截至时间，建议在教师未设置的情况下设置为七天后。数据类型Timestamp
- * */
-@Entity
-@Table(name = "task", schema = "hfuutest")
 public class TaskEntity {
     private int taskId;
     private String taskName;
     private String taskDesc;
-    private String cozNum;
-    private String tcNum;
     private Timestamp pubTime;
     private Timestamp deadline;
+    private List<SubmitEntity> submit;
+    private CourseEntity cozNum;
+    private TeacherEntity tcNum;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "taskId", nullable = false)
     public int getTaskId() {
         return taskId;
     }
@@ -37,8 +21,6 @@ public class TaskEntity {
         this.taskId = taskId;
     }
 
-    @Basic
-    @Column(name = "taskName", nullable = true, length = 64)
     public String getTaskName() {
         return taskName;
     }
@@ -47,8 +29,6 @@ public class TaskEntity {
         this.taskName = taskName;
     }
 
-    @Basic
-    @Column(name = "taskDesc", nullable = true, length = 128)
     public String getTaskDesc() {
         return taskDesc;
     }
@@ -57,28 +37,6 @@ public class TaskEntity {
         this.taskDesc = taskDesc;
     }
 
-    @Basic
-    @Column(name = "cozNum", nullable = true, length = 9)
-    public String getCozNum() {
-        return cozNum;
-    }
-
-    public void setCozNum(String cozNum) {
-        this.cozNum = cozNum;
-    }
-
-    @Basic
-    @Column(name = "tcNum", nullable = true, length = 10)
-    public String getTcNum() {
-        return tcNum;
-    }
-
-    public void setTcNum(String tcNum) {
-        this.tcNum = tcNum;
-    }
-
-    @Basic
-    @Column(name = "pubTime", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     public Timestamp getPubTime() {
         return pubTime;
     }
@@ -87,8 +45,6 @@ public class TaskEntity {
         this.pubTime = pubTime;
     }
 
-    @Basic
-    @Column(name = "deadline", nullable = true)
     public Timestamp getDeadline() {
         return deadline;
     }
@@ -99,34 +55,18 @@ public class TaskEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         TaskEntity that = (TaskEntity) o;
 
-        if (taskId != that.taskId) {
-            return false;
-        }
-        if (!Objects.equals(taskName, that.taskName)) {
-            return false;
-        }
-        if (!Objects.equals(taskDesc, that.taskDesc)) {
-            return false;
-        }
-        if (!Objects.equals(cozNum, that.cozNum)) {
-            return false;
-        }
-        if (!Objects.equals(tcNum, that.tcNum)) {
-            return false;
-        }
-        if (!Objects.equals(pubTime, that.pubTime)) {
-            return false;
-        }
-        return Objects.equals(deadline, that.deadline);
+        if (taskId != that.taskId) return false;
+        if (taskName != null ? !taskName.equals(that.taskName) : that.taskName != null) return false;
+        if (taskDesc != null ? !taskDesc.equals(that.taskDesc) : that.taskDesc != null) return false;
+        if (pubTime != null ? !pubTime.equals(that.pubTime) : that.pubTime != null) return false;
+        if (deadline != null ? !deadline.equals(that.deadline) : that.deadline != null) return false;
+
+        return true;
     }
 
     @Override
@@ -134,10 +74,32 @@ public class TaskEntity {
         int result = taskId;
         result = 31 * result + (taskName != null ? taskName.hashCode() : 0);
         result = 31 * result + (taskDesc != null ? taskDesc.hashCode() : 0);
-        result = 31 * result + (cozNum != null ? cozNum.hashCode() : 0);
-        result = 31 * result + (tcNum != null ? tcNum.hashCode() : 0);
         result = 31 * result + (pubTime != null ? pubTime.hashCode() : 0);
         result = 31 * result + (deadline != null ? deadline.hashCode() : 0);
         return result;
+    }
+
+    public List<SubmitEntity> getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(List<SubmitEntity> submit) {
+        this.submit = submit;
+    }
+
+    public CourseEntity getCozNum() {
+        return cozNum;
+    }
+
+    public void setCozNum(CourseEntity cozNum) {
+        this.cozNum = cozNum;
+    }
+
+    public TeacherEntity getTcNum() {
+        return tcNum;
+    }
+
+    public void setTcNum(TeacherEntity tcNum) {
+        this.tcNum = tcNum;
     }
 }

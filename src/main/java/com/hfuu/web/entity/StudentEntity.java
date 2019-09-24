@@ -1,34 +1,18 @@
 package com.hfuu.web.entity;
 
-import javax.persistence.*;
-import java.util.Objects;
+import java.util.List;
 
-/**
- * 学生类：班级包括学生
- *  stuId:自增主键
- *  stuNum:学号，10位
- *  stuName:学生姓名
- *  stuPw:学生登录密码
- *  classNum:外键，指向班级代码
- *  stuSex:学生性别，男或女
- *  stuPhone:学生联系方式，11位
- *  stuAvatar:学生头像，目前设为varchar(64)保存图片名称
- * */
-@Entity
-@Table(name = "student", schema = "hfuutest")
 public class StudentEntity {
     private int stuId;
     private String stuNum;
     private String stuName;
     private String stuPw;
-    private String classNum;
     private String stuSex;
     private String stuPhone;
     private String stuAvatar;
+    private ClazzEntity classNum;
+    private List<SubmitEntity> submit;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "stuId", nullable = false)
     public int getStuId() {
         return stuId;
     }
@@ -37,8 +21,6 @@ public class StudentEntity {
         this.stuId = stuId;
     }
 
-    @Basic
-    @Column(name = "stuNum", nullable = false, unique = true, length = 10)
     public String getStuNum() {
         return stuNum;
     }
@@ -47,8 +29,6 @@ public class StudentEntity {
         this.stuNum = stuNum;
     }
 
-    @Basic
-    @Column(name = "stuName", nullable = false, length = 8)
     public String getStuName() {
         return stuName;
     }
@@ -57,8 +37,6 @@ public class StudentEntity {
         this.stuName = stuName;
     }
 
-    @Basic
-    @Column(name = "stuPw", nullable = false, length = 20)
     public String getStuPw() {
         return stuPw;
     }
@@ -67,18 +45,6 @@ public class StudentEntity {
         this.stuPw = stuPw;
     }
 
-    @Basic
-    @Column(name = "classNum", nullable = true, length = 7)
-    public String getClassNum() {
-        return classNum;
-    }
-
-    public void setClassNum(String classNum) {
-        this.classNum = classNum;
-    }
-
-    @Basic
-    @Column(name = "stuSex", nullable = true, length = 2)
     public String getStuSex() {
         return stuSex;
     }
@@ -87,8 +53,6 @@ public class StudentEntity {
         this.stuSex = stuSex;
     }
 
-    @Basic
-    @Column(name = "stuPhone", nullable = true, length = 11)
     public String getStuPhone() {
         return stuPhone;
     }
@@ -97,8 +61,6 @@ public class StudentEntity {
         this.stuPhone = stuPhone;
     }
 
-    @Basic
-    @Column(name = "stuAvatar", nullable = true, length = 64)
     public String getStuAvatar() {
         return stuAvatar;
     }
@@ -109,46 +71,20 @@ public class StudentEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
         StudentEntity that = (StudentEntity) o;
 
-        if (stuId != that.stuId) {
+        if (stuId != that.stuId) return false;
+        if (stuNum != null ? !stuNum.equals(that.stuNum) : that.stuNum != null) return false;
+        if (stuName != null ? !stuName.equals(that.stuName) : that.stuName != null) return false;
+        if (stuPw != null ? !stuPw.equals(that.stuPw) : that.stuPw != null) return false;
+        if (stuSex != null ? !stuSex.equals(that.stuSex) : that.stuSex != null) return false;
+        if (stuPhone != null ? !stuPhone.equals(that.stuPhone) : that.stuPhone != null) return false;
+        if (stuAvatar != null ? !stuAvatar.equals(that.stuAvatar) : that.stuAvatar != null) return false;
 
-            return false;
-        }
-        if (!Objects.equals(stuNum, that.stuNum)) {
-
-            return false;
-        }
-        if (!Objects.equals(stuName, that.stuName)) {
-
-            return false;
-        }
-        if (!Objects.equals(stuPw, that.stuPw)) {
-
-            return false;
-        }
-        if (!Objects.equals(classNum, that.classNum)) {
-
-            return false;
-        }
-        if (!Objects.equals(stuSex, that.stuSex)) {
-
-            return false;
-        }
-        if (!Objects.equals(stuPhone, that.stuPhone)) {
-
-            return false;
-        }
-        return Objects.equals(stuAvatar, that.stuAvatar);
+        return true;
     }
 
     @Override
@@ -157,10 +93,25 @@ public class StudentEntity {
         result = 31 * result + (stuNum != null ? stuNum.hashCode() : 0);
         result = 31 * result + (stuName != null ? stuName.hashCode() : 0);
         result = 31 * result + (stuPw != null ? stuPw.hashCode() : 0);
-        result = 31 * result + (classNum != null ? classNum.hashCode() : 0);
         result = 31 * result + (stuSex != null ? stuSex.hashCode() : 0);
         result = 31 * result + (stuPhone != null ? stuPhone.hashCode() : 0);
         result = 31 * result + (stuAvatar != null ? stuAvatar.hashCode() : 0);
         return result;
+    }
+
+    public ClazzEntity getClassNum() {
+        return classNum;
+    }
+
+    public void setClassNum(ClazzEntity classNum) {
+        this.classNum = classNum;
+    }
+
+    public List<SubmitEntity> getSubmit() {
+        return submit;
+    }
+
+    public void setSubmit(List<SubmitEntity> submit) {
+        this.submit = submit;
     }
 }
