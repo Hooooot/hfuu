@@ -1,86 +1,48 @@
 package com.hfuu.web.dao.impl;
 
-import com.hfuu.web.dao.IBaseDao;
-import com.hfuu.web.entity.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import org.hibernate.query.Query;
+import com.hfuu.web.dao.BaseDao;
+import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
+import java.io.Serializable;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 
-
-@Repository("baseDAO")
-public abstract class BaseDaoImpl implements IBaseDao {
-    @Resource
-    SessionFactory sessionFactory;
+/**
+ * DAO顶层接口的实现，继承Spring提供的hibernate模板
+ * @author 浅忆
+ */
+@Repository("baseDao")
+public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
 
     @Override
-    public void insert(Object entity) {
-        Session session = sessionFactory.getCurrentSession();
-        Transaction transaction = session.beginTransaction();
-        session.save(entity);
-        transaction.commit();
+    public void insert(T t) {
+        this.getHibernateTemplate().save(t);
     }
 
-    private List studentSelect(StudentEntity entity) {
-        String hql;
-        Query query = null;
-        Session session = sessionFactory.getCurrentSession();
-        if (entity.getStuId() != 0){
-            hql = "from StudentEntity as t where t.stuId = ?1";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getStuId());
-        }else if (entity.getStuNum()!=null && entity.getStuPw()!=null){
-            hql = "from StudentEntity as t where t.stuName = ?1 and t.stuPw = ?2";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getStuName());
-            query.setParameter(2, entity.getStuPw());
-        }else if (entity.getStuNum() != null){
-            hql = "from StudentEntity as t where t.stuNum = ?1";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getStuNum());
-        }
-        if (query == null){
-            return null;
-        }
-        query.setMaxResults(1);
-        return query.list();
+    @Override
+    public void delete(T t) {
+        this.getHibernateTemplate().delete(t);
     }
 
-    private List teacherSelect(TeacherEntity entity) {
-        String hql;
-        Query query = null;
-        Session session = sessionFactory.getCurrentSession();
-        if (entity.getTcId() != 0){
-            hql = "from TeacherEntity as t where t.tcId = ?1";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getTcId());
-        }else if (entity.getTcNum() != null){
-            hql = "from TeacherEntity as t where t.tcNum = ?1";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getTcNum());
-
-        }else if (entity.getTcName()!=null && entity.getTcPw()!=null){
-            hql = "from TeacherEntity as t where t.tcName = ?1 and t.tcPw = ?2";
-            query = session.createQuery(hql);
-            query.setParameter(1, entity.getTcName());
-            query.setParameter(2, entity.getTcPw());
-        }
-        if (query == null){
-            return null;
-        }
-        query.setMaxResults(1);
-        return query.list();
+    @Override
+    public void update(T t) {
+        this.getHibernateTemplate().update(t);
     }
 
-    public SessionFactory getSessionFactory() {
-        return sessionFactory;
+    @Override
+    public T findById(Class<T> c, Serializable id) {
+        return (T)this.getHibernateTemplate().get(c, id);
     }
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    @Override
+    public boolean isExist(Class<T> c, Serializable id) {
+        return findById(c, id)!=null;
+    }
+
+    @Override
+    public List<T> findAll(Class<T> c) {
+        return (List<T>) this.getHibernateTemplate().find("from "+c.getSimpleName());
     }
 }
