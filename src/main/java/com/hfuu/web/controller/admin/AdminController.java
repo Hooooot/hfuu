@@ -1,5 +1,8 @@
 package com.hfuu.web.controller.admin;
 
+import com.hfuu.web.entity.DepartmentEntity;
+import com.hfuu.web.service.DepService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,6 +13,8 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
 
+    @Autowired
+    private DepService depService;
 
 
     /**
@@ -32,6 +37,13 @@ public class AdminController {
         return "admin/index";
     }
 
+    /**
+     * 机构服务测试
+     */
+    @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
+    public void depDaoTest(){
+        System.err.println(depService.isExist(4));
+    }
 
 
 
