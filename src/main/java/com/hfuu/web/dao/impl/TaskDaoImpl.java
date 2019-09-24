@@ -16,7 +16,7 @@ public class TaskDaoImpl extends BaseDaoImpl implements ITaskDao {
     @Override
     public void updateById(Object entity) {
         TaskEntity task = (TaskEntity) entity;
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "update TaskEntity e set e.tcNum=:tcNum,e.cozNum=:cozNum,e.deadline=:deadline," +
                 "e.pubTime=:pubTime,e.taskDesc=:taskDesc,e.taskName=:taskName where e.taskId=:taskId";
@@ -24,25 +24,23 @@ public class TaskDaoImpl extends BaseDaoImpl implements ITaskDao {
         query.setProperties(task);
         query.executeUpdate();
         transaction.commit();
-        session.close();
     }
 
     @Override
     public void deleteById(int id) {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "delete from TaskEntity e where e.taskId=?1";
         Query query = session.createQuery(hql);
         query.setParameter(1, id);
         query.executeUpdate();
         transaction.commit();
-        session.close();
     }
 
     @Override
     public List select(Object entity) {
         TaskEntity task = (TaskEntity) entity;
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         String hql = null;
         if (task.getTaskId() != 0){
             hql = "from TaskEntity e where e.taskId = :taskId";
@@ -53,20 +51,17 @@ public class TaskDaoImpl extends BaseDaoImpl implements ITaskDao {
         }
         Query query = session.createQuery(hql);
         query.setProperties(task);
-        List list = query.list();
-        session.close();
-        return list;
+        return query.list();
     }
 
     @Override
     public List getAll() {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "from TaskEntity ";
         Query query = session.createQuery(hql);
         List list = query.list();
         transaction.commit();
-        session.close();
         return list;
     }
 
@@ -79,7 +74,7 @@ public class TaskDaoImpl extends BaseDaoImpl implements ITaskDao {
     public List selectBeforeDeadline(TaskEntity task) {
         Date date = new Date();
         Timestamp ts = new Timestamp(date.getTime());
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         if (task.getTcNum()!=null && task.getCozNum()!=null){
             String hql = "from TaskEntity e where e.deadline != null and e.deadline>?1 and e.cozNum=?2 and e.tcNum=?3";
@@ -108,7 +103,6 @@ public class TaskDaoImpl extends BaseDaoImpl implements ITaskDao {
         query.setParameter(3, task.getTcNum());
         List list = query.list();
         transaction.commit();
-        session.close();
         return list;
     }
 }

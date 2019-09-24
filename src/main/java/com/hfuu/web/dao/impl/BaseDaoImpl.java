@@ -19,17 +19,16 @@ public abstract class BaseDaoImpl implements IBaseDao {
 
     @Override
     public void insert(Object entity) {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         session.save(entity);
         transaction.commit();
-        session.close();
     }
 
     private List studentSelect(StudentEntity entity) {
         String hql;
         Query query = null;
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         if (entity.getStuId() != 0){
             hql = "from StudentEntity as t where t.stuId = ?1";
             query = session.createQuery(hql);
@@ -54,7 +53,7 @@ public abstract class BaseDaoImpl implements IBaseDao {
     private List teacherSelect(TeacherEntity entity) {
         String hql;
         Query query = null;
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         if (entity.getTcId() != 0){
             hql = "from TeacherEntity as t where t.tcId = ?1";
             query = session.createQuery(hql);

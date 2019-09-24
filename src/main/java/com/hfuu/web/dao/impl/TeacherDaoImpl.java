@@ -16,7 +16,7 @@ public class TeacherDaoImpl extends BaseDaoImpl implements ITeacherDao {
     @Override
     public void updateById(Object entity) {
         TeacherEntity teacher = (TeacherEntity) entity;
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "update TeacherEntity e set e.tcName=:tcName,e.tcNum=:tcNum,e.tcPw=:tcPw,e.depNum=:depNum," +
                 "e.tcSex=:tcSex,e.tcPhone=:tcPhone,e.tcAvatar=:tcAvatar where e.tcId=:tcId";
@@ -24,25 +24,23 @@ public class TeacherDaoImpl extends BaseDaoImpl implements ITeacherDao {
         query.setProperties(teacher);
         query.executeUpdate();
         transaction.commit();
-        session.close();
     }
 
     @Override
     public void deleteById(int id) {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "delete from TeacherEntity e where e.tcId=?1";
         Query query = session.createQuery(hql);
         query.setParameter(1, id);
         query.executeUpdate();
         transaction.commit();
-        session.close();
     }
 
     @Override
     public List select(Object entity) {
         TeacherEntity teacher = (TeacherEntity)entity;
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         String hql = null;
         if (teacher.getTcId() != 0){
             hql = "from TeacherEntity e where e.tcId = :tcId";
@@ -54,20 +52,17 @@ public class TeacherDaoImpl extends BaseDaoImpl implements ITeacherDao {
         Query query = session.createQuery(hql);
         query.setProperties(teacher);
         query.setMaxResults(1);
-        List list = query.list();
-        session.close();
-        return list;
+        return query.list();
     }
 
     @Override
     public List getAll() {
-        Session session = sessionFactory.openSession();
+        Session session = sessionFactory.getCurrentSession();
         Transaction transaction = session.beginTransaction();
         String hql = "from TeacherEntity";
         Query query = session.createQuery(hql);
         List list = query.list();
         transaction.commit();
-        session.close();
         return list;
     }
 
