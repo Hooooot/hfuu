@@ -5,7 +5,11 @@ import com.hfuu.web.entity.DepartmentEntity;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author 浅忆
+ * @Decription:
+ * @CreateDate:
+ * @Author: 浅忆
+ * 最后修改时间：
+ * 最后修改人：
  */
 @Repository("depDao")
 public class DepDaoImpl extends BaseDaoImpl<DepartmentEntity> implements DepDao {

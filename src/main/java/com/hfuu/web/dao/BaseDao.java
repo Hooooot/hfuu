@@ -4,12 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 基础DAO接口
- * @author Ciel-08
- * 创建时间：${DATE} ${TIME}
- * 最后修改时间：
- * 最后修改人：
- *
+ * @Decription: 基础DAO接口
+ * @CreateDate: 2019-9-24  10:25
+ * @Author: Ciel-08
+ * 最后修改时间：2019-9-24 21:26
+ * 最后修改人：2446926687@qq.com
  */
 public interface BaseDao<T> {
 
@@ -49,6 +48,29 @@ public interface BaseDao<T> {
      * 查询表中所有记录
      * @return
      */
-    List<T> findAll(Class<T> c);
+    List findAll(Class<T> c);
+
+    /**
+     * 查询表中有多少条记录
+     * @param c
+     * @return
+     */
+    Long count(Class<T> c);
+
+    /**
+     * 通过hql语句查询
+     * @param hql
+     * @return
+     */
+    List findByHql(String hql);
+
+    /**
+     * 通过hql语句查询（带参数）
+     * @param hql
+     * @param param
+     * @return
+     */
+    List findByHql(String hql, Object... param);
+
 
 }

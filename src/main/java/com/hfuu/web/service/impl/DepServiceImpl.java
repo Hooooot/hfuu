@@ -3,43 +3,42 @@ package com.hfuu.web.service.impl;
 import com.hfuu.web.dao.DepDao;
 import com.hfuu.web.entity.DepartmentEntity;
 import com.hfuu.web.service.DepService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * 描述：机构Service的实现类
- * @author Ciel-08
- * 创建时间：2019/09/24 10.25
+ * @Decription: 机构Service的实现类
+ * @CreateDate: 2019-09-24 10:25
+ * @Author: Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */
-
 @Repository("depService")
 public class DepServiceImpl implements DepService {
 
-    @Autowired
+    @Resource
     private DepDao depDao;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void insert(DepartmentEntity d) {
-        depDao.insert(d);
+    public void insert(Object d) {
+        depDao.insert((DepartmentEntity) d);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void delete(DepartmentEntity d) {
-        depDao.delete(d);
+    public void delete(Object d) {
+        depDao.delete((DepartmentEntity)d);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void update(DepartmentEntity d) {
-        depDao.update(d);
+    public void update(Object d) {
+        depDao.update((DepartmentEntity)d);
     }
 
     @Override
@@ -56,7 +55,25 @@ public class DepServiceImpl implements DepService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public List<DepartmentEntity> findAll() {
+    public List findAll() {
         return depDao.findAll(DepartmentEntity.class);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Long count() {
+        return depDao.count(DepartmentEntity.class);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List findByHql(String hql) {
+        return depDao.findByHql(hql);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List findByHql(String hql, Object... param) {
+        return depDao.findByHql(hql, param);
     }
 }
