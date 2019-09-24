@@ -64,4 +64,15 @@ public class BaseDaoImpl<T> extends HibernateDaoSupport implements BaseDao<T> {
     public List findByHql(String hql) {
         return sessionFactory.getCurrentSession().createQuery(hql).list();
     }
+
+    @Override
+    public List findByHql(String hql, Object... param) {
+        Query q = sessionFactory.getCurrentSession().createQuery(hql);
+        if (param != null && param.length > 0) {
+            for (int i = 0; i < param.length; i++) {
+                q.setParameter(i, param[i]);
+            }
+        }
+        return q.list();
+    }
 }

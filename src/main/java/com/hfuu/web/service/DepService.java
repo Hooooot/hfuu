@@ -24,4 +24,5 @@ public interface DepService {
     List<DepartmentEntity> findAll();
     Long count();
     List findByHql(String hql);
+    List findByHql(String hql, Object... param);
 }

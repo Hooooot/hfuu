@@ -65,5 +65,13 @@ public interface BaseDao<T> {
      */
     List findByHql(String hql);
 
+    /**
+     * 通过hql语句查询（带参数）
+     * @param hql
+     * @param param
+     * @return
+     */
+    List findByHql(String hql, Object... param);
+
 
 }

@@ -71,4 +71,10 @@ public class DepServiceImpl implements DepService {
     public List findByHql(String hql) {
         return depDao.findByHql(hql);
     }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List findByHql(String hql, Object... param) {
+        return depDao.findByHql(hql, param);
+    }
 }
