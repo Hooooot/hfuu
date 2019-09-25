@@ -7,9 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 
 /**
- * @Decription:
- * @CreateDate:
- * @Author:
+ * @Decription: BaseService的抽象类
+ * @CreateDate: 2019年9月25日 14点02分
+ * @Author: whh0987@foxmail.com
  * 最后修改时间：
  * 最后修改人：
  */
