@@ -1,15 +1,12 @@
 package com.hfuu.web.controller.admin;
 
-import com.hfuu.web.entity.AdminEntity;
-import com.hfuu.web.entity.DepartmentEntity;
-import com.hfuu.web.service.AdminService;
+import com.hfuu.web.entity.Department;
 import com.hfuu.web.service.DepService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @Decription:
@@ -24,9 +21,6 @@ public class AdminController {
 
     @Resource
     private DepService depService;
-    @Resource
-    private AdminService<AdminEntity> adminService;
-
 
     /**
      * 前往管理员登录页
@@ -54,7 +48,11 @@ public class AdminController {
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
 
-        System.err.println(depService.findById(1).toString());
+        Department department = depService.findById(9);
+        department.setDepNum("15");
+        depService.update(department);
+        depService.delete(department);
+        depService.insert(department);
 
     }
 }

@@ -16,7 +16,7 @@ import java.util.Objects;
  * */
 @Entity
 @Table(name = "submit", schema = "hfuutest")
-public class SubmitEntity {
+public class Submit {
     private int subId;
     private Integer taskId;
     private String stuNum;
@@ -94,7 +94,7 @@ public class SubmitEntity {
             return false;
         }
 
-        SubmitEntity that = (SubmitEntity) o;
+        Submit that = (Submit) o;
 
         if (subId != that.subId) {
             return false;

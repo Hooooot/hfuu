@@ -1,55 +1,27 @@
 package com.hfuu.web.service.impl;
 
 import com.hfuu.web.dao.AdminDao;
-import com.hfuu.web.entity.AdminEntity;
-import com.hfuu.web.service.AbstractBaseService;
+import com.hfuu.web.dao.BaseDao;
+import com.hfuu.web.entity.Admin;
 import com.hfuu.web.service.AdminService;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
-import java.util.List;
 
+
+/**
+ * @author 浅忆
+ */
 @Service("adminService")
-public class AdminServiceImpl extends AbstractBaseService implements AdminService {
+@Transactional
+public class AdminServiceImpl extends BaseServiceImpl<Admin> implements AdminService {
+
     @Resource
-    AdminDao<AdminEntity> adminDao;
+    private AdminDao adminDao;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Object findById(Serializable id) {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public boolean isExist(Serializable id) {
-        return false;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List findAll() {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Long count() {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List findByHql(String hql) {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List findByHql(String hql, Object... param) {
-        return null;
+    public BaseDao<Admin> getBaseDao() {
+        return adminDao;
     }
 }

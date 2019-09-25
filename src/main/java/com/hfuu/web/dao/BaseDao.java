@@ -35,27 +35,26 @@ public interface BaseDao<T> {
      * @param id
      * @return
      */
-    T findById(Class<T> c, Serializable id);
+    T findById(Serializable id);
 
     /**
      * 根据id查找某条记录是否存在
      * @param id
      * @return
      */
-    boolean isExist(Class<T> c, Serializable id);
+    boolean isExist(Serializable id);
 
     /**
      * 查询表中所有记录
      * @return
      */
-    List findAll(Class<T> c);
+    List findAll();
 
     /**
      * 查询表中有多少条记录
-     * @param c
      * @return
      */
-    Long count(Class<T> c);
+    Long count();
 
     /**
      * 通过hql语句查询
