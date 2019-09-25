@@ -1,14 +1,15 @@
-package com.hfuu.web.dao;
+package com.hfuu.web.dao.base;
 
 import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Decription: 基础DAO接口
- * @CreateDate: 2019-9-24  10:25
- * @Author: Ciel-08
- * 最后修改时间：2019-9-24 21:26
- * 最后修改人：2446926687@qq.com
+ * 描述：基础Dao接口
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/25 18:53
+ * 最后修改时间：
+ * 最后修改人：
  */
 public interface BaseDao<T> {
 
@@ -35,27 +36,26 @@ public interface BaseDao<T> {
      * @param id
      * @return
      */
-    T findById(Class<T> c, Serializable id);
+    T findById(Serializable id);
 
     /**
      * 根据id查找某条记录是否存在
      * @param id
      * @return
      */
-    boolean isExist(Class<T> c, Serializable id);
+    boolean isExist(Serializable id);
 
     /**
      * 查询表中所有记录
      * @return
      */
-    List findAll(Class<T> c);
+    List findAll();
 
     /**
      * 查询表中有多少条记录
-     * @param c
      * @return
      */
-    Long count(Class<T> c);
+    Long count();
 
     /**
      * 通过hql语句查询

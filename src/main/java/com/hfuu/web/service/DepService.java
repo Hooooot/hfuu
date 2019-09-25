@@ -1,14 +1,17 @@
 package com.hfuu.web.service;
 
+import com.hfuu.web.entity.DepEntity;
+import com.hfuu.web.service.base.BaseService;
 import org.springframework.stereotype.Service;
 
 /**
- * @Decription: 院系Service类
- * @CreateDate: 2019/9/24 10:25
- * @Author: Ciel-08
+ * 描述：机构服务接口
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/25 19:03
  * 最后修改时间：
  * 最后修改人：
  */
 @Service
-public interface DepService extends BaseService {
+public interface DepService extends BaseService<DepEntity> {
 }

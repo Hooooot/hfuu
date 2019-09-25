@@ -1,14 +1,15 @@
 package com.hfuu.web.service;
 
-import org.springframework.stereotype.Service;
+import com.hfuu.web.entity.AdminEntity;
+import com.hfuu.web.service.base.BaseService;
 
 /**
- * @Decription: DAO顶层接口的实现，继承Spring提供的hibernate模板
- * @CreateDate: 2019年9月25日 00点17分
- * @Author: whh0987@foxmail.com
+ * 描述：管理员服务接口
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/25 19:03
  * 最后修改时间：
  * 最后修改人：
  */
-@Service
-public interface AdminService<T> extends BaseService<T> {
+public interface AdminService extends BaseService<AdminEntity> {
 }

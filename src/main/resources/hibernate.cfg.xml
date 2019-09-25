@@ -1,49 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-  <session-factory>>
-
-    <property name="connection.url">jdbc:mysql://www.changtiaorap.cn:32541/hfuutest</property>
-    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <mapping resource="com/hfuu/web/entity/AdminEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/ClazzEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/CourseEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/DepartmentEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/StudentEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/SubmitEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/TaskEntity.hbm.xml"/>
-    <mapping resource="com/hfuu/web/entity/TeacherEntity.hbm.xml"/>
+  <session-factory>
+    <property name="hibernate.hbm2ddl.auto">update</property> <!--hibernate根据实体自动生成数据库表 -->
+    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>   <!--指定数据库方言 -->
+    <property name="hibernate.show_sql">true</property>     <!--在控制台显示执行的数据库操作语句 -->
+    <property name="hibernate.format_sql">true</property>   <!--在控制台显示执行的数据库操作语句（格式）-->
   </session-factory>
-    <!-- 配置链接数据库的基本信息 -->
-    <!-- 数据库连接的URL -->
-    <property name="hibernate.connection.url">jdbc:mysql://www.changtiaorap.cn:32541/hfuutest</property>
-    <!-- 数据库驱动 -->
-    <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-    <!-- 数据库用户名 -->
-  <property name="driverClass" value="${jdbc.driver}" />  <!--数据库连接驱动 -->
-
-  <property name="jdbcUrl" value="${jdbc.url}" />     <!--数据库地址 -->
-
-    <!-- 配置Hibernate的基本信息 -->
-    <!-- 程序运行时是否在控制台输出执行的SQL语句 -->
-    <property name="hibernate.show_sql">true</property>
-    <!-- 是否对SQL进行格式化 -->
-    <property name="format_sql">true</property>
-    <!-- 指定生成表的策略 -->
-    <property name="hbm2ddl.auto">update</property>
-    <!-- 配置Hibernate方言，即使用的不同的数据库类型，该方言支持事务 -->
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-    <!-- 数据库编码方式 -->
-    <property name="Connection.characterEncoding">UTF-8</property>
-    <!--
-        validate:加载hibernate时，验证创建数据库表结构，启动时验证现有schema与你配置的hibernate是否一致，如果不一致就抛出异常，并不做更新
-        create:每次加载hibernate，重新创建数据库表结构，这就是导致数据库表数据丢失的原因。
-        create-drop:加载hibernate时创建，退出是删除表结构
-        update:加载hibernate自动更新数据库结构
-     -->
-    <property name="hbm2ddl.auto">update</property>
-    <!-- 设置事务的隔离级别 -->
-    <property name="hibernate.connection.isolation">2</property>
-    <!-- 删除对象后，使其OID置位null -->
-    <property name="hibernate.use_identifier_rollback">true</property>
-
 </hibernate-configuration>

@@ -1,62 +1,32 @@
 package com.hfuu.web.service.impl;
 
 import com.hfuu.web.dao.AdminDao;
+import com.hfuu.web.dao.base.BaseDao;
 import com.hfuu.web.entity.AdminEntity;
-import com.hfuu.web.service.AbstractBaseService;
 import com.hfuu.web.service.AdminService;
-import org.springframework.stereotype.Repository;
+import com.hfuu.web.service.base.BaseServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.io.Serializable;
-import java.util.List;
 
 /**
- * @Decription: DAO顶层接口的实现，继承Spring提供的hibernate模板
- * @CreateDate: 2019年9月25日 00点17分
- * @Author: whh0987@foxmail.com
+ * 描述：
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/25 19:07
  * 最后修改时间：
  * 最后修改人：
  */
 @Service("adminService")
-    public class AdminServiceImpl extends AbstractBaseService implements AdminService {
-        @Resource
-        AdminDao<AdminEntity> adminDao;
+@Transactional(rollbackFor = Exception.class)
+public class AdminServiceImpl extends BaseServiceImpl<AdminEntity> implements AdminService {
 
-        @Override
-        @Transactional(rollbackFor = Exception.class)
-        public Object findById(Serializable id) {
-            return null;
-        }
-
-        @Override
-        @Transactional(rollbackFor = Exception.class)
-        public boolean isExist(Serializable id) {
-            return false;
-        }
+    @Resource
+    private AdminDao adminDao;
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List findAll() {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public Long count() {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List findByHql(String hql) {
-        return null;
-    }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public List findByHql(String hql, Object... param) {
-        return null;
+    public BaseDao<AdminEntity> getBaseDao() {
+        return adminDao;
     }
 }

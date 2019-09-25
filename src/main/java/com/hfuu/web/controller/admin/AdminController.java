@@ -1,15 +1,12 @@
 package com.hfuu.web.controller.admin;
 
-import com.hfuu.web.entity.AdminEntity;
-import com.hfuu.web.entity.DepartmentEntity;
-import com.hfuu.web.service.AdminService;
+import com.hfuu.web.entity.DepEntity;
 import com.hfuu.web.service.DepService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @Decription:
@@ -24,9 +21,6 @@ public class AdminController {
 
     @Resource
     private DepService depService;
-    @Resource
-    private AdminService<AdminEntity> adminService;
-
 
     /**
      * 前往管理员登录页
@@ -53,16 +47,9 @@ public class AdminController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
-//        List list =depService.findByHql("from DepartmentEntity where depId = ?", 1);
-//        System.err.println(((DepartmentEntity)list.get(0)).getDepName());
-//        AdminEntity adminEntity = new AdminEntity();
-//        adminEntity.setAdminId(1);
-//        adminEntity.setAdminName("test");
-//        adminEntity.setAdminPhone("12345678910");
-//        adminService.insert(adminEntity);
-//        System.err.println("测试：");
-        System.err.println(adminService.isExist(1));
 
+        DepEntity depEntity = depService.findById(1);
+        System.out.println(depEntity.toString());
 
     }
 }
