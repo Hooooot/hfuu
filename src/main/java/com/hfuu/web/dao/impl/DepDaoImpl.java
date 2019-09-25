@@ -1,7 +1,8 @@
 package com.hfuu.web.dao.impl;
 
 import com.hfuu.web.dao.DepDao;
-import com.hfuu.web.entity.Department;
+import com.hfuu.web.dao.base.BaseDaoImpl;
+import com.hfuu.web.entity.DepEntity;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -12,5 +13,5 @@ import org.springframework.stereotype.Repository;
  * 最后修改人：
  */
 @Repository("depDao")
-public class DepDaoImpl extends BaseDaoImpl<Department> implements DepDao {
+public class DepDaoImpl extends BaseDaoImpl<DepEntity> implements DepDao {
 }

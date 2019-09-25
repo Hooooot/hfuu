@@ -1,4 +1,4 @@
-package com.hfuu.web.service;
+package com.hfuu.web.service.base;
 
 import org.springframework.stereotype.Service;
 

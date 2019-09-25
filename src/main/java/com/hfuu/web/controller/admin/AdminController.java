@@ -1,6 +1,6 @@
 package com.hfuu.web.controller.admin;
 
-import com.hfuu.web.entity.Department;
+import com.hfuu.web.entity.DepEntity;
 import com.hfuu.web.service.DepService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,11 +48,8 @@ public class AdminController {
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
 
-        Department department = depService.findById(9);
-        department.setDepNum("15");
-        depService.update(department);
-        depService.delete(department);
-        depService.insert(department);
+        DepEntity depEntity = depService.findById(1);
+        System.out.println(depEntity.toString());
 
     }
 }

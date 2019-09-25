@@ -16,13 +16,14 @@ import java.util.Objects;
  * */
 @Entity
 @Table(name = "submit", schema = "hfuutest")
-public class Submit {
+public class SubmitEntity {
     private int subId;
     private Integer taskId;
     private String stuNum;
     private Timestamp subTime;
     private String subState;
     private String subFile;
+    private Integer score;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -85,6 +86,16 @@ public class Submit {
         this.subFile = subFile;
     }
 
+    @Basic
+    @Column(name = "score", nullable = true, length = 6)
+    public Integer getScore(){
+        return score;
+    }
+
+    public void setScore(Integer score){
+        this.score = score;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -94,7 +105,7 @@ public class Submit {
             return false;
         }
 
-        Submit that = (Submit) o;
+        SubmitEntity that = (SubmitEntity) o;
 
         if (subId != that.subId) {
             return false;
@@ -127,7 +138,7 @@ public class Submit {
 
     @Override
     public String toString() {
-        String submit = "[#" + subId + ": " + taskId + ", " + stuNum + ", " + subTime +", " + subState + "]";
+        String submit = "[#" + subId + ": " + taskId + ", " + stuNum + ", " + subTime +", " + subState + ", " + score + "]";
         return submit;
     }
 }

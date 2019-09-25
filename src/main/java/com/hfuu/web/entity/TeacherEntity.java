@@ -16,7 +16,7 @@ import java.util.Objects;
  * */
 @Entity
 @Table(name = "teacher", schema = "hfuutest")
-public class Teacher {
+public class TeacherEntity {
     private int tcId;
     private String tcNum;
     private String tcName;
@@ -118,7 +118,7 @@ public class Teacher {
             return false;
         }
 
-        Teacher that = (Teacher) o;
+        TeacherEntity that = (TeacherEntity) o;
 
         if (tcId != that.tcId) {
 

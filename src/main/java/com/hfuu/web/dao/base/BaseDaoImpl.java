@@ -1,9 +1,7 @@
-package com.hfuu.web.dao.impl;
+package com.hfuu.web.dao.base;
 
-import com.hfuu.web.dao.BaseDao;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.springframework.orm.hibernate5.support.HibernateDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -13,9 +11,10 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * @Decription: DAO顶层接口的实现，继承Spring提供的hibernate模板
- * @CreateDate:
- * @Author: 浅忆
+ * 描述：基础Dao的实现类
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/25 18:53
  * 最后修改时间：
  * 最后修改人：
  */

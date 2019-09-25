@@ -17,7 +17,7 @@ import java.util.Objects;
  * */
 @Entity
 @Table(name = "task", schema = "hfuutest")
-public class Task {
+public class TaskEntity {
     private int taskId;
     private String taskName;
     private String taskDesc;
@@ -106,7 +106,7 @@ public class Task {
             return false;
         }
 
-        Task that = (Task) o;
+        TaskEntity that = (TaskEntity) o;
 
         if (taskId != that.taskId) {
             return false;

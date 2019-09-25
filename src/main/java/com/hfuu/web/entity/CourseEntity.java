@@ -13,7 +13,7 @@ import java.util.Objects;
  * */
 @Entity
 @Table(name = "course", schema = "hfuutest")
-public class Course {
+public class CourseEntity {
     private int cozId;
     private String cozNum;
     private String cozName;
@@ -82,7 +82,7 @@ public class Course {
             return false;
         }
 
-        Course that = (Course) o;
+        CourseEntity that = (CourseEntity) o;
 
         if (cozId != that.cozId) {
 
