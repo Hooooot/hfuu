@@ -44,9 +44,9 @@
     </bean>
 
     <!--  配置HibernateTemplate  -->
-    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">
-        <property name="sessionFactory" ref="sessionFactory"/>
-    </bean>
+<!--    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">-->
+<!--        <property name="sessionFactory" ref="sessionFactory"/>-->
+<!--    </bean>-->
 
     <!-- 事物管理器配置 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">

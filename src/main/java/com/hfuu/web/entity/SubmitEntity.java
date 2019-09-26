@@ -1,32 +1,37 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 /**
  * 提交类：任务布置后，自动分发给开设班级下的学生。
- *      具体而言，每插入一条任务记录，就会为任务所属课程的这门课所在开设班级下的每位学生生成一条提交记录，提交状态为待提交。
+ *    具体而言，每插入一条任务记录，就会为任务所属课程的这门课所在开设班级下的每位学生生成一条提交记录，提交状态为待提交。
  *  sbuId:自增主键
  *  taskId:外键，任务id，指出是哪个任务下的提交记录
  *  stuNum:外键，学生学号，指出提交人
  *  subTime:学生提交时间，默认为当前系统时间。数据类型Timestamp
  *  subState:提交状态，分为待提交、待批阅和已批阅。默认待提交
  *  subFile:提交的文件，类型暂时为varchar(64)
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "submit", schema = "hfuutest")
-public class SubmitEntity {
+public class SubmitEntity implements Serializable {
     private int subId;
-    private Integer taskId;
-    private String stuNum;
     private Timestamp subTime;
     private String subState;
     private String subFile;
-    private Integer score;
+    private Short score;
+    private StudentEntity stuEntity;
+    private TaskEntity taskEntity;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "subId", nullable = false)
     public int getSubId() {
         return subId;
@@ -37,27 +42,7 @@ public class SubmitEntity {
     }
 
     @Basic
-    @Column(name = "taskId", nullable = false)
-    public Integer getTaskId() {
-        return taskId;
-    }
-
-    public void setTaskId(Integer taskId) {
-        this.taskId = taskId;
-    }
-
-    @Basic
-    @Column(name = "stuNum", nullable = true, length = 10)
-    public String getStuNum() {
-        return stuNum;
-    }
-
-    public void setStuNum(String stuNum) {
-        this.stuNum = stuNum;
-    }
-
-    @Basic
-    @Column(name = "subTime", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    @Column(name = "subTime", nullable = false)
     public Timestamp getSubTime() {
         return subTime;
     }
@@ -87,14 +72,35 @@ public class SubmitEntity {
     }
 
     @Basic
-    @Column(name = "score", nullable = true, length = 6)
-    public Integer getScore(){
+    @Column(name = "score", nullable = true)
+    public Short getScore() {
         return score;
     }
 
-    public void setScore(Integer score){
+    public void setScore(Short score) {
         this.score = score;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "stuNum", referencedColumnName = "stuNum")
+    public StudentEntity getStuEntity() {
+        return stuEntity;
+    }
+
+    public void setStuEntity(StudentEntity stuEntity) {
+        this.stuEntity = stuEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "taskId", referencedColumnName = "taskId", nullable = false)
+    public TaskEntity getTaskEntity() {
+        return taskEntity;
+    }
+
+    public void setTaskEntity(TaskEntity taskEntity) {
+        this.taskEntity = taskEntity;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -110,12 +116,6 @@ public class SubmitEntity {
         if (subId != that.subId) {
             return false;
         }
-        if (!Objects.equals(taskId, that.taskId)) {
-            return false;
-        }
-        if (!Objects.equals(stuNum, that.stuNum)) {
-            return false;
-        }
         if (!Objects.equals(subTime, that.subTime)) {
             return false;
         }
@@ -128,8 +128,6 @@ public class SubmitEntity {
     @Override
     public int hashCode() {
         int result = subId;
-        result = 31 * result + (taskId != null ? taskId.hashCode() : 0);
-        result = 31 * result + (stuNum != null ? stuNum.hashCode() : 0);
         result = 31 * result + (subTime != null ? subTime.hashCode() : 0);
         result = 31 * result + (subState != null ? subState.hashCode() : 0);
         result = 31 * result + (subFile != null ? subFile.hashCode() : 0);
@@ -138,7 +136,7 @@ public class SubmitEntity {
 
     @Override
     public String toString() {
-        String submit = "[#" + subId + ": " + taskId + ", " + stuNum + ", " + subTime +", " + subState + ", " + score + "]";
+        String submit = "[#" + subId + ": " + taskEntity.getTaskId() + ", " + stuEntity.getStuNum() + ", " + subTime +", " + subState + ", " + score + "]";
         return submit;
     }
 }

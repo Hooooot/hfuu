@@ -1,7 +1,9 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 教师类：院系包括教师
@@ -13,21 +15,27 @@ import java.util.Objects;
  *  tcSex:教师性别，男或女
  *  tcPhone:教师联系方式，11位
  *  tcAvatar:教师头像，目前设为varchar(64)保存图片名称
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "teacher", schema = "hfuutest")
-public class TeacherEntity {
+public class TeacherEntity implements Serializable {
     private int tcId;
     private String tcNum;
     private String tcName;
     private String tcPw;
-    private String depNum;
     private String tcSex;
     private String tcPhone;
     private String tcAvatar;
+    private Set<CourseEntity> cozsFromTc;
+    private Set<TaskEntity> tasksFromTc;
+    private DepEntity depEntity;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "tcId", nullable = false)
     public int getTcId() {
         return tcId;
@@ -38,7 +46,7 @@ public class TeacherEntity {
     }
 
     @Basic
-    @Column(name = "tcNum", nullable = false, unique = true, length = 10)
+    @Column(name = "tcNum", nullable = false, length = 10)
     public String getTcNum() {
         return tcNum;
     }
@@ -65,16 +73,6 @@ public class TeacherEntity {
 
     public void setTcPw(String tcPw) {
         this.tcPw = tcPw;
-    }
-
-    @Basic
-    @Column(name = "depNum", nullable = true, length = 2)
-    public String getDepNum() {
-        return depNum;
-    }
-
-    public void setDepNum(String depNum) {
-        this.depNum = depNum;
     }
 
     @Basic
@@ -107,6 +105,35 @@ public class TeacherEntity {
         this.tcAvatar = tcAvatar;
     }
 
+    @OneToMany(mappedBy = "tcEntity")
+    public Set<CourseEntity> getCozsFromTc() {
+        return cozsFromTc;
+    }
+
+    public void setCozsFromTc(Set<CourseEntity> cozsFromTc) {
+        this.cozsFromTc = cozsFromTc;
+    }
+
+    @OneToMany(mappedBy = "tcEntity")
+    public Set<TaskEntity> getTasksFromTc() {
+        return tasksFromTc;
+    }
+
+    public void setTasksFromTc(Set<TaskEntity> tasksFromTc) {
+        this.tasksFromTc = tasksFromTc;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "depNum", referencedColumnName = "depNum")
+    public DepEntity getDepEntity() {
+        return depEntity;
+    }
+
+    public void setDepEntity(DepEntity depEntity) {
+        this.depEntity = depEntity;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,10 +163,6 @@ public class TeacherEntity {
 
             return false;
         }
-        if (!Objects.equals(depNum, that.depNum)) {
-
-            return false;
-        }
         if (!Objects.equals(tcSex, that.tcSex)) {
 
             return false;
@@ -157,7 +180,6 @@ public class TeacherEntity {
         result = 31 * result + (tcNum != null ? tcNum.hashCode() : 0);
         result = 31 * result + (tcName != null ? tcName.hashCode() : 0);
         result = 31 * result + (tcPw != null ? tcPw.hashCode() : 0);
-        result = 31 * result + (depNum != null ? depNum.hashCode() : 0);
         result = 31 * result + (tcSex != null ? tcSex.hashCode() : 0);
         result = 31 * result + (tcPhone != null ? tcPhone.hashCode() : 0);
         result = 31 * result + (tcAvatar != null ? tcAvatar.hashCode() : 0);
@@ -166,7 +188,7 @@ public class TeacherEntity {
 
     @Override
     public String toString() {
-        String teacher = "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex +", " +depNum + "]";
+        String teacher = "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex +", " + depEntity.getDepName() + "]";
         return teacher;
     }
 }

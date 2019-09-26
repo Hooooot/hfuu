@@ -1,7 +1,9 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 班级类：院系下设班级
@@ -9,14 +11,21 @@ import java.util.Objects;
  *  classNum:班级代码，7位（如17软二1706072）
  *  className:班级名称
  *  depNum:外键，指向院系代码。删除院系前需先修改下设班级
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "clazz", schema = "hfuutest")
-public class ClassEntity {
+public class ClassEntity implements Serializable {
     private int classId;
     private String classNum;
     private String className;
-    private String depNum;
+    private DepEntity depEntity;
+    private Set<CourseEntity> coursesFromClass;
+    private Set<StudentEntity> stusFromClass;
 
     @Id
     @Column(name = "classId", nullable = false)
@@ -29,7 +38,7 @@ public class ClassEntity {
     }
 
     @Basic
-    @Column(name = "classNum", nullable = true, unique = true, length = 7)
+    @Column(name = "classNum", nullable = true, length = 7, unique = true)
     public String getClassNum() {
         return classNum;
     }
@@ -48,15 +57,34 @@ public class ClassEntity {
         this.className = className;
     }
 
-    @Basic
-    @Column(name = "depNum", nullable = true, length = 2)
-    public String getDepNum() {
-        return depNum;
+    @ManyToOne
+    @JoinColumn(name = "depNum", referencedColumnName = "depNum")
+    public DepEntity getDepEntity() {
+        return depEntity;
     }
 
-    public void setDepNum(String depNum) {
-        this.depNum = depNum;
+    public void setDepEntity(DepEntity depEntity) {
+        this.depEntity = depEntity;
     }
+
+    @OneToMany(mappedBy = "classEntity")
+    public Set<CourseEntity> getCoursesFromClass() {
+        return coursesFromClass;
+    }
+
+    public void setCoursesFromClass(Set<CourseEntity> coursesFromClass) {
+        this.coursesFromClass = coursesFromClass;
+    }
+
+    @OneToMany(mappedBy = "classEntity")
+    public Set<StudentEntity> getStusFromClass() {
+        return stusFromClass;
+    }
+
+    public void setStusFromClass(Set<StudentEntity> stusFromClass) {
+        this.stusFromClass = stusFromClass;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -79,10 +107,7 @@ public class ClassEntity {
 
             return false;
         }
-        if (!Objects.equals(className, that.className)) {
-            return false;
-        }
-        return Objects.equals(depNum, that.depNum);
+        return Objects.equals(className, that.className);
     }
 
     @Override
@@ -90,13 +115,12 @@ public class ClassEntity {
         int result = classId;
         result = 31 * result + (classNum != null ? classNum.hashCode() : 0);
         result = 31 * result + (className != null ? className.hashCode() : 0);
-        result = 31 * result + (depNum != null ? depNum.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        String clazz = "[#" + classId + ": " + classNum + ", " + className + ", " + depNum + "]";
+        String clazz = "[#" + classId + ": " + classNum + ", " + className + ", " + depEntity.getDepName() + "]";
         return clazz;
     }
 }

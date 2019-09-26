@@ -1,23 +1,31 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 院系类：
  *  depId:自增主键
  *  depNum:院系代码，2位（如计科系04）
  *  depName:院系名称
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "department", schema = "hfuutest")
-public class DepEntity {
+public class DepEntity implements Serializable {
     private int depId;
     private String depNum;
     private String depName;
+    private Set<ClassEntity> clazzsFromDep;
+    private Set<TeacherEntity> tcsFromDep;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "depId", nullable = false)
     public int getDepId() {
         return depId;
@@ -28,7 +36,7 @@ public class DepEntity {
     }
 
     @Basic
-    @Column(name = "depNum", nullable = true, unique = true, length = 2)
+    @Column(name = "depNum", nullable = true, length = 2)
     public String getDepNum() {
         return depNum;
     }
@@ -46,6 +54,25 @@ public class DepEntity {
     public void setDepName(String depName) {
         this.depName = depName;
     }
+
+    @OneToMany(mappedBy = "depEntity")
+    public Set<ClassEntity> getClazzsFromDep() {
+        return clazzsFromDep;
+    }
+
+    public void setClazzsFromDep(Set<ClassEntity> clazzsFromDep) {
+        this.clazzsFromDep = clazzsFromDep;
+    }
+
+    @OneToMany(mappedBy = "depEntity")
+    public Set<TeacherEntity> getTcsFromDep() {
+        return tcsFromDep;
+    }
+
+    public void setTcsFromDep(Set<TeacherEntity> tcsFromDep) {
+        this.tcsFromDep = tcsFromDep;
+    }
+
 
     @Override
     public boolean equals(Object o) {
