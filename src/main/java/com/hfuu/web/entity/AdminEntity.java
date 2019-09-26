@@ -34,6 +34,7 @@ public class AdminEntity implements Serializable {
 
     @Id
     @Column(name = "adminId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getAdminId() {
         return adminId;
     }

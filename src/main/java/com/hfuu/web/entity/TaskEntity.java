@@ -38,6 +38,7 @@ public class TaskEntity implements Serializable {
 
     @Id
     @Column(name = "taskId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getTaskId() {
         return taskId;
     }

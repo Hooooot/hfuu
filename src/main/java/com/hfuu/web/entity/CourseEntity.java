@@ -32,6 +32,7 @@ public class CourseEntity implements Serializable {
 
     @Id
     @Column(name = "cozId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getCozId() {
         return cozId;
     }

@@ -38,6 +38,7 @@ public class StudentEntity implements Serializable {
 
     @Id
     @Column(name = "stuId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getStuId() {
         return stuId;
     }

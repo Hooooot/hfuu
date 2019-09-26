@@ -39,6 +39,7 @@ public class TeacherEntity implements Serializable {
 
     @Id
     @Column(name = "tcId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getTcId() {
         return tcId;
     }

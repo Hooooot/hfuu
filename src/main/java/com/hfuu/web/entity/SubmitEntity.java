@@ -35,6 +35,7 @@ public class SubmitEntity implements Serializable {
 
     @Id
     @Column(name = "subId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getSubId() {
         return subId;
     }

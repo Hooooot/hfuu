@@ -29,6 +29,7 @@ public class DepEntity implements Serializable {
 
     @Id
     @Column(name = "depId", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getDepId() {
         return depId;
     }

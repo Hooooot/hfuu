@@ -27,9 +27,6 @@ public class AppListener implements ServletContextListener{
         //取到ServletContext
         ServletContext context=arg0.getServletContext();
         context.setAttribute("crx", "http://localhost:8080"+context.getContextPath());
-
-        System.err.println("---------Servlet容器创建成功 crx被放到ServletContext作用域-------");
-        System.err.println(context.getContextPath());
     }
 
 }

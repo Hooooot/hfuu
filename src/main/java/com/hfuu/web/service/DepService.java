@@ -11,6 +11,5 @@ import org.springframework.stereotype.Service;
  * 最后修改时间：
  * 最后修改人：
  */
-@Service
 public interface DepService extends BaseService<DepEntity> {
 }
