@@ -55,6 +55,11 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
     }
 
     @Override
+    public List pageQuery(int first, int max) {
+        return getBaseDao().pageQuery(first, max);
+    }
+
+    @Override
     public Long count() {
         return getBaseDao().count();
     }

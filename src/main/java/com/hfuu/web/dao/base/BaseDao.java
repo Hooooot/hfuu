@@ -50,6 +50,15 @@ public interface BaseDao<T> {
      */
     List findAll();
 
+
+    /**
+     * 分页查询
+     * @param first 该页的起始位置
+     * @param max   该页展示多少条数据
+     * @return
+     */
+    List pageQuery(int first, int max);
+
     /**
      * 查询表中有多少条记录
      * @return

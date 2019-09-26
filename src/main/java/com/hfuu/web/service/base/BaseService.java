@@ -20,6 +20,7 @@ public interface BaseService<T> {
     T findById(Serializable id);
     boolean isExist(Serializable id);
     List findAll();
+    List pageQuery(int first, int max);
     Long count();
     List findByHql(String hql);
     List findByHql(String hql, Object... param);

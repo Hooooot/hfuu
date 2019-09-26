@@ -3,13 +3,14 @@ package com.hfuu.web.controller.admin;
 import com.hfuu.web.entity.ClassEntity;
 import com.hfuu.web.entity.DepEntity;
 import com.hfuu.web.entity.TeacherEntity;
-import com.hfuu.web.service.ClassService;
-import com.hfuu.web.service.DepService;
+import com.hfuu.web.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,6 +26,8 @@ public class AdminController {
 
     @Resource
     private DepService depService;
+    @Resource
+    private ClassService classService;
 
     /**
      * 前往管理员登录页
@@ -47,14 +50,13 @@ public class AdminController {
     }
 
     /**
-     * 机构服务测试
+     * 服务测试
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
-        Set<TeacherEntity> tcs = depService.findById(1).getTcsFromDep();
-        for(TeacherEntity t : tcs){
-            System.out.println(t.toString());
+        List<DepEntity> list = depService.pageQuery(0,4);
+        for (DepEntity depEntity : list) {
+            System.out.println(depEntity.toString());
         }
-
     }
 }
