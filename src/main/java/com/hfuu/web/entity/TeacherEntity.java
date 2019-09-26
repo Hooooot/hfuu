@@ -15,9 +15,11 @@ import java.util.Set;
  *  tcSex:教师性别，男或女
  *  tcPhone:教师联系方式，11位
  *  tcAvatar:教师头像，目前设为varchar(64)保存图片名称
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

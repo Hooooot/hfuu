@@ -9,10 +9,12 @@ import java.util.Set;
  * 院系类：
  *  depId:自增主键
  *  depNum:院系代码，2位（如计科系04）
- *  depName:院系名称
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ *  depName:院系名称：
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

@@ -14,9 +14,11 @@ import java.util.Objects;
  *  subTime:学生提交时间，默认为当前系统时间。数据类型Timestamp
  *  subState:提交状态，分为待提交、待批阅和已批阅。默认待提交
  *  subFile:提交的文件，类型暂时为varchar(64)
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

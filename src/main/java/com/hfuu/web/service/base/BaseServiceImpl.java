@@ -7,9 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
-
 /**
- * @author 浅忆
+ * @Decription :
+ * @CreateDate :
+ * @author : 浅忆
+ * 最后修改时间：
+ * 最后修改人：
  */
 @Service("baseService")
 @Transactional(rollbackFor = Exception.class)

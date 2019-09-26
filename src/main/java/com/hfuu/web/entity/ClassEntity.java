@@ -11,9 +11,11 @@ import java.util.Set;
  *  classNum:班级代码，7位（如17软二1706072）
  *  className:班级名称
  *  depNum:外键，指向院系代码。删除院系前需先修改下设班级
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

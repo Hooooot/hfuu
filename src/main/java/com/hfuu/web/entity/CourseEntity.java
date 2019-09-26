@@ -12,9 +12,11 @@ import java.util.Set;
  *  cozName:课程名称
  *  classNum:外键，开设班级代码
  *  tcNum:外键，授课教师工号
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

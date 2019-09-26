@@ -4,9 +4,9 @@ import com.hfuu.web.dao.base.BaseDao;
 import com.hfuu.web.entity.DepEntity;
 
 /**
- * @Decription: Department的Dao接口，继承自通用接口
- * @CreateDate: 2019-9-24  10:25
- * @Author: 浅忆
+ * @Decription : Department的Dao接口，继承自通用接口
+ * @CreateDate : 2019-9-24  10:25
+ * @author : 浅忆
  * 最后修改时间：
  * 最后修改人：
  */

@@ -13,9 +13,11 @@ import java.util.Objects;
  *  adminSex:管理员性别，男或女
  *  adminPhone:管理员联系方式，11位
  *  adminAvatar:管理员头像，目前设为varchar(64)保存图片名称
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

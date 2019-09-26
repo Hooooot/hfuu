@@ -16,9 +16,11 @@ import java.util.Set;
         （tNum可以通过cozNum查询course表获得，方便起见单独设立字段）
  *  pubTime:布置任务的时间，默认为当前系统时间。数据类型Timestamp
  *  deadline:任务提交的截至时间，建议在教师未设置的情况下设置为七天后。数据类型Timestamp
- *
- * @author: Ciel-08
- * 创建时间：2019/9/26 0:39
+ */
+/**
+ * @Decription :
+ * @CreateDate : 2019/9/26 0:39
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

@@ -4,10 +4,9 @@ import com.hfuu.web.entity.TaskEntity;
 import com.hfuu.web.service.base.BaseService;
 
 /**
- * 描述：任务服务接口
- *
- * @author: Ciel-08
- * 创建时间：2019/9/25 19:07
+ * @Decription : 任务服务接口
+ * @CreateDate : 2019/9/25 19:07
+ * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

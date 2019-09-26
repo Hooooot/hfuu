@@ -14,9 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.annotation.Resource;
 
 /**
- * @Decription: teacher的测试类
- * @CreateDate: 2019年9月25日 14点04分
- * @Author: whh0987@foxmail.com
+ * @Decription : teacher的测试类
+ * @CreateDate : 2019年9月25日 14点04分
+ * @author : whh0987@foxmail.com
  * 最后修改时间：
  * 最后修改人：
  */
@@ -25,7 +25,7 @@ import javax.annotation.Resource;
 @ContextConfiguration(value = {"classpath:spring.xml", "classpath:springmvc.xml"}, classes = AdminServiceImpl.class)
 class AdminServiceImplTest extends AdminServiceImpl{
     @Autowired
-    private AdminService<AdminEntity> adminService;
+    private AdminService adminService;
     @Test
     void test() {
         AdminEntity adminEntity = new AdminEntity();
