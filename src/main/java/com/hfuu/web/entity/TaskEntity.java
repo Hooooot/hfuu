@@ -1,8 +1,10 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 任务类：教师选择课程，布置课程任务
@@ -14,20 +16,25 @@ import java.util.Objects;
         （tNum可以通过cozNum查询course表获得，方便起见单独设立字段）
  *  pubTime:布置任务的时间，默认为当前系统时间。数据类型Timestamp
  *  deadline:任务提交的截至时间，建议在教师未设置的情况下设置为七天后。数据类型Timestamp
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "task", schema = "hfuutest")
-public class TaskEntity {
+public class TaskEntity implements Serializable {
     private int taskId;
     private String taskName;
     private String taskDesc;
-    private String cozNum;
-    private String tcNum;
     private Timestamp pubTime;
     private Timestamp deadline;
+    private CourseEntity cozEntity;
+    private TeacherEntity tcEntity;
+    private Set<SubmitEntity> submitsFromTask;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "taskId", nullable = false)
     public int getTaskId() {
         return taskId;
@@ -58,27 +65,7 @@ public class TaskEntity {
     }
 
     @Basic
-    @Column(name = "cozNum", nullable = true, length = 9)
-    public String getCozNum() {
-        return cozNum;
-    }
-
-    public void setCozNum(String cozNum) {
-        this.cozNum = cozNum;
-    }
-
-    @Basic
-    @Column(name = "tcNum", nullable = true, length = 10)
-    public String getTcNum() {
-        return tcNum;
-    }
-
-    public void setTcNum(String tcNum) {
-        this.tcNum = tcNum;
-    }
-
-    @Basic
-    @Column(name = "pubTime", nullable = false, columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    @Column(name = "pubTime", nullable = false)
     public Timestamp getPubTime() {
         return pubTime;
     }
@@ -96,6 +83,36 @@ public class TaskEntity {
     public void setDeadline(Timestamp deadline) {
         this.deadline = deadline;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "cozNum", referencedColumnName = "cozNum")
+    public CourseEntity getCozEntity() {
+        return cozEntity;
+    }
+
+    public void setCozEntity(CourseEntity cozEntity) {
+        this.cozEntity = cozEntity;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "tcNum", referencedColumnName = "tcNum")
+    public TeacherEntity getTcEntity() {
+        return tcEntity;
+    }
+
+    public void setTcEntity(TeacherEntity tcEntity) {
+        this.tcEntity = tcEntity;
+    }
+
+    @OneToMany(mappedBy = "taskEntity")
+    public Set<SubmitEntity> getSubmitsFromTask() {
+        return submitsFromTask;
+    }
+
+    public void setSubmitsFromTask(Set<SubmitEntity> submitsFromTask) {
+        this.submitsFromTask = submitsFromTask;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -117,12 +134,6 @@ public class TaskEntity {
         if (!Objects.equals(taskDesc, that.taskDesc)) {
             return false;
         }
-        if (!Objects.equals(cozNum, that.cozNum)) {
-            return false;
-        }
-        if (!Objects.equals(tcNum, that.tcNum)) {
-            return false;
-        }
         if (!Objects.equals(pubTime, that.pubTime)) {
             return false;
         }
@@ -134,8 +145,6 @@ public class TaskEntity {
         int result = taskId;
         result = 31 * result + (taskName != null ? taskName.hashCode() : 0);
         result = 31 * result + (taskDesc != null ? taskDesc.hashCode() : 0);
-        result = 31 * result + (cozNum != null ? cozNum.hashCode() : 0);
-        result = 31 * result + (tcNum != null ? tcNum.hashCode() : 0);
         result = 31 * result + (pubTime != null ? pubTime.hashCode() : 0);
         result = 31 * result + (deadline != null ? deadline.hashCode() : 0);
         return result;
@@ -143,7 +152,7 @@ public class TaskEntity {
 
     @Override
     public String toString() {
-        String task = "[#" + taskId + ": " + taskName + ", " + cozNum + ", " + tcNum +", " + taskDesc + "]";
+        String task = "[#" + taskId + ": " + taskName + ", " + cozEntity.getCozName() + ", " + tcEntity.getTcName() +", " + taskDesc + "]";
         return task;
     }
 }

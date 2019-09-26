@@ -1,12 +1,16 @@
 package com.hfuu.web.controller.admin;
 
+import com.hfuu.web.entity.ClassEntity;
 import com.hfuu.web.entity.DepEntity;
+import com.hfuu.web.entity.TeacherEntity;
+import com.hfuu.web.service.ClassService;
 import com.hfuu.web.service.DepService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.Resource;
+import java.util.Set;
 
 /**
  * @Decription:
@@ -47,9 +51,10 @@ public class AdminController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public void depDaoTest(){
-
-        DepEntity depEntity = depService.findById(1);
-        System.out.println(depEntity.toString());
+        Set<TeacherEntity> tcs = depService.findById(1).getTcsFromDep();
+        for(TeacherEntity t : tcs){
+            System.out.println(t.toString());
+        }
 
     }
 }

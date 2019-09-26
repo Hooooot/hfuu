@@ -1,7 +1,9 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 课程类：由班级代码classNum和教师工号tcNum确定一门课程
@@ -10,18 +12,23 @@ import java.util.Objects;
  *  cozName:课程名称
  *  classNum:外键，开设班级代码
  *  tcNum:外键，授课教师工号
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "course", schema = "hfuutest")
-public class CourseEntity {
+public class CourseEntity implements Serializable {
     private int cozId;
     private String cozNum;
     private String cozName;
-    private String classNum;
-    private String tcNum;
+    private TeacherEntity tcEntity;
+    private ClassEntity classEntity;
+    private Set<TaskEntity> tasksFromCoz;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cozId", nullable = false)
     public int getCozId() {
         return cozId;
@@ -51,25 +58,35 @@ public class CourseEntity {
         this.cozName = cozName;
     }
 
-    @Basic
-    @Column(name = "classNum", nullable = true, length = 7)
-    public String getClassNum() {
-        return classNum;
+    @ManyToOne
+    @JoinColumn(name = "tcNum", referencedColumnName = "tcNum")
+    public TeacherEntity getTcEntity() {
+        return tcEntity;
     }
 
-    public void setClassNum(String classNum) {
-        this.classNum = classNum;
+    public void setTcEntity(TeacherEntity tcEntity) {
+        this.tcEntity = tcEntity;
     }
 
-    @Basic
-    @Column(name = "tcNum", nullable = true, length = 10)
-    public String getTcNum() {
-        return tcNum;
+    @ManyToOne
+    @JoinColumn(name = "classNum", referencedColumnName = "classNum")
+    public ClassEntity getClassEntity() {
+        return classEntity;
     }
 
-    public void setTcNum(String tcNum) {
-        this.tcNum = tcNum;
+    public void setClassEntity(ClassEntity classEntity) {
+        this.classEntity = classEntity;
     }
+
+    @OneToMany(mappedBy = "cozEntity")
+    public Set<TaskEntity> getTasksFromCoz() {
+        return tasksFromCoz;
+    }
+
+    public void setTasksFromCoz(Set<TaskEntity> tasksFromCoz) {
+        this.tasksFromCoz = tasksFromCoz;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -92,15 +109,7 @@ public class CourseEntity {
 
             return false;
         }
-        if (!Objects.equals(cozName, that.cozName)) {
-
-            return false;
-        }
-        if (!Objects.equals(classNum, that.classNum)) {
-
-            return false;
-        }
-        return Objects.equals(tcNum, that.tcNum);
+        return Objects.equals(cozName, that.cozName);
     }
 
     @Override
@@ -108,14 +117,12 @@ public class CourseEntity {
         int result = cozId;
         result = 31 * result + (cozNum != null ? cozNum.hashCode() : 0);
         result = 31 * result + (cozName != null ? cozName.hashCode() : 0);
-        result = 31 * result + (classNum != null ? classNum.hashCode() : 0);
-        result = 31 * result + (tcNum != null ? tcNum.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        String course = "[#" + cozId + ": " + cozNum + ", " + cozName + ", " + classNum + ", " + tcNum + "]";
+        String course = "[#" + cozId + ": " + cozNum + ", " + cozName + ", " + classEntity.getClassName() + ", " + tcEntity.getTcName() + "]";
         return course;
     }
 }

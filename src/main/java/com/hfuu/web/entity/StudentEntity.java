@@ -1,7 +1,9 @@
 package com.hfuu.web.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * 学生类：班级包括学生
@@ -13,21 +15,26 @@ import java.util.Objects;
  *  stuSex:学生性别，男或女
  *  stuPhone:学生联系方式，11位
  *  stuAvatar:学生头像，目前设为varchar(64)保存图片名称
- * */
+ *
+ * @author: Ciel-08
+ * 创建时间：2019/9/26 0:39
+ * 最后修改时间：
+ * 最后修改人：
+ */
 @Entity
 @Table(name = "student", schema = "hfuutest")
-public class StudentEntity {
+public class StudentEntity implements Serializable {
     private int stuId;
     private String stuNum;
     private String stuName;
     private String stuPw;
-    private String classNum;
     private String stuSex;
     private String stuPhone;
     private String stuAvatar;
+    private ClassEntity classEntity;
+    private Set<SubmitEntity> submitsFromStu;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "stuId", nullable = false)
     public int getStuId() {
         return stuId;
@@ -38,7 +45,7 @@ public class StudentEntity {
     }
 
     @Basic
-    @Column(name = "stuNum", nullable = false, unique = true, length = 10)
+    @Column(name = "stuNum", nullable = false, length = 10)
     public String getStuNum() {
         return stuNum;
     }
@@ -65,16 +72,6 @@ public class StudentEntity {
 
     public void setStuPw(String stuPw) {
         this.stuPw = stuPw;
-    }
-
-    @Basic
-    @Column(name = "classNum", nullable = true, length = 7)
-    public String getClassNum() {
-        return classNum;
-    }
-
-    public void setClassNum(String classNum) {
-        this.classNum = classNum;
     }
 
     @Basic
@@ -107,6 +104,26 @@ public class StudentEntity {
         this.stuAvatar = stuAvatar;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "classNum", referencedColumnName = "classNum")
+    public ClassEntity getClassEntity() {
+        return classEntity;
+    }
+
+    public void setClassEntity(ClassEntity classEntity) {
+        this.classEntity = classEntity;
+    }
+
+    @OneToMany(mappedBy = "stuEntity")
+    public Set<SubmitEntity> getSubmitsFromStu() {
+        return submitsFromStu;
+    }
+
+    public void setSubmitsFromStu(Set<SubmitEntity> submitsFromStu) {
+        this.submitsFromStu = submitsFromStu;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -136,10 +153,6 @@ public class StudentEntity {
 
             return false;
         }
-        if (!Objects.equals(classNum, that.classNum)) {
-
-            return false;
-        }
         if (!Objects.equals(stuSex, that.stuSex)) {
 
             return false;
@@ -157,7 +170,6 @@ public class StudentEntity {
         result = 31 * result + (stuNum != null ? stuNum.hashCode() : 0);
         result = 31 * result + (stuName != null ? stuName.hashCode() : 0);
         result = 31 * result + (stuPw != null ? stuPw.hashCode() : 0);
-        result = 31 * result + (classNum != null ? classNum.hashCode() : 0);
         result = 31 * result + (stuSex != null ? stuSex.hashCode() : 0);
         result = 31 * result + (stuPhone != null ? stuPhone.hashCode() : 0);
         result = 31 * result + (stuAvatar != null ? stuAvatar.hashCode() : 0);
@@ -166,7 +178,7 @@ public class StudentEntity {
 
     @Override
     public String toString() {
-        String student = "[#" + stuId + ": " + stuNum + ", " + stuName + ", " + stuSex +", " + classNum + "]";
+        String student = "[#" + stuId + ": " + stuNum + ", " + stuName + ", " + stuSex +", " + classEntity.getClassName() + "]";
         return student;
     }
 }
