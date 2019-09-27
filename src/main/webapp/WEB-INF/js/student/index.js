@@ -37,7 +37,7 @@ layui.define(['element','layer'],function(exports){
     }
 
     var getDevice = function(){
-        var width = $(window).width();
+        var width = $(window).width();//获取页面宽度
         for (var i in screen_size) {
             var sizes = screen_size[i],
                 min = sizes[0],
@@ -62,32 +62,46 @@ layui.define(['element','layer'],function(exports){
         this.el = el;
         this.urls = [];
     }
+    Tab.prototype.title = function(title, url){
+        var refresh = document.createElement("i");
+        refresh.setAttribute("class", "layui-icon layui-icon-refresh");
+        refresh.setAttribute("style", "margin-left:10px;font-size:14px;");
+        refresh.setAttribute("onmousedown", "if(event.button == 0){this.classList.remove('layui-icon-refresh'); this.classList.add('layui-icon-refresh-3');}");
+        refresh.setAttribute("onmouseup", "if(event.button == 0){this.classList.remove('layui-icon-refresh-3');" +
+            "this.classList.add('layui-icon-refresh');" +
+            "document.querySelector(\"iframe[data-id=\'" + this.urls.length + "\']\").src='" + url + "';}");
+        refresh.setAttribute("onmouseleave", "this.classList.remove('layui-icon-refresh-3');this.classList.add('layui-icon-refresh');");
+        return title + refresh.outerHTML;
+        //querySelector() 方法仅仅返回匹配指定选择器的第一个元素,方便的获取DOM元素，语法跟jQuery类似。
+    }
 
     Tab.prototype.content = function(src) {
-        var iframe = document.createElement("iframe");
-        iframe.setAttribute("frameborder", "0");
+        var iframe = document.createElement("iframe");//创建的元素节点
+        iframe.setAttribute("frameborder", "0");//设置或者改变指定属性并指定值。
         iframe.setAttribute("src", src);
         iframe.setAttribute("data-id", this.urls.length);
         return iframe.outerHTML;
     };
 
     Tab.prototype.is = function(url) {
-        return (this.urls.indexOf(url) !== -1)
+        return (this.urls.indexOf(url) !== -1)//如果要检索的字符串值没有出现，则该方法返回 -1。
     };
 
     Tab.prototype.add = function(title, url) {
-        if(this.is(url)) return false;
+        if(this.is(url)) return false;//if(num) 为非0非NAN即为真
         this.urls.push(url);
         element.tabAdd(this.el, {
-            title : title
+            title : this.title(title, url)
             ,content : this.content(url)
             ,id : url
         });
         this.change(url);
+
     };
 
     Tab.prototype.change = function(url) {
-        element.tabChange(this.el, url);
+        element.tabChange(this.el, url)//切换到指定Tab项
+
     };
 
     Tab.prototype.delete = function(url) {
@@ -95,7 +109,9 @@ layui.define(['element','layer'],function(exports){
     };
 
     Tab.prototype.onChange = function(callback){
-        element.on('tab('+this.el+')', callback);
+        element.on('tab('+this.el+')', callback)
+
+
     };
 
     Tab.prototype.onDelete = function(callback) {
@@ -112,7 +128,7 @@ layui.define(['element','layer'],function(exports){
         var tabs = new Tab('tabs'), navItems = [];
 
         $('#Nav a').on('click',function(event){
-            event.preventDefault();
+            event.preventDefault();//阻止元素发生默认的行为
             var $this = $(this), url = $this.attr('href'),
                 title = $.trim($this.text());
             if( url && url!=='javascript:;' ){
@@ -121,6 +137,7 @@ layui.define(['element','layer'],function(exports){
                 } else {
                     navItems.push($this);
                     tabs.add(title, url);
+
                 }
             }
             $this.closest('li.layui-nav-item')
@@ -135,19 +152,21 @@ layui.define(['element','layer'],function(exports){
         tabs.onChange(function(data){
             var i = data.index, $this = navItems[i];
             if($this && typeof $this === 'object') {
-                $('#Nav dd').removeClass('layui-this');
-                $this.parent('dd').addClass('layui-this');
+                $('#Nav dd').removeClass('layui-this')
+                $this.parent('dd').addClass('layui-this')
+
                 $this.closest('li.layui-nav-item')
                     .addClass('layui-nav-itemed')
                     .siblings()
-                    .removeClass('layui-nav-itemed');
-            }
+                    .removeClass('layui-nav-itemed')
+            };
         });
 
 
 
         $('.layui-nav-item').on('click',function(){
             $(this).siblings('li').attr('class','layui-nav-item');
+
         });
         tabs.onDelete(function(data){
             var i = data.index;

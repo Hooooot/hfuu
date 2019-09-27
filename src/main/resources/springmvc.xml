@@ -28,15 +28,12 @@
         <property name="suffix" value=".jsp" />   <!-- 后缀 -->
     </bean>
 
-    <!--配置spring mvc 对文件上传的支持-->
-   <!-- <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-        &lt;!&ndash;设置文件名编码&ndash;&gt;
-        <property name="defaultEncoding" value="utf-8"></property>
-        &lt;!&ndash;配置最大上传文件的支持20M&ndash;&gt;
-        <property name="maxUploadSize"  value="20971520"></property>
-        &lt;!&ndash;设置文件上传的临时目录&ndash;&gt;
-       &lt;!&ndash; <property name="uploadTempDir" value="ipload/temp"></property>&ndash;&gt;
-    </bean>-->
+    <!-- springmvc文件上传解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="maxUploadSize" value="-1" />
+    </bean>
     <!--配置静态文件放行 -->
 
     <!-- 配置静态资源映射 -->

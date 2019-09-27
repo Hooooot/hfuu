@@ -28,6 +28,7 @@
         <mysqlVersion>8.0.17</mysqlVersion>
         <c3p0Version>0.9.5.3</c3p0Version>
         <jacksonVersion>2.9.9.2</jacksonVersion>
+        <commons-fileuploadVersion>1.4</commons-fileuploadVersion>
     </properties>
 
     <dependencies>
@@ -121,6 +122,11 @@
             <artifactId>jackson-databind</artifactId>
             <version>${jacksonVersion}</version>
             <type>bundle</type>
+        </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileuploadVersion}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>

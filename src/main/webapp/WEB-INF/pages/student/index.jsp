@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="layui/css/admin.css">
     <%--自定义图标--%>
     <link rel="stylesheet" href="css/student/lock.css">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="images/favicon.ico">
     <title>主页</title>
 
 </head>

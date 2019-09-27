@@ -1,10 +1,15 @@
 package com.hfuu.web.controller.student;
 
+import com.hfuu.web.entity.StudentEntity;
+import com.hfuu.web.service.StuService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -17,7 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 @RequestMapping("")
 public class LoginSController {
-
+    @Resource
+    private StuService stuService;
 
     /**
      * 前往主页面
@@ -37,9 +43,13 @@ public class LoginSController {
      * @return
      */
     @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
-    public String toHomeS() {
+    public String toHomeS(Model model) {
+        StudentEntity studentEntity=stuService.findById(1);
+        model.addAttribute("stu",studentEntity);
+        System.out.println(studentEntity.toString());
         return "student/home";
     }
+
 
 
     /**
@@ -51,6 +61,10 @@ public class LoginSController {
     public String toEditS() {
         return "student/edit";
     }
+
+
+
+
 
 
 
