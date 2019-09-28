@@ -21,6 +21,7 @@
     <!--配置映射器和适配器 -->
     <mvc:annotation-driven />
 
+
     <!-- 配置前视图解析器 -->
     <bean
             class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,6 +35,9 @@
         <property name="defaultEncoding" value="UTF-8" />
         <property name="maxUploadSize" value="-1" />
     </bean>
+
+    <!-- 对xml以及json视图解析器配置 -->
+
     <!--配置静态文件放行 -->
 
     <!-- 配置静态资源映射 -->

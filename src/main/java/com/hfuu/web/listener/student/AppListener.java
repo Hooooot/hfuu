@@ -1,5 +1,7 @@
 package com.hfuu.web.listener.student;
 
+import sun.plugin2.message.GetAuthenticationMessage;
+
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -27,6 +29,8 @@ public class AppListener implements ServletContextListener{
         //取到ServletContext
         ServletContext context=arg0.getServletContext();
         context.setAttribute("crx", "http://localhost:8080"+context.getContextPath());
+
+
     }
 
 }

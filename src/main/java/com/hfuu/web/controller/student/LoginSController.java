@@ -1,23 +1,22 @@
 package com.hfuu.web.controller.student;
 
-import com.hfuu.web.entity.StudentEntity;
 import com.hfuu.web.service.StuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Decription :
- * @CreateDate :
  * @author :
  * 最后修改时间：
  * 最后修改人：
+ * @Decription :
+ * @CreateDate :
  */
 @Controller
 @RequestMapping("")
@@ -35,25 +34,31 @@ public class LoginSController {
         return "index";
     }
 
-
+    /**
+     * 前往学生端的主页面
+     *
+     * @return
+     */
+    @RequestMapping(value = {"/indexs"}, method = RequestMethod.GET)
+    public String toindexS() {
+        return "student/index";
+    }
 
     /**
-     * 前往子主页面
+     * 前往学生端 个人所在班级课程所有详情页面
      *
      * @return
      */
     @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
     public String toHomeS(Model model) {
-        StudentEntity studentEntity=stuService.findById(1);
-        model.addAttribute("stu",studentEntity);
-        System.out.println(studentEntity.toString());
+        /*StudentEntity studentEntity = stuService.findById(1);
+        model.addAttribute("stu", studentEntity);
+        System.out.println(studentEntity.toString());*/
         return "student/home";
     }
 
-
-
     /**
-     * 前往子主页面
+     * 前往 实验编辑页面
      *
      * @return
      */
@@ -68,20 +73,22 @@ public class LoginSController {
 
 
 
+
+
+
+
+
+
+
+
+
+
     /*@RequestMapping(value = {"/uindex"}, method = RequestMethod.GET)
     public String toUindex(@RequestParam(value = "asd", required = false) String asd) {
         System.err.println(asd);
         return "student/uindex";
     }*/
-    /**
-     * 前往学生端主页面
-     *
-     * @return
-     */
-    @RequestMapping(value = {"/indexs"}, method = RequestMethod.GET)
-    public String toindexS() {
-        return "student/index";
-    }
+
 
     /**
      * 前往子界面--登录
@@ -109,9 +116,9 @@ public class LoginSController {
      * @return
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
-    public String toTestS(@RequestParam(value = "asd", required = false) String asd,HttpServletRequest request) {
+    public String toTestS(@RequestParam(value = "asd", required = false) String asd, HttpServletRequest request) {
         System.err.println(asd);
-        request.setAttribute("asd",asd);
+        request.setAttribute("asd", asd);
         return "student/test";
     }
 

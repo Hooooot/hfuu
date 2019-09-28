@@ -135,8 +135,8 @@
         <div class="layui-colla-content ">测试三</div>
     </div>
 
-    ${stu.stuNum}<br>
-    ${stu.stuName}
+    <%--${stu.stuNum}<br>
+    ${stu.stuName}--%>
 
 </div>
 <script src="layui/layui.all.js"></script>
