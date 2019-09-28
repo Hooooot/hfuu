@@ -59,4 +59,9 @@ public class AdminController {
             System.out.println(depEntity.toString());
         }
     }
+
+    @RequestMapping(value = {"/f1"}, method = RequestMethod.GET)
+    public String toF1(){
+        return "admin/f1";
+    }
 }

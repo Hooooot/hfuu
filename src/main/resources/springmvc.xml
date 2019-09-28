@@ -49,6 +49,5 @@
     <mvc:resources location="/WEB-INF/images/" mapping="/images/**"/>
     <mvc:resources location="/WEB-INF/json/" mapping="/json/**"/>
     <mvc:resources location="/WEB-INF/wangEditor/" mapping="/weditor/**"/>
-<!--    <mvc:resources location="/WEB-INF/pages/favicon.ico" mapping="/favicon.ico"/>-->
 
 </beans>

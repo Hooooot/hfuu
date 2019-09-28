@@ -45,7 +45,7 @@
   </servlet-mapping>
   <!-- spring MVC config end -->
 
-  <!-- OpenSessionInView过滤器，保证session不关闭 -->
+  <!-- 解决延迟加载问题的过滤器 -->
   <filter>
     <filter-name>openSessionInView</filter-name>
     <filter-class>org.springframework.orm.hibernate5.support.OpenSessionInViewFilter</filter-class>

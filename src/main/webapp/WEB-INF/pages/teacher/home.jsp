@@ -17,7 +17,7 @@
     <script src="../layui/layui.js"></script>
     <script src="../js/teacher/lock.js"></script>
     <script src="../js/teacher/home.js"></script>
-    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="../images/favicon.ico/">
     <title>主页</title>
 
 </head>

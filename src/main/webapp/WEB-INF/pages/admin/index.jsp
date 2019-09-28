@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../layui/css/admin.css">
     <link rel="stylesheet" href="../css/admin/lock.css">
-    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="images/favicon.ico">
     <title>管理员首页</title>
 
 </head>
@@ -56,7 +56,7 @@
                         <em>模块一</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">功能一</a></dd>
+                        <dd><a href="${adm}/f1">功能一</a></dd>
                         <dd><a href="javascript:;">功能二</a></dd>
                     </dl>
                 </li>
@@ -85,8 +85,8 @@
         </div>
     </div>
 
-    <div class="layui-footer">
-        <p class="ai-enter maker-footer">2019<a href="http://www.hfuu.edu.cn/" target="_blank">合肥学院</a></p>
+    <div class="layui-footer" style="text-align: center">
+        © 2019<a href="http://www.hfuu.edu.cn/" target="_blank">&nbsp;&nbsp;合肥学院</a></p>
     </div>
 
     <div class="mobile-mask"></div>
@@ -94,6 +94,6 @@
 <%--script  script  script  script--%>
 <script src="../layui/layui.js"></script>
 <script src="../js/admin/lock.js"></script>
-<script src="../js/admin/home.js"></script>
+<script src="../js/admin/index.js"></script>
 </body>
 </html>

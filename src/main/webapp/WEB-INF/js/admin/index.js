@@ -1,6 +1,6 @@
 //获取系统时间
 var newDate = '';
-
+getLangDate();
 //值小于10时，在前面补0
 function dateFilter(date) {
     if (date < 10) {
@@ -65,6 +65,19 @@ layui.define(['element', 'layer'], function (exports) {
         this.urls = [];
     }
 
+    Tab.prototype.title = function(title, url){
+        var refresh = document.createElement("i");
+        refresh.setAttribute("class", "layui-icon layui-icon-refresh");
+        refresh.setAttribute("style", "margin-left:10px;font-size:14px;");
+        refresh.setAttribute("onmousedown", "if(event.button == 0){this.classList.remove('layui-icon-refresh'); this.classList.add('layui-icon-refresh-3');}");
+        refresh.setAttribute("onmouseup", "if(event.button == 0){this.classList.remove('layui-icon-refresh-3');" +
+            "this.classList.add('layui-icon-refresh');" +
+            "document.querySelector(\"iframe[data-id=\'" + this.urls.length + "\']\").src='" + url + "';}");
+        refresh.setAttribute("onmouseleave", "this.classList.remove('layui-icon-refresh-3');this.classList.add('layui-icon-refresh');");
+        return title + refresh.outerHTML;
+        //querySelector() 方法仅仅返回匹配指定选择器的第一个元素,方便的获取DOM元素，语法跟jQuery类似。
+    }
+
     Tab.prototype.content = function (src) {
         var iframe = document.createElement("iframe");
         iframe.setAttribute("frameborder", "0");
@@ -81,7 +94,7 @@ layui.define(['element', 'layer'], function (exports) {
         if (this.is(url)) return false;
         this.urls.push(url);
         element.tabAdd(this.el, {
-            title: title
+            title: this.title(title, url)
             , content: this.content(url)
             , id: url
         });
@@ -132,7 +145,7 @@ layui.define(['element', 'layer'], function (exports) {
         });
 
         // 默认触发第一个子菜单的点击事件
-        $('#Nav li.layui-nav-item:eq(0) > a:eq(0)').trigger('click');
+        $('#Nav li.layui-nav-item:eq(0) > dl.layui-nav-child > dd > a:eq(0)').trigger('click');
 
         tabs.onChange(function (data) {
             var i = data.index, $this = navItems[i];
@@ -203,15 +216,3 @@ layui.define(['element', 'layer'], function (exports) {
     };
     exports('home', new Home());
 });
-
-
-layui.use(['jquery', 'element', 'layer', 'upload'], function () {
-    var $ = layui.jquery,
-        element = layui.element,
-        layer = layui.layer,
-        upload = layui.load;
-
-    layer.ready(function () {
-        getLangDate();
-    })
-})
