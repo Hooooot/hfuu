@@ -78,7 +78,7 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     @Override
     public Long count() {
         Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from " + clazz.getSimpleName());
-        return (Long) query.list().get(0);
+        return (Long) query.uniqueResult();
     }
 
     @Override

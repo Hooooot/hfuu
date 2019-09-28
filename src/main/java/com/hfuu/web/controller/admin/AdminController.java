@@ -1,17 +1,14 @@
 package com.hfuu.web.controller.admin;
 
-import com.hfuu.web.entity.ClassEntity;
-import com.hfuu.web.entity.DepEntity;
-import com.hfuu.web.entity.TeacherEntity;
+import com.hfuu.web.entity.TaskEntity;
 import com.hfuu.web.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @Decription :
@@ -25,9 +22,9 @@ import java.util.Set;
 public class AdminController {
 
     @Resource
-    private DepService depService;
+    private SubmitService submitService;
     @Resource
-    private ClassService classService;
+    private TaskService taskService;
 
     /**
      * 前往管理员登录页
@@ -49,19 +46,36 @@ public class AdminController {
         return "admin/index";
     }
 
-    /**
-     * 服务测试
-     */
-    @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
-    public void depDaoTest(){
-        List<DepEntity> list = depService.pageQuery(0,4);
-        for (DepEntity depEntity : list) {
-            System.out.println(depEntity.toString());
-        }
-    }
-
     @RequestMapping(value = {"/f1"}, method = RequestMethod.GET)
-    public String toF1(){
-        return "admin/f1";
+    public ModelAndView toF1(){
+
+        //获取任务实体
+        List<TaskEntity> tasks = taskService.findAll();
+        int taskCount = tasks.size();
+        Long[] dtj = new Long[taskCount];
+        Long[] dpy = new Long[taskCount];
+        Long[] ypy = new Long[taskCount];
+        Long[] total = new Long[taskCount];
+
+        //获取任务提交情况
+        int i = 0;
+        for (TaskEntity task : tasks) {
+            int taskId = task.getTaskId();
+            dtj[i] = submitService.countSubmitByState(taskId, "待提交");
+            dpy[i] = submitService.countSubmitByState(taskId, "待批阅");
+            ypy[i] = submitService.countSubmitByState(taskId, "已批阅");
+            total[i] = dtj[i] + dpy[i] + ypy[i];
+            i++;
+        }
+
+        //填充模型数据并转发页面
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.addObject("tasks", tasks);
+        modelAndView.addObject("dtj", dtj);
+        modelAndView.addObject("dpy", dpy);
+        modelAndView.addObject("ypy",ypy);
+        modelAndView.addObject("total",total);
+        modelAndView.setViewName("admin/f1");
+        return modelAndView;
     }
 }

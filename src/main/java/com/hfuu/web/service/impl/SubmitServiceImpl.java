@@ -28,4 +28,9 @@ public class SubmitServiceImpl extends BaseServiceImpl<SubmitEntity> implements 
     public BaseDao<SubmitEntity> getBaseDao() {
         return submitDao;
     }
+
+    @Override
+    public Long countSubmitByState(int taskId, String state) {
+        return submitDao.countSubmitByState(taskId, state);
+    }
 }
