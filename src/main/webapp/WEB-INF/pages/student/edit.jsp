@@ -54,6 +54,8 @@
         var E = window.wangEditor;
         var editor = new E('#editor'); // 两个参数也可以传入 elem 对象，class 选择器
 
+        // 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
+        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
         //开启debug模式
         editor.customConfig.debug = true;
         // 隐藏“网络图片”tab
@@ -68,11 +70,17 @@
             return content + '<p>这是我复制过来的</p>'
         }
 
+        // 限制一次最多上传 1张图片
+        editor.customConfig.uploadImgMaxLength = 1;
+        //自定义 header
+        /*editor.customConfig.uploadImgHeaders = {
+            'Accept': 'application/json'
+        }*/
         // 上传图片到服务器
         editor.customConfig.uploadImgServer = 'upload';//设置上传文件的服务器路径
         editor.customConfig.uploadFileName = 'image';//设置文件上传的参数名称
         editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024; // 将图片大小限制为 3M
-        //自定义 header
+        // 设置 headers（举例）
 
         //监听函数
         editor.customConfig.uploadImgHooks = {
@@ -98,8 +106,7 @@
             },
             error: function (xhr, editor) {
                 // 图片上传出错时触发
-                // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
-                alert(xhr);
+                // xhr 是 XMLHttpRequst 对象，editor 是编辑器对
             },
             timeout: function (xhr, editor) {
                 // 图片上传超时时触发

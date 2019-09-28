@@ -29,7 +29,7 @@ public class HomeSController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"/upload"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/upload"}, method = RequestMethod.POST,produces = "application/json;charset=utf8")
     public Map<String, Object> uploadFile(@RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>();
         try{
@@ -55,7 +55,7 @@ public class HomeSController {
             // 返回图片访问路径
 
             String url = request.getScheme() + "://" + request.getServerName()
-                    + ":" + request.getServerPort() + "images/upload/" + imgName;
+                    + ":" + request.getServerPort() + "/images/upload/" + imgName;
 
             // 返回给 wangEditor 的数据格式
             result.put("errno", 0);
