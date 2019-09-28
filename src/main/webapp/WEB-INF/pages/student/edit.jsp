@@ -97,12 +97,11 @@
             success: function (xhr, editor, result) {
                 // 图片上传并返回结果，图片插入成功之后触发
                 // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-                alert(result);
+
             },
             fail: function (xhr, editor, result) {
                 // 图片上传并返回结果，但图片插入错误时触发
                 // xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
-                alert(result);
             },
             error: function (xhr, editor) {
                 // 图片上传出错时触发
@@ -120,9 +119,8 @@
                 // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
 
                 // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-                var url = result.url
+                var url = result.data
                 insertImg(url)
-
                 // result 必须是一个 JSON 格式字符串！！！否则报错
             }
         };

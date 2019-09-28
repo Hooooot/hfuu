@@ -29,42 +29,49 @@ public class HomeSController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"/upload"}, method = RequestMethod.POST,produces = "application/json;charset=utf8")
+    @RequestMapping(value = {"/upload"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> uploadFile(@RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>();
-        try{
-            // 获取项目路径（本地路径）
-            String realPath = request.getSession().getServletContext().getRealPath("");
+        try {
+            // 获取项目路径
+            String realPath = request.getSession().getServletContext()
+                    .getRealPath("");
+            // 获取图片文件名称
+            String imgName = getFileName();
+
+
+            //1.....获取项目路径（本地路径）
             //获取项目的上上一级目录
             String parentPath = new File(new File(realPath).getParent()).getParent();
             //设置上传图片的保存路径
-            String savePath= parentPath+ "/src/main/webapp/WEB-INF/images/upload";
-            File file = new File(savePath);
-            if (!file.exists() && !file.isDirectory()) {
-                System.out.println(savePath + "目录不存在，已自动创建");
+            String saveLoaclPath = parentPath + "/src/main/webapp/WEB-INF/images/upload";
+            File fileLocal = new File(saveLoaclPath);
+            if (!fileLocal.exists() && !fileLocal.isDirectory()) {
+                System.out.println(saveLoaclPath + "目录不存在，已自动创建");
                 // 创建目录
-                file.mkdir();
+                fileLocal.mkdir();
             }
-            // 获取文件名称
-            String imgName = getFileName();
+            //获取文件流
+            InputStream inputStreamLocal = multipartFile.getInputStream();
+            File imgLocal = new File(saveLoaclPath, imgName);
+            FileUtils.copyInputStreamToFile(inputStreamLocal, imgLocal);
+
+
+            //2..... 服务器根目录下路径 文件夹upload，存放上传图片
+            String savePath = realPath + "WEB-INF\\images\\upload";
             //获取文件流
             InputStream inputStream = multipartFile.getInputStream();
-            // 将文件上传到目录下的upload文件夹
-            File img = new File(savePath,imgName);
+            File img = new File(savePath, imgName);
             FileUtils.copyInputStreamToFile(inputStream, img);
+
             // 返回图片访问路径
-
             String url = request.getScheme() + "://" + request.getServerName()
-                    + ":" + request.getServerPort() + "/images/upload/" + imgName;
-
+                    + ":" + request.getServerPort() + request.getContextPath() + "/images/upload/" + imgName;
             // 返回给 wangEditor 的数据格式
             result.put("errno", 0);
             result.put("data", new String[]{url});
             return result;
-
-        }catch (Exception e){
-
-
+        } catch (Exception e) {
         }
         return null;
     }
@@ -76,7 +83,5 @@ public class HomeSController {
                 "abcdefghijklmnopqrstuvwxyz1234567890");
         String name = timeStr + str + ".jpg";
         return name;
-
     }
-
 }
