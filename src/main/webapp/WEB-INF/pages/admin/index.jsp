@@ -6,22 +6,20 @@
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../layui/css/admin.css">
     <link rel="stylesheet" href="../css/admin/lock.css">
-    <link rel="icon" href="images/favicon.ico">
-    <title>管理员首页</title>
+    <link rel="icon" href="../images/favicon.ico">
+    <title>主页</title>
 
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
     <div class="layui-header custom-header">
-
+        <%--顶部左侧信息--%>
         <ul class="layui-nav layui-layout-left">
             <li class="layui-nav-item slide-sidebar" lay-unselect>
                 <a href="javascript:;" class="icon-font"><i class="ai ai-menufold"></i></a>
             </li>
         </ul>
-
-
-        <%--顶部信息--%>
+        <%--顶部右侧信息--%>
         <ul class="layui-nav layui-layout-right">
             <%--显示时间--%>
             <li class="layui-nav-item">
@@ -31,49 +29,59 @@
                 <a href="javascript:;">锁屏</a>
             </li>
             <%-- 右上角的用户 --%>
-            <li class="layui-nav-item " lay-unselect>
-                <a href="javascript:;"><img src="../images/face.jpg" class="layui-nav-img">我</a>
+            <li class="layui-nav-item">
+                <a href="javascript:;">
+                    <img src="../images/avatar/admin/${admin.adminAvatar}" class="layui-nav-img"/>
+                    ${admin.adminName}&nbsp;&nbsp;
+                </a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" class="showUserInfo">个人资料</a></dd>
                     <dd><a href="javascript:;" class="showChangePassword">修改密码</a></dd>
-                    <dd><a href="javascript:;">退出</a></dd>
+                    <dd><a href="${adm}/login">退出</a></dd>
                 </dl>
             </li>
         </ul>
     </div>
 
-    <%--  侧边栏  --%>
+    <%--  侧栏  --%>
     <div class="layui-side custom-admin">
         <div class="layui-side-scroll">
             <div class="custom-logo">
-                <img src="../layui/images/logo.png" alt="logo"/>
-                <h1>作业提交系统后台</h1>
+                <img src="../layui/images/logo.png" alt=""/>
+                <h1>作业提交情况</h1>
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <i class="layui-icon">&#xe609;</i>
-                        <em>模块一</em>
+                        <i class="layui-icon layui-icon-chart"></i>
+                        <em>统计分析</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="${adm}/f1">功能一</a></dd>
-                        <dd><a href="javascript:;">功能二</a></dd>
+                        <dd><a href="${adm}/f1">按任务</a></dd>
+                        <dd><a href="javascript:;">按院系</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;">
-                        <i class="layui-icon">&#xe857;</i>
-                        <em>模块二</em>
+                        <i class="layui-icon layui-icon-app"></i>
+                        <em>其他功能</em>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;">功能三</a></dd>
-                        <dd>
-                            <a href="javascript:;">功能四</a>
-                        </dd>
+                        <dd><a href="javascript:;">功能四</a></dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">
+                        <i class="layui-icon layui-icon-username"></i>
+                        <em>用户管理</em>
+                    </a>
+                    <dl class="layui-nav-child">
+                        <dd><a href="javascript:;">功能五</a></dd>
+                        <dd><a href="javascript:;">功能六</a></dd>
                     </dl>
                 </li>
             </ul>
-
         </div>
     </div>
 

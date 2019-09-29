@@ -94,7 +94,8 @@ layui.define(['element', 'layer'], function (exports) {
         if (this.is(url)) return false;
         this.urls.push(url);
         element.tabAdd(this.el, {
-            title: this.title(title, url)
+            title: title
+            //this.title(title, url)
             , content: this.content(url)
             , id: url
         });

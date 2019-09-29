@@ -1,8 +1,11 @@
 package com.hfuu.web.controller.admin;
 
+import com.hfuu.web.entity.AdminEntity;
 import com.hfuu.web.entity.TaskEntity;
 import com.hfuu.web.service.*;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,6 +28,8 @@ public class AdminController {
     private SubmitService submitService;
     @Resource
     private TaskService taskService;
+    @Resource
+    private AdminService adminService;
 
     /**
      * 前往管理员登录页
@@ -42,7 +47,9 @@ public class AdminController {
      * @return
      */
     @RequestMapping(value = {"/index"}, method = RequestMethod.GET)
-    public String inIndexA() {
+    public String inIndexA(Model model, AdminEntity admin) {
+        admin = adminService.findById(2);
+        model.addAttribute("admin", admin);
         return "admin/index";
     }
 
@@ -75,7 +82,7 @@ public class AdminController {
         modelAndView.addObject("dpy", dpy);
         modelAndView.addObject("ypy",ypy);
         modelAndView.addObject("total",total);
-        modelAndView.setViewName("admin/f1");
+        modelAndView.setViewName("admin/analyse");
         return modelAndView;
     }
 }
