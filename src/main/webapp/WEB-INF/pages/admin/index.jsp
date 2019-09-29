@@ -35,7 +35,6 @@
                     ${admin.adminName}&nbsp;&nbsp;
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" class="showUserInfo">个人资料</a></dd>
                     <dd><a href="javascript:;" class="showChangePassword">修改密码</a></dd>
                     <dd><a href="${adm}/login">退出</a></dd>
                 </dl>
@@ -77,7 +76,7 @@
                         <em>用户管理</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">功能五</a></dd>
+                        <dd><a href="${adm}/editAdminInfo">修改个人资料</a></dd>
                         <dd><a href="javascript:;">功能六</a></dd>
                     </dl>
                 </li>
