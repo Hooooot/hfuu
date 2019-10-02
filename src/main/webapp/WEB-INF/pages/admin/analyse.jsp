@@ -35,7 +35,7 @@
                     <td>${dpy[i]}</td>
                     <td>${ypy[i]}</td>
                 </tr>
-            <c:set var="i" value="${i}+1"></c:set>
+            <c:set var="i" value="${i+1}"></c:set>
             </c:forEach>
         </table>
 

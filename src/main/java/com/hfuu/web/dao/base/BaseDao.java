@@ -53,11 +53,11 @@ public interface BaseDao<T> {
 
     /**
      * 分页查询
-     * @param first 该页的起始位置
+     * @param currPage 当前页码
      * @param max   该页展示多少条数据
      * @return
      */
-    List pageQuery(int first, int max);
+    List pageQuery(int currPage, int max);
 
     /**
      * 查询表中有多少条记录

@@ -68,8 +68,9 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public List pageQuery(int first, int max) {
+    public List pageQuery(int currPage, int max) {
         Query query = sessionFactory.getCurrentSession().createQuery("from "+clazz.getSimpleName());
+        int first = (currPage - 1) * max;
         query.setFirstResult(first);
         query.setMaxResults(max);
         return query.list();

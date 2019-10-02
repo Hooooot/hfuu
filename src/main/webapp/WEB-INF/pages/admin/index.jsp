@@ -31,7 +31,7 @@
             <%-- 右上角的用户 --%>
             <li class="layui-nav-item">
                 <a href="javascript:;">
-                    <img src="../images/avatar/admin/${admin.adminAvatar}" class="layui-nav-img"/>
+                    <img src="/admin/${admin.adminAvatar}" class="layui-nav-img"/>
                     ${admin.adminName}&nbsp;&nbsp;
                 </a>
                 <dl class="layui-nav-child">
