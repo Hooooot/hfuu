@@ -56,8 +56,8 @@
                         <em>统计分析</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="${adm}/f1">按任务</a></dd>
-                        <dd><a href="javascript:;">按院系</a></dd>
+                        <dd><a href="${adm}/analyseByTask">按任务</a></dd>
+                        <dd><a href="${adm}/analyseByDep">按院系</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
