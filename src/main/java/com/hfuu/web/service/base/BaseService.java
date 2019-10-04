@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Decription :
- * @CreateDate :
+ * @Description :
+ * @date :
  * @author : 浅忆
  * 最后修改时间：
  * 最后修改人：

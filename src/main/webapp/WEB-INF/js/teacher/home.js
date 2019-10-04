@@ -36,7 +36,7 @@ layui.define(['element', 'layer'], function (exports) {
         pc: [991, -1],
         pad: [768, 990],
         mobile: [0, 767]
-    }
+    };
 
     var getDevice = function () {
         var width = $(window).width();
@@ -44,26 +44,41 @@ layui.define(['element', 'layer'], function (exports) {
             var sizes = screen_size[i],
                 min = sizes[0],
                 max = sizes[1];
-            if (max == -1) max = width;
+            if (max === -1) max = width;
             if (min <= width && max >= width) {
                 return i;
             }
         }
         return null;
-    }
+    };
 
     var isDevice = function (label) {
-        return getDevice() == label;
-    }
+        return getDevice() === label;
+    };
 
     var isMobile = function () {
         return isDevice('mobile');
-    }
+    };
 
     var Tab = function (el) {
         this.el = el;
         this.urls = [];
-    }
+    };
+
+    Tab.prototype.title = function(title, url){
+        if(title.search("首页")!==-1){
+            title="首页";
+        }
+        var refresh = document.createElement("i");
+        refresh.setAttribute("class", "layui-icon layui-icon-refresh");
+        refresh.setAttribute("style", "margin-left:10px;font-size:14px;");
+        refresh.setAttribute("onmousedown", "if(event.button == 0){this.classList.remove('layui-icon-refresh'); this.classList.add('layui-icon-refresh-3');}");
+        refresh.setAttribute("onmouseup", "if(event.button == 0){this.classList.remove('layui-icon-refresh-3');" +
+            "this.classList.add('layui-icon-refresh');" +
+            "document.querySelector(\"iframe[data-id=\'" + this.urls.length + "\']\").src='" + url + "';}");
+        refresh.setAttribute("onmouseleave", "this.classList.remove('layui-icon-refresh-3');this.classList.add('layui-icon-refresh');");
+        return title + refresh.outerHTML;
+    };
 
     Tab.prototype.content = function (src) {
         var iframe = document.createElement("iframe");
@@ -81,7 +96,7 @@ layui.define(['element', 'layer'], function (exports) {
         if (this.is(url)) return false;
         this.urls.push(url);
         element.tabAdd(this.el, {
-            title: title
+            title: this.title(title, url)
             , content: this.content(url)
             , id: url
         });
@@ -143,6 +158,7 @@ layui.define(['element', 'layer'], function (exports) {
                     .addClass('layui-nav-itemed')
                     .siblings()
                     .removeClass('layui-nav-itemed');
+                $('#Nav li.layui-nav-item:eq(0)').removeClass("layui-this");
             }
         });
 
@@ -155,7 +171,7 @@ layui.define(['element', 'layer'], function (exports) {
         });
 
         this.slideSideBar();
-    }
+    };
 
     Home.prototype.slideSideBar = function () {
         var $slideSidebar = $('.slide-sidebar'),
@@ -193,7 +209,7 @@ layui.define(['element', 'layer'], function (exports) {
                 layer.close(tipIndex);
                 tipIndex = null
             }
-        })
+        });
 
         if (isMobile()) {
             $mobileMask.on('click', function () {
@@ -214,4 +230,4 @@ layui.use(['jquery', 'element', 'layer', 'upload'], function () {
     layer.ready(function () {
         getLangDate();
     })
-})
+});

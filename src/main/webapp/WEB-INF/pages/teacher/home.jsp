@@ -1,6 +1,6 @@
 <%--
   Created by IntelliJ IDEA.
-  User: 16688
+  User: 24469
   Date: 2019/9/13
   Time: 19:40
   To change this template use File | Settings | File Templates.
@@ -10,6 +10,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../layui/css/admin.css">
     <%--自定义图标--%>
@@ -17,7 +20,7 @@
     <script src="../layui/layui.js"></script>
     <script src="../js/teacher/lock.js"></script>
     <script src="../js/teacher/home.js"></script>
-    <link rel="icon" href="../images/favicon.ico/">
+    <link rel="icon" href="../images/favicon.ico">
     <title>主页</title>
 
 </head>
@@ -62,8 +65,10 @@
     <div class="layui-side custom-admin">
         <div class="layui-side-scroll">
             <div class="custom-logo">
-                <img src="../layui/images/logo.png" alt="logo"/>
-                <h1>作业提交系统教师端</h1>
+                <a href="/hfuu" style="color: white;" title="回到首页">
+                    <img src="../layui/images/logo.png" alt="logo"/>
+                    <h1>作业系统--教师端</h1>
+                </a>
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">

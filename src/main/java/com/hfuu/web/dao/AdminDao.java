@@ -5,8 +5,8 @@ import com.hfuu.web.entity.AdminEntity;
 import org.springframework.stereotype.Repository;
 
 /**
- * @Decription :
- * @CreateDate : 2019/9/26 0:39
+ * @Description :
+ * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：

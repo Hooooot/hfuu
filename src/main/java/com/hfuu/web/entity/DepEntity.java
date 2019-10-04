@@ -12,8 +12,8 @@ import java.util.Set;
  *  depName:院系名称：
  */
 /**
- * @Decription :
- * @CreateDate : 2019/9/26 0:39
+ * @Description :
+ * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：

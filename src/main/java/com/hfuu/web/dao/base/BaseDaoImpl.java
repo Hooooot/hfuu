@@ -11,8 +11,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * @Decription :基础Dao的实现类
- * @CreateDate :2019/9/25 18:53
+ * @Description :基础Dao的实现类
+ * @date :2019/9/25 18:53
  * @author :Ciel-08
  * 最后修改时间：
  * 最后修改人：

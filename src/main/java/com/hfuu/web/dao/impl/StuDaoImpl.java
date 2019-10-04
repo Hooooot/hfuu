@@ -6,10 +6,9 @@ import com.hfuu.web.entity.StudentEntity;
 import org.springframework.stereotype.Repository;
 
 /**
- * 描述：
- *
- * @author: Ciel-08
- * 创建时间：2019/9/25 18:59
+ * @Description :
+ * @date :2019/9/25 18:53
+ * @author :Ciel-08
  * 最后修改时间：
  * 最后修改人：
  */

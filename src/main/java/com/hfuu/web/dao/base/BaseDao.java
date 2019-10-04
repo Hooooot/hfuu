@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Decription :基础Dao接口
- * @CreateDate :2019/9/25 18:53
+ * @Description :基础Dao接口
+ * @date :2019/9/25 18:53
  * @author :Ciel-08
  * 最后修改时间：
  * 最后修改人：

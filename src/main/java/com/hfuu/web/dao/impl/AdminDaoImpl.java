@@ -6,7 +6,11 @@ import com.hfuu.web.entity.AdminEntity;
 import org.springframework.stereotype.Repository;
 
 /**
- * @author Hooooo
+ * @Description :
+ * @date :
+ * @author :
+ * 最后修改时间：
+ * 最后修改人：
  */
 @Repository("adminDao")
 public class AdminDaoImpl extends BaseDaoImpl<AdminEntity> implements AdminDao {

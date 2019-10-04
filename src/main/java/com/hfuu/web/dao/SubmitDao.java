@@ -4,8 +4,8 @@ import com.hfuu.web.dao.base.BaseDao;
 import com.hfuu.web.entity.SubmitEntity;
 
 /**
- * @Decription :
- * @CreateDate : 2019/9/25 18:45
+ * @Description :
+ * @date : 2019/9/25 18:45
  * @author : Ciel-08
  * 最后修改时间：2019/9/28 20:20
  * 最后修改人：Ciel-08

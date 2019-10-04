@@ -6,9 +6,9 @@ import com.hfuu.web.entity.DepEntity;
 import org.springframework.stereotype.Repository;
 
 /**
- * @Decription:
- * @CreateDate:
- * @Author: 浅忆
+ * @Description :
+ * @date :2019/9/25 18:53
+ * @author :浅忆
  * 最后修改时间：
  * 最后修改人：
  */

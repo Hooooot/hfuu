@@ -16,8 +16,8 @@ import java.util.Objects;
  *  subFile:提交的文件，类型暂时为varchar(64)
  */
 /**
- * @Decription :
- * @CreateDate : 2019/9/26 0:39
+ * @Description :
+ * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：

@@ -4,8 +4,8 @@ import com.hfuu.web.entity.SubmitEntity;
 import com.hfuu.web.service.base.BaseService;
 
 /**
- * @Decription : 提交记录服务接口
- * @CreateDate : 2019/9/25 19:06
+ * @Description : 提交记录服务接口
+ * @date : 2019/9/25 19:06
  * @author : Ciel-08
  * 最后修改时间：2019/09/28 20:29
  * 最后修改人：Ciel-08

@@ -17,8 +17,8 @@ import java.util.Set;
  *  tcAvatar:教师头像，目前设为varchar(64)保存图片名称
  */
 /**
- * @Decription :
- * @CreateDate : 2019/9/26 0:39
+ * @Description :
+ * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：

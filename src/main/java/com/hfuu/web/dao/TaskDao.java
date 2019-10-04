@@ -4,8 +4,8 @@ import com.hfuu.web.dao.base.BaseDao;
 import com.hfuu.web.entity.TaskEntity;
 
 /**
- * @Decription :
- * @CreateDate : 2019/9/25 18:45
+ * @Description : 作业Dao
+ * @date : 2019/9/25 18:45
  * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
