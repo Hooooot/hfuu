@@ -12,13 +12,14 @@ import java.util.Set;
  *  cozName:课程名称
  *  classNum:外键，开设班级代码
  *  tcNum:外键，授课教师工号
+ *  term:课程开设学期，char(3)，如182，代表18-19年第二学期。
  */
 /**
  * @Description :
  * @date : 2019/9/26 0:39
  * @author : Ciel-08
- * 最后修改时间：
- * 最后修改人：
+ * 最后修改时间：2019年10月5日 23点52分
+ * 最后修改人： whh0987@foxmail.com
  */
 @Entity
 @Table(name = "course", schema = "hfuutest")
@@ -29,6 +30,7 @@ public class CourseEntity implements Serializable {
     private TeacherEntity tcEntity;
     private ClassEntity classEntity;
     private Set<TaskEntity> tasksFromCoz;
+    private String term;
 
     @Id
     @Column(name = "cozId", nullable = false)
@@ -90,6 +92,15 @@ public class CourseEntity implements Serializable {
         this.tasksFromCoz = tasksFromCoz;
     }
 
+    @Basic
+    @Column(name = "term", nullable = true, length = 3)
+    public String getTerm() {
+        return term;
+    }
+
+    public void setTerm(String term) {
+        this.term = term;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -112,6 +123,10 @@ public class CourseEntity implements Serializable {
 
             return false;
         }
+        if (!Objects.equals(term, that.term)){
+
+            return false;
+        }
         return Objects.equals(cozName, that.cozName);
     }
 
@@ -120,12 +135,13 @@ public class CourseEntity implements Serializable {
         int result = cozId;
         result = 31 * result + (cozNum != null ? cozNum.hashCode() : 0);
         result = 31 * result + (cozName != null ? cozName.hashCode() : 0);
+        result = 31 * result + (term != null ? term.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        String course = "[#" + cozId + ": " + cozNum + ", " + cozName + ", " + classEntity.getClassName() + ", " + tcEntity.getTcName() + "]";
-        return course;
+        return "[#" + cozId + ": " + cozNum + ", " + cozName + ", " + classEntity.getClassName() +
+                ", " + tcEntity.getTcName() + ", " + term + "]";
     }
 }
