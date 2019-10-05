@@ -29,6 +29,6 @@ public class HomeTControllerTest {
     public void test() {
         Map map = teacherControllerService.getCourseByTeacherNum("1604012003");
         System.out.println(map.get("result"));
-        System.out.println("测试成功");
+        System.out.println("测试成功！");
     }
 }
