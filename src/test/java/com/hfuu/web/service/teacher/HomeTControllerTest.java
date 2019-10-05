@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
 
@@ -16,7 +17,8 @@ import javax.annotation.Resource;
  * 最后修改人：
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"classpath*:spring.xml", "classpath*:springmvc.xml", "classpath*:hibernate.cfg.xml"})
+@WebAppConfiguration
+@ContextConfiguration(locations = {"classpath*:spring.xml"})
 public class HomeTControllerTest {
     @Resource
     private TeacherControllerService teacherControllerService;
