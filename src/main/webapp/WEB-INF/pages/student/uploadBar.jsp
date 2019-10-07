@@ -68,7 +68,7 @@
         var fileListView = $('#fileList'),
             uploadListIns = upload.render({
                 elem: '#uploadList',
-                url: '',
+                url: 'uploadVideo',
                 accept: 'file',
                 multiple: true,
                 auto: false,

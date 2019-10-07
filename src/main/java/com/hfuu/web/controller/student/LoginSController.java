@@ -1,28 +1,42 @@
 package com.hfuu.web.controller.student;
 
+import com.hfuu.web.entity.ClassEntity;
+import com.hfuu.web.entity.CourseEntity;
+import com.hfuu.web.entity.StudentEntity;
+import com.hfuu.web.entity.TaskEntity;
+import com.hfuu.web.service.CourseService;
 import com.hfuu.web.service.StuService;
+import com.hfuu.web.service.TaskService;
+import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
- * @Description :
- * @date :
  * @author :
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date :
  */
 @Controller
 @RequestMapping("")
+@SessionAttributes({"studentLogin"})
 public class LoginSController {
     @Resource
     private StuService stuService;
+    @Resource
+    private TaskService taskService;
+    @Resource
+    private CourseService courseService;
 
     /**
      * 前往主页面
@@ -40,7 +54,9 @@ public class LoginSController {
      * @return
      */
     @RequestMapping(value = {"/indexs"}, method = RequestMethod.GET)
-    public String toindexS() {
+    public String toindexS(Model model) {
+        StudentEntity studentEntity = stuService.findById(4);
+        model.addAttribute("studentLogin", studentEntity);
         return "student/index";
     }
 
@@ -50,12 +66,31 @@ public class LoginSController {
      * @return
      */
     @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
-    public String toHomeS(Model model) {
-        /*StudentEntity studentEntity = stuService.findById(1);
-        model.addAttribute("stu", studentEntity);
-        System.out.println(studentEntity.toString());*/
+    public String toHomeS(@RequestParam(value = "studentNum", required = false) String studentNum,Model model) {
+        List<StudentEntity> studentEntities = stuService.findByHql("from StudentEntity s where s.stuNum=" + studentNum);
+
+        model.addAttribute("student", studentEntities);
         return "student/home";
     }
+
+    /**
+     * 测试子界面--测试
+     *
+     * @return
+     */
+    @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
+    public String toTestS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
+        List<StudentEntity> studentEntities = stuService.findByHql("from StudentEntity s where s.stuNum=" + studentNum);
+
+        model.addAttribute("student", studentEntities);
+        System.out.println(studentEntities.toString());
+        for(StudentEntity s:studentEntities){
+            System.out.println(s.getClassEntity().getCoursesFromClass().toString());
+        }
+
+        return "student/test";
+    }
+
 
     /**
      * 前往 实验编辑页面
@@ -110,17 +145,6 @@ public class LoginSController {
         return "student/console";
     }
 
-    /**
-     * 测试子界面--测试
-     *
-     * @return
-     */
-    @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
-    public String toTestS(@RequestParam(value = "asd", required = false) String asd, HttpServletRequest request) {
-        System.err.println(asd);
-        request.setAttribute("asd", asd);
-        return "student/test";
-    }
 
     /**
      * 前往子界面--修改个人信息

@@ -6,20 +6,26 @@ layui.use('upload', function() {
     //拖拽上传 多文件列表示例
     var fileListView = $('#fileList'),
         uploadListIns = upload.render({
-            elem: '#uploadList',
-            url: '/upload/',
-            accept: 'file',
-            multiple: true,
-            auto: false,
-            bindAction: '#uploadListAction',
+            elem: '#uploadList',//绑定元素，点击id为 的时候弹出选择文件窗口
+            url: 'uploadFile',//上传接口
+            accept: 'file', //
+            multiple: true,//开启多文件上传
+            auto: false,//选择文件后不自动上传
+            bindAction: '#uploadListAction',//指向一个按钮触发上传
             choose: function(obj) {
                 var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
                 //读取本地文件
                 obj.preview(function(index, file, result) {
+                    var size=file.size;
+                    if(size>(20*1024*1024)){
+                        layer.msg('文件大小不得超过20M');
+                        return;
+                    }
                     var tr = $(['<tr id="upload-' + index + '">', '<td>' + file.name + '</td>', '<td>' + (file.size / 1014).toFixed(1) + 'kb</td>', '<td>等待上传</td>', '<td>', '<button class="layui-btn layui-btn-mini file-reload layui-hide">重传</button>', '<button class="layui-btn layui-btn-mini layui-btn-danger file-delete">删除</button>', '</td>', '</tr>'].join(''));
 
                     //单个重传
                     tr.find('.file-reload').on('click', function() {
+
                         obj.upload(index, file);
                     });
 

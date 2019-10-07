@@ -10,7 +10,7 @@
 <head>
     <title>编辑</title>
     <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="weditor/wangEditor.min.css">
+    <link rel="stylesheet" href="weditor/wangEditor.css">
     <style type="text/css">
         body {
             margin: 10px;
@@ -31,7 +31,8 @@
 
 <h1 style="text-align: center;margin: 10px;"></h1>
 <div id="editor">
-    <p>输入实验报告内容</p>
+    <p class="removeContent">输入实验报告内容</p>
+    <div class="appendContent"></div>
 </div>
 
 
@@ -40,16 +41,35 @@
     <button type="button" class="layui-btn layui-btn-primary" id="btn2">获取text</button>
     <button type="button" class="layui-btn layui-btn-primary" id="btn3">获取JSON</button>
     <button type="button" class="layui-btn layui-btn-primary" id="btn4">预览</button>
+    <button type="button" class="layui-btn layui-btn-primary" id="btn5">保存</button>
+
 </div>
-<script src="weditor/wangEditor.min.js"></script>
+<script src="weditor/wangEditor.js"></script>
 <script src="layui/layui.all.js"></script>
 <script>
-    layui.use(['element', 'jquery', 'layer'], function () {
+
+
+    layui.use(['element', 'jquery', 'layer', 'upload'], function () {
         var $ = layui.$,
             layer = layui.layer,
+            upload = layui.upload,
             element = layui.element;
         var text = localStorage.getItem("text");//获取传值 实验名称
         localStorage.removeItem("text");
+
+        $(document).ready(function () {
+            //实验名称
+            getExperimentName();
+            //富文本内删除指定内容
+            $('.removeContent').remove();
+            //向富文本编辑器追加内容
+            $('.appendContent').append("<h2>追加内容</h2>");
+        });
+
+        function getExperimentName() {
+            $("h1").text(text);
+        }
+
 
         var E = window.wangEditor;
         var editor = new E('#editor'); // 两个参数也可以传入 elem 对象，class 选择器
@@ -77,7 +97,7 @@
             'Accept': 'application/json'
         }*/
         // 上传图片到服务器
-        editor.customConfig.uploadImgServer = 'upload';//设置上传文件的服务器路径
+        editor.customConfig.uploadImgServer = 'uploadImg';//设置上传文件的服务器路径
         editor.customConfig.uploadFileName = 'image';//设置文件上传的参数名称
         editor.customConfig.uploadImgMaxSize = 3 * 1024 * 1024; // 将图片大小限制为 3M
         // 设置 headers（举例）
@@ -126,10 +146,7 @@
         };
 
 
-
-
         editor.create();
-
 
         document.getElementById('btn1').addEventListener('click', function () {
             // 读取 html
@@ -160,18 +177,29 @@
                 title: [text, 'font-size:18px;text-align: center;'],
                 id: '_txt', //设定一个id，防止重复弹出
                 shadeClose: true,
-                anim:2,
-                content: '<!doctype html><html lang="zh"><head><title></title></head><body>'+_txt+'</body></html>',
+                anim: 2,
+                content: '<!doctype html><html lang="zh"><head><title></title></head><body>' + _txt + '</body></html>',
             });
         });
 
-        $(document).ready(function () {
-            getExperimentName();
+        //保存页面
+        document.getElementById('btn5').addEventListener('click',function () {
+            $.ajax({
+                type:"POST",
+                url:'saveHtml',
+                data:{'content':editor.txt.html(),'experimentalName':text},//experimentalName实验名称
+                dataType:"json",
+                success:function (data) {
+                    if(data && data.success=="true"){
+                        layer.msg("保存成功");
+                    }
+                },error:function () {
+                    layer.msg("保存失败")
+                }
+            })
         });
 
-        function getExperimentName() {
-            $("h1").text(text);
-        }
+
 
     });
 </script>

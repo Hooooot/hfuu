@@ -40,6 +40,6 @@
 
 </body>
 <script src="layui/layui.all.js"></script>
-<script src="js/student/upload.js"></script>
+<script src="js/student/uploadFile.js"></script>
 
 </html>

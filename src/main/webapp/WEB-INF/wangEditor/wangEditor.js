@@ -2670,16 +2670,50 @@ Image.prototype = {
         var editor = this.editor;
 
         // id
+        //增加id 10%
+        var width10 = getRandom('width-10');
         var width30 = getRandom('width-30');
         var width50 = getRandom('width-50');
         var width100 = getRandom('width-100');
+        //增加id 百分比输入框 和确定按钮
+        var widthPercent =getRandom('width-percent');
+        var percentBtn = getRandom('percent-btn');
         var delBtn = getRandom('del-btn');
 
         // tab 配置
         var tabsConfig = [{
             title: '编辑图片',
-            tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                        <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span>\n                        <button id="' + width30 + '" class="left">30%</button>\n                        <button id="' + width50 + '" class="left">50%</button>\n                        <button id="' + width100 + '" class="left">100%</button>\n                    </div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
+            tpl: '<div>\n                    <div class="w-e-button-container" style="border-bottom:1px solid #f1f1f1;padding-bottom:5px;margin-bottom:5px;">\n                        <span style="float:left;font-size:14px;margin:4px 5px 0 5px;color:#333;">\u6700\u5927\u5BBD\u5EA6\uFF1A</span>\n                        <button id="' + width10 + '" class="left">10%</button>\n                        <button id="' + width30 + '" class="left">30%</button>\n                        <button id="' + width50 + '" class="left">50%</button>\n                        <button id="' + width100 + '" class="left">100%</button>\n<input id ="' + widthPercent + '" type="text" style="width:50%" placeholder="请输入百分比"/><button id="' + percentBtn + '" class="gray">确定</button>\n                    </div>\n                    <div class="w-e-button-container">\n                        <button id="' + delBtn + '" class="gray left">\u5220\u9664\u56FE\u7247</button>\n                    </dv>\n                </div>',
             events: [{
+                selector: '#' + percentBtn,
+                type: 'click',
+                fn: function fn() {
+                    var $img = editor._selectedImg;
+                    if ($img) {
+                        var $widthPercent = $('#' + widthPercent);
+                        var percentval = $widthPercent.val().trim();
+                        if(percentval){
+                            var patt1 = /^\d+%$/;
+                            if(percentval && patt1.test(percentval)) {
+                                $img.css('max-width', percentval);
+                            }
+                        }
+                    }
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    return true;
+                }
+            },{
+                selector: '#' + width10,
+                type: 'click',
+                fn: function fn() {
+                    var $img = editor._selectedImg;
+                    if ($img) {
+                        $img.css('max-width', '10%');
+                    }
+                    // 返回 true，表示该事件执行完之后，panel 要关闭。否则 panel 不会关闭
+                    return true;
+                }
+            },{
                 selector: '#' + width30,
                 type: 'click',
                 fn: function fn() {

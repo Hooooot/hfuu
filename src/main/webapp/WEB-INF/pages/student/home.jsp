@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%--
   Created by IntelliJ IDEA.
   User: 16688
@@ -55,6 +57,7 @@
 
         .floatright {
             float: right;
+            text-align:left;
             margin-right: 50px;
         }
 
@@ -65,78 +68,47 @@
 
 <body>
 <div class="layui-collapse " id="content">
-    <div class="layui-colla-item clearfix">
-        <h2 class="layui-colla-title">Python<span class="positionRight">待加功能<em
-                class="layui-hide">这是个测试</em></span><span class="positionRight time">2019-10-01<em class="layui-hide">最近的截止提交时间</em></span>
-            <span class="positionRight">3/5<em class="layui-hide">作业已提交数/总作业数</em></span>
-        </h2>
-        <div class="layui-colla-content">
-            <div class="positionLeft">任课考试：XXX</div>
-            <div class="positionLeft">实验课时：XXX</div>
-            <div class="experiment"><span>实验1:图像梳理的基本操作</span>
-                <div class="layui-btn-group floatright">
-                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验1:图像梳理的基本操作">编辑
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验1:图像梳理的基本操作">上传
-                    </button>
-                </div>
-                <em class="floatright">上传时间：--:--:--</em>
-                <span class="time floatright" style="margin-left: -50px;">2018-10-10 24:00:00</span>
-                <span class="floatright">截止时间:</span>
-                <em class="floatright">分数：00</em>
-            </div>
-            <div class="experiment"><span>实验2:图像的傅里叶变换</span>
-                <div class="layui-btn-group floatright">
-                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验2:图像的傅里叶变换">编辑
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验2:图像的傅里叶变换">上传</button>
-                </div>
-                <em class="floatright">上传时间：--:--:--</em>
-                <span class="time floatright" style="margin-left: -50px;">2018-12-10 24:00:00</span>
-                <span class="floatright">截止时间:</span>
-                <em class="floatright">分数：00</em>
-            </div>
-            <div class="experiment"><span>实验3:图像的卷积和滤波</span>
-                <div class="layui-btn-group floatright">
-                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验3:图像的卷积和滤波">编辑
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验3:图像的卷积和滤波">上传</button>
-                </div>
-                <em class="floatright">上传时间：--:--:--</em>
-                <span class="time floatright" style="margin-left: -50px;">2019-10-10 24:00:00</span>
-                <span class="floatright">截止时间:</span>
-                <em class="floatright">分数：00</em>
-            </div>
-            <div class="experiment"><span>实验4:图像的边缘检测</span>
-                <div class="layui-btn-group floatright">
-                    <button type="button" class="layui-btn layui-btn-primary edit" date-experiment="实验4:图像的边缘检测">编辑
-                    </button>
-                    <button type="button" class="layui-btn layui-btn-primary" date-experiment="实验4:图像的边缘检测">上传</button>
-                </div>
-                <em class="floatright">上传时间：--:--:--</em>
-                <span class="time floatright" style="margin-left: -50px;">2019-12-10 24:00:00</span>
-                <span class="floatright">截止时间:</span>
-                <em class="floatright">分数：00</em>
-            </div>
+    <c:forEach items="${student}" var="stu">
+        <c:forEach items="${stu.classEntity.coursesFromClass}" var="clas">
+            <div class="layui-colla-item clearfix">
+                <h2 class="layui-colla-title">${clas.cozName}<span class="positionRight">待加功能<em
+                        class="layui-hide">这是个测试</em></span><span class="positionRight time">2019-11-01<em
+                        class="layui-hide">最近的截止提交时间</em></span>
+                    <span class="positionRight">3/5
 
-        </div>
 
-    </div>
-    <div class="layui-colla-item clearfix">
-        <h2 class="layui-colla-title">数据结构<span class="positionRight">待加功能<em class="layui-hide">这是个测试</em></span><span
-                class="positionRight time">2019-09-21<em class="layui-hide">最近的截止提交时间</em></span>
-            <span class="positionRight">3/5<em class="layui-hide">作业已提交数</em></span></h2>
-        <div class="layui-colla-content">测试二</div>
-    </div>
-    <div class="layui-colla-item clearfix">
-        <h2 class="layui-colla-title">IavaWeb<span class="positionRight">待加功能<em
-                class="layui-hide">这是个测试</em></span><span class="positionRight time">2019-11-01<em class="layui-hide">最近的截止提交时间</em></span>
-            <span class="positionRight">3/5<em class="layui-hide">作业已提交数</em></span></h2>
-        <div class="layui-colla-content ">测试三</div>
-    </div>
+                        <em class="layui-hide">作业已提交数</em></span></h2>
 
-    <%--${stu.stuNum}<br>
-    ${stu.stuName}--%>
+                <div class="layui-colla-content">
+                    <div class="positionLeft">任课老师：${clas.tcEntity.tcName}</div>
+                    <div class="positionLeft">实验课时：XXX</div>
+                    <c:forEach items="${clas.tasksFromCoz}" var="task">
+                        <div class="experiment"><span>${task.taskName}</span>
+                            <div class="layui-btn-group floatright">
+                                <button type="button" class="layui-btn layui-btn-primary edit"
+                                        date-experiment="${task.taskName}">
+                                    编辑
+                                </button>
+                                <button type="button" class="layui-btn layui-btn-primary"
+                                        date-experiment="${task.taskName}">
+                                    上传
+                                </button>
+                            </div>
+                            <em class="floatright">上传时间：--:--:--</em>
+                            <span class="time floatright" style="margin-left: -50px;">${task.pubTime}</span>
+                            <span class="floatright">截止时间:</span>
+                            <c:forEach items="${task.submitsFromTask}" var="submit">
+                                <c:if test="${submit.stuEntity.stuNum eq studentLogin.stuNum}">
+                                    <em class="floatright">分数：${submit.score}
+                                    </em>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+                    </c:forEach>
+                </div>
+            </div>
+        </c:forEach>
+    </c:forEach>
 
 </div>
 <script src="layui/layui.all.js"></script>

@@ -39,7 +39,7 @@
                 <a href="javascript:;">锁屏</a>
             </li>
             <li class="layui-nav-item " lay-unselect>
-                <a href="javascript:;"><img src="images/face.jpg" class="layui-nav-img">我</a>
+                <a href="javascript:;"><img src="images/face.jpg" class="layui-nav-img">${studentLogin.stuName}</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
                     </dd>
@@ -67,7 +67,7 @@
                         <em>主页</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd class="comm"><a href="${crx}/homes">控制台</a></dd>
+                        <dd class="comm"><a href="${crx}/homes?studentNum= ${studentLogin.stuNum}">控制台</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -81,7 +81,7 @@
                             <a href="javascript:;">页面</a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="${crx}/test?asd=123456">测试</a>
+                                    <a href="${crx}/test?studentNum= ${studentLogin.stuNum}">测试</a>
                                 </dd>
                                 <dd>
                                     <a href="${crx}/uploads">上传</a>
