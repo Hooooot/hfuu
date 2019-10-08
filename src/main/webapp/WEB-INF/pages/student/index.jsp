@@ -67,7 +67,7 @@
                         <em>主页</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd class="comm"><a href="${crx}/homes?studentNum= ${studentLogin.stuNum}">控制台</a></dd>
+                        <dd class="comm"><a href="${crx}/homes?studentNum=${studentLogin.stuNum}">控制台</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">

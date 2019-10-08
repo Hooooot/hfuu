@@ -57,7 +57,7 @@
 
         .floatright {
             float: right;
-            text-align:left;
+            text-align: left;
             margin-right: 50px;
         }
 
@@ -68,16 +68,14 @@
 
 <body>
 <div class="layui-collapse " id="content">
+    <c:set var="i" value="0"></c:set>
     <c:forEach items="${student}" var="stu">
         <c:forEach items="${stu.classEntity.coursesFromClass}" var="clas">
             <div class="layui-colla-item clearfix">
                 <h2 class="layui-colla-title">${clas.cozName}<span class="positionRight">待加功能<em
                         class="layui-hide">这是个测试</em></span><span class="positionRight time">2019-11-01<em
                         class="layui-hide">最近的截止提交时间</em></span>
-                    <span class="positionRight">3/5
-
-
-                        <em class="layui-hide">作业已提交数</em></span></h2>
+                    <span class="positionRight">${ytj[i]}/${total[i]} <em class="layui-hide">作业已提交数</em></span></h2>
 
                 <div class="layui-colla-content">
                     <div class="positionLeft">任课老师：${clas.tcEntity.tcName}</div>
@@ -94,21 +92,36 @@
                                     上传
                                 </button>
                             </div>
-                            <em class="floatright">上传时间：--:--:--</em>
+                            <em class="floatright">提交时间：${submit.subTime}
+                            </em>
                             <span class="time floatright" style="margin-left: -50px;">${task.pubTime}</span>
-                            <span class="floatright">截止时间:</span>
+                            <span class="floatright">截止时间:--:--:--</span>
                             <c:forEach items="${task.submitsFromTask}" var="submit">
-                                <c:if test="${submit.stuEntity.stuNum eq studentLogin.stuNum}">
+                                    <%-- <c:if test="${submit.stuEntity.stuNum eq studentLogin.stuNum}">--%>
+                                         <em class="floatright">分数：${submit.score}
+                                         </em>
+                                     <%--</c:if>--%>
+                                 </c:forEach>
+
+                            <%--<c:forEach items="${task.submitsFromTask}" var="submit">
+
+                                <c:if test="${submit.stuEntity.stuNum == studentLogin.stuNum}">
+                                    <em class="floatright">提交时间：
+                                            ${submit.subTime}
+                                    </em>
                                     <em class="floatright">分数：${submit.score}
                                     </em>
                                 </c:if>
-                            </c:forEach>
+
+                            </c:forEach>--%>
                         </div>
                     </c:forEach>
                 </div>
             </div>
+            <c:set var="i" value="${i+1}"></c:set>
         </c:forEach>
     </c:forEach>
+
 
 </div>
 <script src="layui/layui.all.js"></script>

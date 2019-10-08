@@ -29,4 +29,6 @@ public class SubmitDaoImpl extends BaseDaoImpl<SubmitEntity> implements SubmitDa
         query.setParameter(1, state);
         return (Long) query.uniqueResult();
     }
+
+
 }

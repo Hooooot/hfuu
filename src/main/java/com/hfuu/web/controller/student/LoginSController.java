@@ -1,11 +1,10 @@
 package com.hfuu.web.controller.student;
 
-import com.hfuu.web.entity.ClassEntity;
-import com.hfuu.web.entity.CourseEntity;
-import com.hfuu.web.entity.StudentEntity;
-import com.hfuu.web.entity.TaskEntity;
+import com.hfuu.web.dao.SubmitDao;
+import com.hfuu.web.entity.*;
 import com.hfuu.web.service.CourseService;
 import com.hfuu.web.service.StuService;
+import com.hfuu.web.service.SubmitService;
 import com.hfuu.web.service.TaskService;
 import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 import org.springframework.stereotype.Controller;
@@ -19,6 +18,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author :
@@ -37,6 +37,8 @@ public class LoginSController {
     private TaskService taskService;
     @Resource
     private CourseService courseService;
+    @Resource
+    private SubmitService submitService;
 
     /**
      * 前往主页面
@@ -66,10 +68,42 @@ public class LoginSController {
      * @return
      */
     @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
-    public String toHomeS(@RequestParam(value = "studentNum", required = false) String studentNum,Model model) {
+    public String toHomeS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
         List<StudentEntity> studentEntities = stuService.findByHql("from StudentEntity s where s.stuNum=" + studentNum);
+        int[] total = {};//任务总数
+        int[] ytj = {};//待提交任务数
+        for (StudentEntity studentEntity : studentEntities) {
+            Set<CourseEntity> classEntities = studentEntity.getClassEntity().getCoursesFromClass();
+            int i = 0;
+            int courseCount = classEntities.size();
+            total = new int[courseCount];//任务总数
+            ytj = new int[courseCount];
+            for (CourseEntity courseEntity : classEntities) {
+                Set<TaskEntity> taskEntities = courseEntity.getTasksFromCoz();
+                int n = 0;
+                int m=0;
+                for (TaskEntity taskEntity : taskEntities) {
+                  Set<SubmitEntity> submitEntities=taskEntity.getSubmitsFromTask();
+                  for (SubmitEntity submitEntity:submitEntities){
+                      if(submitEntity.getStuEntity().getStuNum().equals(studentNum) && submitEntity.getSubState().equals("已批阅")){
+                          n++;
+                      }
+
+                      if(submitEntity.getStuEntity().getStuNum().equals(studentNum) && submitEntity.getSubState().equals("待批阅")){
+                          n++;
+                      }
+                  }
+
+                }
+                total[i] = taskEntities.size();
+                ytj[i] = n;
+                i++;
+            }
+        }
 
         model.addAttribute("student", studentEntities);
+        model.addAttribute("total", total);
+        model.addAttribute("ytj", ytj);
         return "student/home";
     }
 
@@ -80,14 +114,8 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public String toTestS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
-        List<StudentEntity> studentEntities = stuService.findByHql("from StudentEntity s where s.stuNum=" + studentNum);
 
-        model.addAttribute("student", studentEntities);
-        System.out.println(studentEntities.toString());
-        for(StudentEntity s:studentEntities){
-            System.out.println(s.getClassEntity().getCoursesFromClass().toString());
-        }
-
+        System.out.println(studentNum);
         return "student/test";
     }
 
