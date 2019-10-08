@@ -97,23 +97,12 @@
                             <span class="time floatright" style="margin-left: -50px;">${task.pubTime}</span>
                             <span class="floatright">截止时间:--:--:--</span>
                             <c:forEach items="${task.submitsFromTask}" var="submit">
-                                    <%-- <c:if test="${submit.stuEntity.stuNum eq studentLogin.stuNum}">--%>
-                                         <em class="floatright">分数：${submit.score}
-                                         </em>
-                                     <%--</c:if>--%>
-                                 </c:forEach>
+                                <%--<c:if test="${submit.stuEntity.stuNum eq studentLogin.stuNum}">--%>
+                                <em class="floatright">分数：${submit.score}
+                                </em>
+                               <%-- </c:if>--%>
+                            </c:forEach>
 
-                            <%--<c:forEach items="${task.submitsFromTask}" var="submit">
-
-                                <c:if test="${submit.stuEntity.stuNum == studentLogin.stuNum}">
-                                    <em class="floatright">提交时间：
-                                            ${submit.subTime}
-                                    </em>
-                                    <em class="floatright">分数：${submit.score}
-                                    </em>
-                                </c:if>
-
-                            </c:forEach>--%>
                         </div>
                     </c:forEach>
                 </div>

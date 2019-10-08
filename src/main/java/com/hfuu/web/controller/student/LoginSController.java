@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -81,10 +83,18 @@ public class LoginSController {
             for (CourseEntity courseEntity : classEntities) {
                 Set<TaskEntity> taskEntities = courseEntity.getTasksFromCoz();
                 int n = 0;
-                int m=0;
                 for (TaskEntity taskEntity : taskEntities) {
                   Set<SubmitEntity> submitEntities=taskEntity.getSubmitsFromTask();
+                    Iterator<SubmitEntity> iterator=submitEntities.iterator();
+                    while (iterator.hasNext()){//删除非此用户的提交信息
+                        SubmitEntity submit=iterator.next();
+                        if(!submit.getStuEntity().getStuNum().equals(studentNum)){
+                            iterator.remove();
+                        }
+                    }
+
                   for (SubmitEntity submitEntity:submitEntities){
+
                       if(submitEntity.getStuEntity().getStuNum().equals(studentNum) && submitEntity.getSubState().equals("已批阅")){
                           n++;
                       }
@@ -94,12 +104,15 @@ public class LoginSController {
                       }
                   }
 
+                  System.out.println(studentEntities.toString());
+
                 }
                 total[i] = taskEntities.size();
                 ytj[i] = n;
                 i++;
             }
         }
+
 
         model.addAttribute("student", studentEntities);
         model.addAttribute("total", total);
