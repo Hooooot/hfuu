@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -24,16 +25,34 @@
         </fieldset>
         <table border="1px" style="text-align: center">
             <tr>
-                <td>任务名称</td><td>学生人数</td><td>待提交数</td><td>待批阅数</td><td>已批阅数</td>
+                <td>任务名称</td>
+                <td>学生人数</td>
+                <td>待提交数</td>
+                <td>待批阅数</td>
+                <td>已批阅数</td>
+                <td>学生完成率</td>
+                <td>教师批改率</td>
             </tr>
             <c:set var="i" value="0"></c:set>
             <c:forEach items="${tasks}" var="task">
                 <tr>
-                    <td>${task.taskName}</td>
+                    <td>《${task.cozEntity.cozName}》${task.taskName}</td>
                     <td>${total[i]}</td>
                     <td>${dtj[i]}</td>
                     <td>${dpy[i]}</td>
                     <td>${ypy[i]}</td>
+                    <c:if test="${total[i]==0}">
+                        <td>0%</td>
+                    </c:if>
+                    <c:if test="${total[i]!=0}">
+                        <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="1" value="${1-dtj[i]/total[i]}"/></td>
+                    </c:if>
+                    <c:if test="${(total[i]-dtj[i])==0}">
+                        <td>0%</td>
+                    </c:if>
+                    <c:if test="${(total[i]-dtj[i])!=0}">
+                        <td><fmt:formatNumber type="percent" maxIntegerDigits="3" value="${dpy[i]/(total[i]-dtj[i])}"/></td>
+                    </c:if>
                 </tr>
             <c:set var="i" value="${i+1}"></c:set>
             </c:forEach>

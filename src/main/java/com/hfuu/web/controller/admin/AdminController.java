@@ -112,7 +112,7 @@ public class AdminController {
         for (DepEntity dep : deps){
             //获取某院系所有任务
             List<TaskEntity> tasks = taskService.findByHql(
-                    "from TaskEntity t where t.cozEntity.depEntity.depId = ? ", dep.getDepId());
+                    "from TaskEntity t where t.tcEntity.depEntity.depId = ? ", dep.getDepId());
             //初始化各项数据为0
             Long zero = new Long(0);
             dtj[i] = zero;
