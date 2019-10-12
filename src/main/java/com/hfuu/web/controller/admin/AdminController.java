@@ -1,9 +1,6 @@
 package com.hfuu.web.controller.admin;
 
-import com.hfuu.web.entity.AdminEntity;
-import com.hfuu.web.entity.CourseEntity;
-import com.hfuu.web.entity.DepEntity;
-import com.hfuu.web.entity.TaskEntity;
+import com.hfuu.web.entity.*;
 import com.hfuu.web.service.*;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -40,6 +37,8 @@ public class AdminController {
     private AdminService adminService;
     @Resource
     private DepService depService;
+    @Resource
+    private TeacherService teacherService;
 
     /**
      * 前往管理员登录页
@@ -112,7 +111,7 @@ public class AdminController {
         for (DepEntity dep : deps){
             //获取某院系所有任务
             List<TaskEntity> tasks = taskService.findByHql(
-                    "from TaskEntity t where t.tcEntity.depEntity.depId = ? ", dep.getDepId());
+                    "from TaskEntity t where t.cozEntity.classEntity.depEntity.depId = ? ", dep.getDepId());
             //初始化各项数据为0
             Long zero = new Long(0);
             dtj[i] = zero;
@@ -185,5 +184,24 @@ public class AdminController {
         //重新注入session
         request.getSession().setAttribute("admin", newAdmin);
         return result;
+    }
+
+    @RequestMapping(value = {"/editTcInfo"}, method = RequestMethod.GET)
+    public String toEditTcInfo(Model model) {
+        List<TeacherEntity> tcs = teacherService.findAll();
+        List<DepEntity> deps = depService.findAll();
+        model.addAttribute("deps", deps);
+        model.addAttribute("tcs", tcs);
+        return "admin/editTcInfo";
+    }
+
+    @RequestMapping(value = {"/editTcInfoSubmit"}, method = RequestMethod.POST)
+    @ResponseBody
+    public void editTcInfoSubmit(TeacherEntity tc, String depNum){
+        TeacherEntity newTc = teacherService.findById(tc.getTcId());
+        DepEntity dep = (DepEntity) depService.findByHql("from DepEntity where depNum = ?", depNum).get(0);
+        newTc.setDepEntity(dep);
+        newTc.setTcPw(tc.getTcPw());
+        teacherService.update(newTc);
     }
 }

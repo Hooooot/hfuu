@@ -1,15 +1,15 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 浅忆
-  Date: 2019/9/8
+  Date: 2019/9/28
   Time: 21:16
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>修改个人信息</title>
+    <title>修改个管理员个人信息</title>
     <link rel="stylesheet" href="../layui/css/layui.css"/>
     <style>
         body{padding:25px 25px 0 0; font-size:14px; background:#fff; width:90%; margin:0 auto; font-size:14px; line-height:20px; overflow:hidden;}
@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<form class="layui-form" method="post" enctype="multipart/form-data" id="updateUserForm">
+<form class="layui-form" method="post" enctype="multipart/form-data" id="updateAdminForm">
     <input type="hidden" name="adminId" value="${admin.adminId}">
     <div class="layui-form-item">
         <label class="layui-form-label">姓名</label>
@@ -60,7 +60,7 @@
     $(function() {
         $("#editButton").click(
             function(){
-                var formDate = new FormData($("#updateUserForm")[0]);
+                var formDate = new FormData($("#updateAdminForm")[0]);
                 $.ajax({
                     type: "POST",
                     dataType: "text",

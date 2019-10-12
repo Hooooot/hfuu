@@ -63,10 +63,10 @@
                 <li class="layui-nav-item">
                     <a href="javascript:;">
                         <i class="layui-icon layui-icon-app"></i>
-                        <em>其他功能</em>
+                        <em>数据导入</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;">功能三</a></dd>
+                        <dd><a href="javascript:;">导入课程信息</a></dd>
                         <dd><a href="javascript:;">功能四</a></dd>
                     </dl>
                 </li>
@@ -77,7 +77,7 @@
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="${adm}/editAdminInfo">修改个人资料</a></dd>
-                        <dd><a href="javascript:;">功能六</a></dd>
+                        <dd><a href="${adm}/editTcInfo">更新教师信息</a></dd>
                     </dl>
                 </li>
             </ul>
