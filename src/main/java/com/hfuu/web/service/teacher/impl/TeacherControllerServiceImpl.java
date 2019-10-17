@@ -1,14 +1,16 @@
 package com.hfuu.web.service.teacher.impl;
 
 import com.hfuu.web.dao.CourseDao;
-import com.hfuu.web.dao.DepDao;
+import com.hfuu.web.dao.TeacherDao;
 import com.hfuu.web.dao.base.BaseDao;
+import com.hfuu.web.entity.CourseEntity;
 import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.service.base.BaseServiceImpl;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +26,8 @@ import java.util.Map;
 public class TeacherControllerServiceImpl extends BaseServiceImpl implements TeacherControllerService {
     @Resource
     private CourseDao courseDao;
+    @Resource
+    private TeacherDao teacherDao;
 
     @Override
     public BaseDao getBaseDao() {
@@ -31,12 +35,35 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     }
 
     @Override
-    public Map getCourseByTeacherNum(String tcNum) {
+    public Map<String, List<CourseEntity>> getCourseByTeacherNum(String tcNum) {
         TeacherEntity tc = new TeacherEntity();
         tc.setTcNum(tcNum);
-        List list= courseDao.findByHql("from CourseEntity c where c.tcEntity=?", tc);
-        Map<String, Object> map = new HashMap<>(1);
-        map.put("result", list);
+        List<CourseEntity> list= courseDao.findByHql("from CourseEntity c where c.tcEntity=?", tc);
+        return this.groupByCozName(list);
+    }
+
+    @Override
+    public TeacherEntity login(String name, String pw) {
+        return teacherDao.getTeacherByNameAndPw(name, pw);
+    }
+
+    @Override
+    public Map<String, List<CourseEntity>> groupByCozName(List<CourseEntity> list) {
+        if (list == null){
+            return null;
+        }
+        Map<String, List<CourseEntity>> map = new HashMap<>(5);
+        for(CourseEntity c : list){
+            if(map.containsKey(c.getCozName())){
+                List<CourseEntity> li = map.get(c.getCozName());
+                li.add(c);
+                map.put(c.getCozName(), li);
+            }else{
+                List<CourseEntity> li = new ArrayList<>();
+                li.add(c);
+                map.put(c.getCozName(), li);
+            }
+        }
         return map;
     }
 }

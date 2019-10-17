@@ -60,7 +60,7 @@ layui.define(['element', 'layer'], function (exports) {
         return isDevice('mobile');
     };
 
-    var Tab = function (el) {
+    let Tab = function (el) {
         this.el = el;
         this.urls = [];
     };
@@ -69,7 +69,7 @@ layui.define(['element', 'layer'], function (exports) {
         if(title.search("首页")!==-1){
             title="首页";
         }
-        var refresh = document.createElement("i");
+        let refresh = document.createElement("i");
         refresh.setAttribute("class", "layui-icon layui-icon-refresh");
         refresh.setAttribute("style", "margin-left:10px;font-size:14px;");
         refresh.setAttribute("onmousedown", "if(event.button == 0){this.classList.remove('layui-icon-refresh'); this.classList.add('layui-icon-refresh-3');}");
@@ -81,7 +81,7 @@ layui.define(['element', 'layer'], function (exports) {
     };
 
     Tab.prototype.content = function (src) {
-        var iframe = document.createElement("iframe");
+        let iframe = document.createElement("iframe");
         iframe.setAttribute("frameborder", "0");
         iframe.setAttribute("src", src);
         iframe.setAttribute("data-id", this.urls.length);
@@ -130,7 +130,7 @@ layui.define(['element', 'layer'], function (exports) {
 
         $('#Nav a').on('click', function (event) {
             event.preventDefault();
-            var $this = $(this), url = $this.attr('href'),
+            let $this = $(this), url = $this.attr('href'),
                 title = $.trim($this.text());
             if (url && url !== 'javascript:;') {
                 if (tabs.is(url)) {

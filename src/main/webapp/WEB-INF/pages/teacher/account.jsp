@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../css/teacher/account.css">
     <script src="../layui/layui.js"></script>
     <script src="../js/teacher/account.js"></script>
+    <link rel="icon" href="../images/favicon.ico">
     <title>帐号信息</title>
 </head>
 <body>

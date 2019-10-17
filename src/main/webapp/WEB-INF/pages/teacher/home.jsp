@@ -15,7 +15,6 @@
     <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../layui/css/admin.css">
-    <%--自定义图标--%>
     <link rel="stylesheet" href="../css/teacher/lock.css">
     <script src="../layui/layui.js"></script>
     <script src="../js/teacher/lock.js"></script>
@@ -72,7 +71,7 @@
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
-                    <a href="console">
+                    <a href="console?tcNum=${teacher.tcNum}">
                         <i class="layui-icon">&#xe609;</i>
                         <em>首页</em>
                     </a>
@@ -131,7 +130,7 @@
     </div>
 
     <div class="layui-footer">
-        <p class="ai-enter maker-footer">2019<a href="http://www.hfuu.edu.cn/" target="_blank">合肥学院</a></p>
+        <p class="maker-footer"><i class="layui-icon layui-icon-website"></i>&nbsp;2019&nbsp;<a href="http://www.hfuu.edu.cn/" target="_blank">合肥学院</a></p>
     </div>
 
     <div class="mobile-mask"></div>

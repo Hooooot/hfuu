@@ -1,6 +1,8 @@
+let jsonData = "{\"count\":8,\"msg\":\"\",\"code\":0,\"data\":[{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"},{\"age\":21,\"username\":\"whh\"}]}";
 table.render({
-    elem: '#data_table1'
-    ,url:'./json_test'
+    elem: '#data_table1' // 修改
+    // ,url:'./json_test'
+    ,data: jsonData
     ,even: true
     ,where: {
         "page" : "1"
@@ -37,7 +39,7 @@ table.render({
 });
 
 //头工具栏事件
-table.on('toolbar(data_table1)', function(obj){
+table.on('toolbar(data_table1)', function(obj){ // 修改
     let checkStatus = table.checkStatus(obj.config.id);
     let data;
     switch(obj.event){

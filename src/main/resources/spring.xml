@@ -10,20 +10,16 @@
 	    http://www.springframework.org/schema/tx/spring-tx.xsd ">
 
     <!--配置spring的扫描的注解，不扫描Controller、ControllerAdvice，目的和spring mvc区别开 ,避免重复扫描 -->
-    <context:component-scan
-            base-package="com.hfuu.web">
+    <context:component-scan base-package="com.hfuu.web">
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
         <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
 
     <!--扫描配置文件(这里指向的是之前配置的那个config.properties) -->
-    <context:property-placeholder
-            location="classpath:/database.properties" />
+    <context:property-placeholder location="classpath:/database.properties" />
 
     <!--配置数据源 -->
-    <bean id="dataSource"
-          class="com.mchange.v2.c3p0.ComboPooledDataSource"
-          destroy-method="close">
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driver}" />  <!--数据库连接驱动 -->
         <property name="jdbcUrl" value="${jdbc.url}" />     <!--数据库地址 -->
         <property name="user" value="${jdbc.username}" />   <!--用户名 -->
