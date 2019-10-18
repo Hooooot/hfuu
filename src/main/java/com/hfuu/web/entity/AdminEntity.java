@@ -2,6 +2,8 @@ package com.hfuu.web.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -157,7 +159,18 @@ public class AdminEntity implements Serializable {
 
     @Override
     public String toString() {
-        String admin = "[#" + adminId + ": " + adminNum + ", " + adminName + ", " + adminSex +", " + adminPhone + "]";
-        return admin;
+        return "[#" + adminId + ": " + adminNum + ", " + adminName + ", " + adminSex +", " + adminPhone + "]";
+    }
+
+    public Map<String, Object> toMap(){
+        Map<String, Object> map = new HashMap<>(7);
+        map.put("adminId", adminId);
+        map.put("adminNum", adminNum);
+        map.put("adminName", adminName);
+        map.put("adminPw", adminPw);
+        map.put("adminSex", adminSex);
+        map.put("adminPhone", adminPhone);
+        map.put("adminAvatar", adminAvatar);
+        return map;
     }
 }

@@ -80,10 +80,9 @@ public class TeacherHomeController {
     @RequestMapping(value = {"/teacher/json_test"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
     public Map<String, Object>jsonTest(String cozName, Model model){
         Map<String, Object> json = new HashMap<>(4);
-        System.out.println(cozName);
         TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List<CourseEntity> cozList = teacherControllerService.getCourseByTeacherNum(tc.getTcNum()).get(cozName);
-        List<Map> data = new ArrayList<Map>();
+        List<Map> data = new ArrayList<>();
         for (CourseEntity c : cozList){
             data.add(c.toMap());
         }

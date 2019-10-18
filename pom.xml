@@ -28,6 +28,7 @@
         <mysqlVersion>8.0.17</mysqlVersion>
         <c3p0Version>0.9.5.3</c3p0Version>
 <!--        <jacksonVersion>2.9.9.2</jacksonVersion>-->
+        <fastJsonVersion>1.2.62</fastJsonVersion>
         <jacksonVersion>2.9.8</jacksonVersion>
         <commons-fileuploadVersion>1.4</commons-fileuploadVersion>
         <commons-lang3Version>3.7</commons-lang3Version>
@@ -139,6 +140,14 @@
             <artifactId>jackson-annotations</artifactId>
             <version>2.9.8</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastJsonVersion}</version>
+        </dependency>
+
         <!-- SpringMVC中@ResponseBody依赖的jar包 end-->
 
         <!-- json解析器

@@ -3,6 +3,8 @@ package com.hfuu.web.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -139,7 +141,18 @@ public class SubmitEntity implements Serializable {
 
     @Override
     public String toString() {
-        String submit = "[#" + subId + ": " + taskEntity.getTaskId() + ", " + stuEntity.getStuNum() + ", " + subTime +", " + subState + ", " + score + "]";
-        return submit;
+        return "[#" + subId + ": " + taskEntity.getTaskId() + ", " + stuEntity.getStuNum() + ", " + subTime +", " + subState + ", " + score + "]";
+    }
+
+    public Map<String, Object> toMap(){
+        Map<String, Object> map = new HashMap<>(7);
+        map.put("subId", subId);
+        map.put("taskId", taskEntity.getTaskId());
+        map.put("studentNum", stuEntity.getStuNum());
+        map.put("subFile", subFile);
+        map.put("subTime", subTime);
+        map.put("subState", subState);
+        map.put("score", score);
+        return map;
     }
 }

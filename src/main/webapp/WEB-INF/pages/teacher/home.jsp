@@ -85,17 +85,6 @@
                         <dd><a href="deploy_homework">发布作业</a></dd>
                         <dd>
                             <a href="already_homework">已发布作业</a>
-                            <%--                            <dl class="layui-nav-child">--%>
-                            <%--                                <dd>--%>
-                            <%--                                    <a href="test">测试</a>--%>
-                            <%--                                </dd>--%>
-                            <%--                                <dd>--%>
-                            <%--                                    <a href="uploads">上传</a>--%>
-                            <%--                                </dd>--%>
-                            <%--                                <dd>--%>
-                            <%--                                    <a href="uploadbars">进度条上传</a>--%>
-                            <%--                                </dd>--%>
-                            <%--                            </dl>--%>
                         </dd>
                     </dl>
                 </li>

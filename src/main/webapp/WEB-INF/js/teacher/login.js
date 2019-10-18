@@ -39,7 +39,6 @@ layui.use(['jquery', 'layer', 'form', 'upload', "cookie"], function () {
                        $.cookie("teacherName", "", {expires: -1, path: '/hfuu'});
                        $.cookie("teacherPw", "", {expires: -1, path: '/hfuu'});
                    }
-
                    window.location.href = data;
                }
            }

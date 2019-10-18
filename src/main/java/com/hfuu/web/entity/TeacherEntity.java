@@ -2,6 +2,8 @@ package com.hfuu.web.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
@@ -191,7 +193,21 @@ public class TeacherEntity implements Serializable {
 
     @Override
     public String toString() {
-        String teacher = "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex +", " + depEntity.getDepName() + "]";
-        return teacher;
+        return "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex +", " + depEntity.getDepName() + "]";
+    }
+
+    public Map<String, Object> toMap(){
+        Map<String, Object> map = new HashMap<>(10);
+        map.put("tcId", tcId);
+        map.put("tcNum", tcNum);
+        map.put("tcName", tcName);
+        map.put("tcPw", tcPw);
+        map.put("tcSex", tcSex);
+        map.put("tcPhone", tcPhone);
+        map.put("tcAvatar", tcAvatar);
+        map.put("courseSet", cozsFromTc);
+        map.put("taskSet", tasksFromTc);
+        map.put("depName", depEntity.getDepName());
+        return map;
     }
 }

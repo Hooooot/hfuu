@@ -84,6 +84,8 @@
                     <input type="checkbox" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
                 </div>
             </div>
+            <!-- 你的HTML代码 -->
+            <button type="button" id="plupload" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-upload"></i>上传测试</button>
 
             <div class="layui-upload">
                 <div class="layui-upload-drag" id="upload_drag" style="margin-left: 10px;">

@@ -147,14 +147,14 @@ public class CourseEntity implements Serializable {
                 ", " + tcEntity.getTcName() + ", " + term + "]";
     }
 
-    public Map toMap(){
-        Map<String, Object> map = new HashMap<>();
+    public Map<String, Object> toMap(){
+        Map<String, Object> map = new HashMap<>(7);
         map.put("cozId", cozId);
         map.put("cozNum", cozNum);
         map.put("cozName", cozName);
         map.put("tcName", tcEntity.getTcName());
         map.put("className", classEntity.getClassName());
-        map.put("taskCount", tasksFromCoz.size());
+        map.put("taskSet", tasksFromCoz);
         map.put("term", term);
         return map;
     }
