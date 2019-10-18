@@ -5,6 +5,7 @@ import com.hfuu.web.entity.CourseEntity;
 import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.others.ConstValues;
 import com.hfuu.web.others.utils.UploadFileUtils;
+import com.hfuu.web.service.TaskService;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -14,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Description : 教师页面首页控制器
@@ -33,6 +31,8 @@ public class TeacherHomeController {
     static private Logger log = Logger.getLogger(TeacherHomeController.class);
     @Resource
     TeacherControllerService teacherControllerService;
+    @Resource
+    TaskService taskService;
 
     @RequestMapping(value = {"/teacher/home"}, method = RequestMethod.GET)
     public String toHome(Model model){
@@ -84,7 +84,12 @@ public class TeacherHomeController {
         List<CourseEntity> cozList = teacherControllerService.getCourseByTeacherNum(tc.getTcNum()).get(cozName);
         List<Map> data = new ArrayList<>();
         for (CourseEntity c : cozList){
-            data.add(c.toMap());
+            Map<String, Object> m = c.toMap();
+            Set tasks = (Set)(m.get("taskSet"));
+            Map<String, Object> taskCount = taskService.getTaskClosedAndNotClosedCount(tasks);
+            m.put("taskCount", taskCount);
+            m.remove("taskSet");
+            data.add(m);
         }
         json.put("data", data);
         json.put("code", 0);

@@ -39,5 +39,5 @@ public interface TeacherControllerService extends BaseService {
      * @param list 要切片的列表
      * @return 按cozName分组的 Map<String, List<CourseEntity>>
      * */
-    Map groupByCozName(List<CourseEntity> list);
+    Map<String, List<CourseEntity>> groupByCozName(List<CourseEntity> list);
 }
