@@ -35,6 +35,7 @@ layui.extend({
         ,multiple: true
         ,auto: false
         ,bindAction: '#uploadAction'
+        ,data: {"pageId": $('meta[name="pageId"]').attr("content")}
         ,choose: function(obj){
             let files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
             //读取本地文件

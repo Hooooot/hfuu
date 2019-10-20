@@ -61,7 +61,6 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
             ,{fixed: 'right', title:'<div style="text-align: center;">操作</div>', toolbar: '#bar', width:160}
         ]]
     });
-
     //头工具栏事件
     table.on('toolbar(${this.layFilter})', function(obj){ // 修改
         let checkStatus = table.checkStatus(obj.config.id);
@@ -78,14 +77,12 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
             case 'isAll':
                 layer.msg(checkStatus.isAll ? '全选': '未全选');
                 break;
-
             //自定义头工具栏右侧图标 - 提示
             case 'LAYTABLE_TIPS':
                 layer.alert('这是工具栏右侧自定义的一个图标按钮');
                 break;
         }
     });
-
     //监听行工具事件
     table.on('tool(${this.layFilter})', function(obj){
         let data = obj.data;

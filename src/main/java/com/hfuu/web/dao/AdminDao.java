@@ -2,7 +2,6 @@ package com.hfuu.web.dao;
 
 import com.hfuu.web.dao.base.BaseDao;
 import com.hfuu.web.entity.AdminEntity;
-import org.springframework.stereotype.Repository;
 
 /**
  * @Description :
@@ -11,6 +10,5 @@ import org.springframework.stereotype.Repository;
  * 最后修改时间：
  * 最后修改人：
  */
-@Repository
 public interface AdminDao extends BaseDao<AdminEntity> {
 }

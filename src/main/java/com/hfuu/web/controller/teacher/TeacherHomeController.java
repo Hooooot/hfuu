@@ -78,7 +78,7 @@ public class TeacherHomeController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/json_test"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public Map<String, Object>jsonTest(String cozName, Model model){
+    public Map<String, Object> jsonTest(String cozName, Model model){
         Map<String, Object> json = new HashMap<>(4);
         TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List<CourseEntity> cozList = teacherControllerService.getCourseByTeacherNum(tc.getTcNum()).get(cozName);
@@ -100,9 +100,23 @@ public class TeacherHomeController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/upload"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map upload(@RequestParam("file") MultipartFile file, HttpSession session){
+    public Map upload(@RequestParam("file") MultipartFile file, @RequestParam("pageId") String pageId, HttpSession session) {
         Map<String, Integer> json = new HashMap<>(1);
-        UploadFileUtils.uploadFile(session, file, "files/");
+        String path = UploadFileUtils.uploadFile(session, file, "files/");
+        Map<String, String> tmpFilePath = (Map<String, String>)session.getAttribute(ConstValues.TEMP_FILE_PATH);
+        if(tmpFilePath != null) {
+            String paths = tmpFilePath.get(pageId);
+            if(paths != null){
+                paths = paths + path + ConstValues.PATH_SEPARATOR;
+            }else {
+                paths = path + ConstValues.PATH_SEPARATOR;
+            }
+            tmpFilePath.put(pageId, paths);
+        }else {
+            tmpFilePath = new HashMap<>(3);
+            tmpFilePath.put(pageId, path + ConstValues.PATH_SEPARATOR);
+        }
+        session.setAttribute(ConstValues.TEMP_FILE_PATH, tmpFilePath);
         json.put("code", 0);
         return json;
     }

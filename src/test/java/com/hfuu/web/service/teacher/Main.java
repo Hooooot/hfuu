@@ -1,9 +1,7 @@
 package com.hfuu.web.service.teacher;
 
-import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,19 +18,8 @@ public class Main {
 
     @Test
     public void test() throws IllegalAccessException {
-        Main m = new Main();
-        List<String> li = new ArrayList<>();
-        li.add("zs");
-        li.add("ls");
-        m.setId(12);
-        m.setName("whh");
-        m.setFriends(li);
-
-        JSONObject jsonObject = new JSONObject();
-        String json = JSONObject.toJSONString(m);
-        JSONObject js = JSONObject.parseObject(json);
-        System.out.println(json);
-        System.out.println(js);
+        String s = "files/163deb056c564ad58f359bfc74dd31b2.";
+        System.out.println(s.length());
     }
 
     public int getId() {

@@ -15,13 +15,15 @@
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
   </listener>
-
   <listener>
       <listener-class>com.hfuu.web.listener.student.AppListener</listener-class>
   </listener>
-    <listener>
-        <listener-class>com.hfuu.web.listener.teacher.TeacherListener</listener-class>
-    </listener>
+  <listener>
+    <listener-class>com.hfuu.web.listener.teacher.TeacherListener</listener-class>
+  </listener>
+  <listener>
+    <listener-class>com.hfuu.web.listener.SessionListener</listener-class>
+  </listener>
 
   <!-- spring mvc配置核心 -->
   <!-- spring MVC config start -->

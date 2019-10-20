@@ -1,3 +1,5 @@
+<%@ page import="java.util.UUID" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--
   Created by IntelliJ IDEA.
   User: 24469
@@ -5,7 +7,6 @@
   Time: 17:13
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -19,6 +20,7 @@
     <script src="../layui/layui.js"></script>
     <script src="../js/teacher/deploy_homework.js"></script>
     <link rel="icon" href="../images/favicon.ico">
+    <meta name="pageId" content="<%=UUID.randomUUID()%>">
     <title>deploy homework</title>
 </head>
 <body>

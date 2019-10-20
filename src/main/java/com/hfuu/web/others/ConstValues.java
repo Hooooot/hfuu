@@ -16,4 +16,14 @@ public class ConstValues {
      * 登录失败
      * */
     public static final String LOGIN_FAIL = "LOGIN_FAIL";
+
+    /**
+     * 上传文件的临时文件路径（保存到HttpSession的Key值）
+     * */
+    public static final String TEMP_FILE_PATH = "tempFilePath";
+
+    /**
+     * 文件路径的分隔符
+     * */
+    public static final String PATH_SEPARATOR = "; ";
 }

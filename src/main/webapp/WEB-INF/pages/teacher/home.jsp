@@ -52,7 +52,7 @@
                     <dd><a href="javascript:" class="showChangePassword">修改密码</a></dd>
                     <dd><a href="javascript:">退出</a></dd>
                     <%--                    公告系统，待定         --%>
-                    <%--                    <dd><a href="javascript:;" class="showNotice"><i--%>
+                    <%--                    <dd><a href="javascript:;;" class="showNotice"><i--%>
                     <%--                            class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a>--%>
                     <%--                    </dd>--%>
                 </dl>
@@ -98,13 +98,13 @@
                     </dl>
                 </li>
 
-                <%--隐藏区域--!!!!!!!!!!!!!!!!!!! --%>
-                <li class="layui-nav-item layui-hide">
-                    <dl class="layui-nav-child">
-                        <dd><a href="userinfos" class="userInfo">个人信息</a></dd>
-                        <dd><a href="personaldetas" class="changePassword">修改密码</a></dd>
-                    </dl>
-                </li>
+<%--                &lt;%&ndash;隐藏区域--!!!!!!!!!!!!!!!!!!! &ndash;%&gt;--%>
+<%--                <li class="layui-nav-item layui-hide">--%>
+<%--                    <dl class="layui-nav-child">--%>
+<%--                        <dd><a href="userinfos" class="userInfo">个人信息</a></dd>--%>
+<%--                        <dd><a href="personaldetas" class="changePassword">修改密码</a></dd>--%>
+<%--                    </dl>--%>
+<%--                </li>--%>
             </ul>
 
         </div>

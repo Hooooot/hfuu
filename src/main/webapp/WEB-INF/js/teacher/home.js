@@ -132,7 +132,7 @@ layui.define(['element', 'layer'], function (exports) {
             event.preventDefault();
             let $this = $(this), url = $this.attr('href'),
                 title = $.trim($this.text());
-            if (url && url !== 'javascript:;') {
+            if (url && url !== 'javascript:' && url !== "javascript:;") {
                 if (tabs.is(url)) {
                     tabs.change(url);
                 } else {

@@ -21,8 +21,8 @@ import java.util.Objects;
  * @Description :
  * @date : 2019/9/26 0:39
  * @author : Ciel-08
- * 最后修改时间：
- * 最后修改人：
+ * 最后修改时间：2019年10月21日 01点51分
+ * 最后修改人：whh0987@foxmail.com
  */
 @Entity
 @Table(name = "submit", schema = "hfuutest")
@@ -67,7 +67,7 @@ public class SubmitEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "subFile", nullable = true, length = 64)
+    @Column(name = "subFile", nullable = true, length = 320)
     public String getSubFile() {
         return subFile;
     }
