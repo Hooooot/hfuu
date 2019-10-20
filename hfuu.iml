@@ -4,8 +4,8 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="73684345-06f6-4f2e-a365-4b389ad1171f" />
-          <unit-entry name="sessionFactory" value="73684345-06f6-4f2e-a365-4b389ad1171f" />
+          <unit-entry name="hibernate.cfg.xml" value="9b0c08d0-c7b5-4829-ab73-22074a613a1c" />
+          <unit-entry name="sessionFactory" value="9b0c08d0-c7b5-4829-ab73-22074a613a1c" />
         </datasource-map>
         <naming-strategy-map />
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/hibernate.cfg.xml" />
@@ -29,7 +29,10 @@
         <webroots>
           <root url="file://$MODULE_DIR$/src/main/webapp" relative="/" />
         </webroots>
-        <sourceRoots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
       </configuration>
     </facet>
   </component>
