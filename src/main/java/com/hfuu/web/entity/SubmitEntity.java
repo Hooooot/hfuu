@@ -155,4 +155,5 @@ public class SubmitEntity implements Serializable {
         map.put("score", score);
         return map;
     }
+
 }

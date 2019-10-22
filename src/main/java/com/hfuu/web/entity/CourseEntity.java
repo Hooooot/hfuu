@@ -158,4 +158,5 @@ public class CourseEntity implements Serializable {
         map.put("term", term);
         return map;
     }
+
 }

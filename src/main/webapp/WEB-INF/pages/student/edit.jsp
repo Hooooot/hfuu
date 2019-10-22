@@ -30,9 +30,8 @@
 
 
 <h1 style="text-align: center;margin: 10px;"></h1>
+<h3 style="text-align: center;margin: 10px;"></h3>
 <div id="editor">
-    <p class="removeContent">输入实验报告内容</p>
-    <div class="appendContent"></div>
 </div>
 
 
@@ -48,26 +47,29 @@
 <script src="layui/layui.all.js"></script>
 <script>
 
-
     layui.use(['element', 'jquery', 'layer', 'upload'], function () {
         var $ = layui.$,
             layer = layui.layer,
             upload = layui.upload,
             element = layui.element;
-        var text = localStorage.getItem("text");//获取传值 实验名称
-        localStorage.removeItem("text");
+
+        var taskName;//实验名称
+        var taskDesc;//实验描述
 
         $(document).ready(function () {
             //实验名称
-            getExperimentName();
-            //富文本内删除指定内容
-            $('.removeContent').remove();
-            //向富文本编辑器追加内容
-            $('.appendContent').append("<h2>追加内容</h2>");
+            getExperiment();
+
         });
 
-        function getExperimentName() {
-            $("h1").text(text);
+        function getExperiment() {
+            //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
+            var parent_json = eval('('+parent.json+')');
+            //console.log(parent_json.taskDesc);
+            taskName=parent_json.taskName;
+            taskDesc=parent_json.taskDesc;
+            $("h1").text(taskName);
+            $("h3").text(taskDesc);
         }
 
 
@@ -139,7 +141,7 @@
                 // insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
 
                 // 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片：
-                var url = result.data
+                var url = result.data;
                 insertImg(url)
                 // result 必须是一个 JSON 格式字符串！！！否则报错
             }
@@ -159,10 +161,10 @@
         }, false);
 
         document.getElementById('btn3').addEventListener('click', function () {
-            var json = editor.txt.getJSON()  // 获取 JSON 格式的内容
-            var jsonStr = JSON.stringify(json)
-            console.log(json)
-            console.log(jsonStr)
+            var json = editor.txt.getJSON();  // 获取 JSON 格式的内容
+            var jsonStr = JSON.stringify(json);
+            console.log(json);
+            console.log(jsonStr);
             alert(jsonStr)
         });
 
@@ -174,7 +176,7 @@
 
                 type: 1,
                 area: ['100%', '100%'],
-                title: [text, 'font-size:18px;text-align: center;'],
+                title: [taskName, 'font-size:18px;text-align: center;'],
                 id: '_txt', //设定一个id，防止重复弹出
                 shadeClose: true,
                 anim: 2,
@@ -187,7 +189,7 @@
             $.ajax({
                 type:"POST",
                 url:'saveHtml',
-                data:{'content':editor.txt.html(),'experimentalName':text},//experimentalName实验名称
+                data:{'content':editor.txt.html(),'experimentalName':taskName},//experimentalName实验名称
                 dataType:"json",
                 success:function (data) {
                     if(data && data.success=="true"){
@@ -198,9 +200,6 @@
                 }
             })
         });
-
-
-
     });
 </script>
 </body>

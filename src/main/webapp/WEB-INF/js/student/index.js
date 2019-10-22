@@ -26,7 +26,8 @@ function getLangDate(){
 
 layui.define(['element','layer'],function(exports){
 
-    var $ = layui.$, $body = $('body'),
+    var $ = layui.$,
+        $body = $('body'),
         element = layui.element,
         layer = layui.layer;
 
@@ -34,7 +35,7 @@ layui.define(['element','layer'],function(exports){
         pc : [991, -1],
         pad : [768, 990],
         mobile : [0, 767]
-    }
+    };
 
     var getDevice = function(){
         var width = $(window).width();//获取页面宽度

@@ -6,28 +6,22 @@ import com.hfuu.web.service.CourseService;
 import com.hfuu.web.service.StuService;
 import com.hfuu.web.service.SubmitService;
 import com.hfuu.web.service.TaskService;
+import com.hfuu.web.service.student.StudentControllerService;
 import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
- * @author :
- * 最后修改时间：
- * 最后修改人：
- * @Description :
- * @date :
+ * @Description //TODO
+ * @Author Starry the Night
+ * @Date 2019/10/15 15:06
+ * @return
  */
 @Controller
 @RequestMapping("")
@@ -36,11 +30,7 @@ public class LoginSController {
     @Resource
     private StuService stuService;
     @Resource
-    private TaskService taskService;
-    @Resource
-    private CourseService courseService;
-    @Resource
-    private SubmitService submitService;
+    StudentControllerService studentControllerService;
 
     /**
      * 前往主页面
@@ -71,54 +61,27 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
     public String toHomeS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
-        List<StudentEntity> studentEntities = stuService.findByHql("from StudentEntity s where s.stuNum=" + studentNum);
-        int[] total = {};//任务总数
-        int[] ytj = {};//待提交任务数
-        for (StudentEntity studentEntity : studentEntities) {
-            Set<CourseEntity> classEntities = studentEntity.getClassEntity().getCoursesFromClass();
-            int i = 0;
-            int courseCount = classEntities.size();
-            total = new int[courseCount];//任务总数
-            ytj = new int[courseCount];
-            for (CourseEntity courseEntity : classEntities) {
-                Set<TaskEntity> taskEntities = courseEntity.getTasksFromCoz();
-                int n = 0;
-                for (TaskEntity taskEntity : taskEntities) {
-                  Set<SubmitEntity> submitEntities=taskEntity.getSubmitsFromTask();
-                    Iterator<SubmitEntity> iterator=submitEntities.iterator();
-                    while (iterator.hasNext()){//删除非此用户的提交信息
-                        SubmitEntity submit=iterator.next();
-                        if(!submit.getStuEntity().getStuNum().equals(studentNum)){
-                            iterator.remove();
-                        }
-                    }
-
-                  for (SubmitEntity submitEntity:submitEntities){
-
-                      if(submitEntity.getStuEntity().getStuNum().equals(studentNum) && submitEntity.getSubState().equals("已批阅")){
-                          n++;
-                      }
-
-                      if(submitEntity.getStuEntity().getStuNum().equals(studentNum) && submitEntity.getSubState().equals("待批阅")){
-                          n++;
-                      }
-                  }
-
-                  System.out.println(studentEntities.toString());
-
-                }
-                total[i] = taskEntities.size();
-                ytj[i] = n;
-                i++;
-            }
-        }
-
-
-        model.addAttribute("student", studentEntities);
-        model.addAttribute("total", total);
-        model.addAttribute("ytj", ytj);
+        //学号
+        Map map=studentControllerService.getCourseByStuNum(studentNum);
+        System.out.println(map);
+        model.addAttribute("course",map);
         return "student/home";
     }
+
+
+    @ResponseBody
+    @RequestMapping(value = {"/json_test"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
+    public Map<String, Object> jsonCourse(String stuNum,String cozName){
+        Map<String, Object> json=new HashMap<>(4);
+        List<Map> data=studentControllerService.getTaskFromCourse(stuNum,cozName);
+        json.put("data", data);
+        json.put("code", 0);
+        json.put("count", data.size());
+        json.put("msg", "");
+        System.out.println(data);
+        return  json;
+    }
+
 
     /**
      * 测试子界面--测试
@@ -127,7 +90,6 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
     public String toTestS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
-
         System.out.println(studentNum);
         return "student/test";
     }
@@ -144,32 +106,12 @@ public class LoginSController {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*@RequestMapping(value = {"/uindex"}, method = RequestMethod.GET)
-    public String toUindex(@RequestParam(value = "asd", required = false) String asd) {
-        System.err.println(asd);
-        return "student/uindex";
-    }*/
-
-
     /**
-     * 前往子界面--登录
-     *
-     * @return
+     * @param
+     * @return java.lang.String
+     * @Description: //TODO
+     * @Author: Starry the Night
+     * @Date: 2019/10/18 20:58
      */
     @RequestMapping(value = {"/logins"}, method = RequestMethod.GET)
     public String toLoginS() {
@@ -194,6 +136,8 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/personaldetas"}, method = RequestMethod.GET)
     public String toPersonalDetaS() {
+
+
         return "student/personaldeta";
     }
 
@@ -214,6 +158,19 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/uploads"}, method = RequestMethod.GET)
     public String toUploadS() {
+        //学号
+        String stuNum = "1706072019";
+        //课程名称
+        String cozName = "数据结构与算法";
+        //判断传入的参数，
+       /* if(stuNum == null||cozName==null){
+            return;
+        }
+*/
+        List<Map> data=studentControllerService.getTaskFromCourse(stuNum,cozName);
+        System.out.println(data);
+
+
         return "student/upload";
     }
 
@@ -225,6 +182,12 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/uploadbars"}, method = RequestMethod.GET)
     public String toUpTestS() {
+
+        //学号
+        String stuNum = "1706072019";
+
+        Map map=studentControllerService.getCourseByStuNum(stuNum);
+        System.out.println(map);
         return "student/uploadBar";
     }
 }
