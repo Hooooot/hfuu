@@ -104,7 +104,7 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
             json = JSON.stringify(data);
             layer.open({
                 type: 2,
-                area: ['99%', '98%'],
+                area: ['80%', '90%'],
                 title: false,
                 shadeClose: true,
                 content: './edits',

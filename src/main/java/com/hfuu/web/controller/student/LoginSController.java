@@ -107,18 +107,6 @@ public class LoginSController {
 
 
     /**
-     * @param
-     * @return java.lang.String
-     * @Description: //TODO
-     * @Author: Starry the Night
-     * @Date: 2019/10/18 20:58
-     */
-    @RequestMapping(value = {"/logins"}, method = RequestMethod.GET)
-    public String toLoginS() {
-        return "student/login";
-    }
-
-    /**
      * 前往子界面--控制台
      *
      * @return

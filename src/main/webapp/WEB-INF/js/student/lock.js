@@ -61,33 +61,13 @@ layui.define(['element', 'form', "layer"], function(exports) {
         }
     });
 
-    /*获取项目的根路径*/
-   /* function progecepath() {
-        return window.document.location.href;
-    };*/
-
     /*弹出框 */
     $('.showNotice').on('click', function(event) {
-        /*layer.tab({
-            area: ['600px', '300px'],
-            tab: [{
-                title: 'TAB1',
-                content: '内容1'
-            }, {
-                title: 'TAB2',
-                content: '内容2'
-            }, {
-                title: 'TAB3',
-                content: '内容3'
-            }]
-        });*/
-
         layer.open({
 
             type: 2,
             area: ['60%', '500px'],
             title: false,
-            id: 'LAY_layuipro', //设定一个id，防止重复弹出
             shadeClose: true,
             content: 'http://localhost:8080/hfuu/'+ 'logins',
 

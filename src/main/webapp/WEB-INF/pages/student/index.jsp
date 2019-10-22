@@ -99,7 +99,7 @@
                         <em>用户</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="${crx}/logins">登录</a></dd>
+                        <dd><a href="">登录</a></dd>
                     </dl>
                 </li>
 

@@ -12,6 +12,7 @@ layui.use(['form','layer','upload','laydate',"address"],function(){
         laydate = layui.laydate,
         address = layui.address;
 
+
   //上传头像
     upload.render({
         elem: '.userFaceBtn',
