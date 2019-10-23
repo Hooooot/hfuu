@@ -18,13 +18,15 @@ import java.util.Set;
         （tNum可以通过cozId查询course表获得，方便起见单独设立字段）
  *  pubTime:布置任务的时间，默认为当前系统时间。数据类型Timestamp
  *  deadline:任务提交的截至时间，建议在教师未设置的情况下设置为七天后。数据类型Timestamp
+ *  taskFiles:任务附件上传路径
+ *
  */
 /**
  * @Description :
  * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：2019/10/04 13:38
- * 最后修改人：Ciel-08
+ * 最后修改人：STARRY THE NIGHT
  */
 @Entity
 @Table(name = "task", schema = "hfuutest")
@@ -34,6 +36,7 @@ public class TaskEntity implements Serializable {
     private String taskDesc;
     private Timestamp pubTime;
     private Timestamp deadline;
+    private String taskFiles;
     private CourseEntity cozEntity;
     private TeacherEntity tcEntity;
     private Set<SubmitEntity> submitsFromTask;
@@ -60,7 +63,17 @@ public class TaskEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "taskDesc", nullable = true, length = 128)
+    @Column(name = "taskFiles", nullable = true, length = 64)
+    public String getTaskFiles() {
+        return taskFiles;
+    }
+
+    public void setTaskFiles(String taskFiles) {
+        this.taskFiles = taskFiles;
+    }
+
+    @Basic
+    @Column(name = "taskDesc", nullable = true, length = 64)
     public String getTaskDesc() {
         return taskDesc;
     }
@@ -139,6 +152,9 @@ public class TaskEntity implements Serializable {
         if (!Objects.equals(taskDesc, that.taskDesc)) {
             return false;
         }
+        if (!Objects.equals(taskFiles, that.taskFiles)) {
+            return false;
+        }
         if (!Objects.equals(pubTime, that.pubTime)) {
             return false;
         }
@@ -152,12 +168,13 @@ public class TaskEntity implements Serializable {
         result = 31 * result + (taskDesc != null ? taskDesc.hashCode() : 0);
         result = 31 * result + (pubTime != null ? pubTime.hashCode() : 0);
         result = 31 * result + (deadline != null ? deadline.hashCode() : 0);
+        result = 31 * result + (taskFiles != null ? taskFiles.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "[#" + taskId + ": " + taskName + ", " + cozEntity.getCozName() + ", " + tcEntity.getTcName() +", " + taskDesc + "]";
+        return "[#" + taskId + ": " + taskName + ", " + cozEntity.getCozName() + ", " + tcEntity.getTcName() +", " + taskDesc + ","+taskFiles+"]";
     }
 
     public Map<String, Object> toMap(){
@@ -167,6 +184,7 @@ public class TaskEntity implements Serializable {
         map.put("taskDesc", taskDesc);
         map.put("pubTime", pubTime);
         map.put("deadline", deadline);
+        map.put("taskFiles", taskFiles);
         map.put("cozName", cozEntity.getCozName());
         map.put("tcName", tcEntity.getTcName());
         map.put("submitSet", submitsFromTask);

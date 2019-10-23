@@ -16,13 +16,14 @@ import java.util.Objects;
  *  subTime:学生提交时间，默认为当前系统时间。数据类型Timestamp
  *  subState:提交状态，分为待提交、待批阅和已批阅。默认待提交
  *  subFile:提交的文件，类型暂时为varchar(64)
+ *  subRichTextPath:富文本内容保存的路径
  */
 /**
  * @Description :
  * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：2019年10月21日 01点51分
- * 最后修改人：whh0987@foxmail.com
+ * 最后修改人：STARRY THE NIGHT
  */
 @Entity
 @Table(name = "submit", schema = "hfuutest")
@@ -32,6 +33,7 @@ public class SubmitEntity implements Serializable {
     private String subState;
     private String subFile;
     private Short score;
+    private String subRichTextPath;
     private StudentEntity stuEntity;
     private TaskEntity taskEntity;
 
@@ -64,6 +66,16 @@ public class SubmitEntity implements Serializable {
 
     public void setSubState(String subState) {
         this.subState = subState;
+    }
+
+    @Basic
+    @Column(name = "subRichTextPath", nullable = true, length = 32)
+    public String getSubRichTextPath() {
+        return subRichTextPath;
+    }
+
+    public void setSubRichTextPath(String subRichTextPath) {
+        this.subRichTextPath = subRichTextPath;
     }
 
     @Basic
@@ -124,6 +136,9 @@ public class SubmitEntity implements Serializable {
         if (!Objects.equals(subTime, that.subTime)) {
             return false;
         }
+        if (!Objects.equals(subRichTextPath, that.subRichTextPath)) {
+            return false;
+        }
         if (!Objects.equals(subState, that.subState)) {
             return false;
         }
@@ -136,12 +151,13 @@ public class SubmitEntity implements Serializable {
         result = 31 * result + (subTime != null ? subTime.hashCode() : 0);
         result = 31 * result + (subState != null ? subState.hashCode() : 0);
         result = 31 * result + (subFile != null ? subFile.hashCode() : 0);
+        result = 31 * result + (subRichTextPath != null ? subRichTextPath.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "[#" + subId + ": " + taskEntity.getTaskId() + ", " + stuEntity.getStuNum() + ", " + subTime +", " + subState + ", " + score + "]";
+        return "[#" + subId + ": " + taskEntity.getTaskId() + ", " + stuEntity.getStuNum() + ", " + subTime +", " + subState + ", " + score + ","+subRichTextPath+"]";
     }
 
     public Map<String, Object> toMap(){
@@ -153,6 +169,7 @@ public class SubmitEntity implements Serializable {
         map.put("subTime", subTime);
         map.put("subState", subState);
         map.put("score", score);
+        map.put("subRichTextPath", subRichTextPath);
         return map;
     }
 

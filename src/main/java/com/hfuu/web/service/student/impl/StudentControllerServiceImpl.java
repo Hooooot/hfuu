@@ -69,11 +69,13 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
                     shiYan.put("subTime",submitEntities.iterator().next().getSubTime());
                     shiYan.put("subState",submitEntities.iterator().next().getSubState());
                     shiYan.put("subFile",submitEntities.iterator().next().getSubFile());
+                    shiYan.put("subRichTextPath",submitEntities.iterator().next().getSubRichTextPath());
                 }else {
                     shiYan.put("score",0);
-                    shiYan.put("subTime","0000-00-00 00:00:00.0");
+                    shiYan.put("subTime",null);
                     shiYan.put("subState","待提交");
                     shiYan.put("subFile",null);
+                    shiYan.put("subRichTextPath",null);
                 }
 
                 data.add(shiYan);

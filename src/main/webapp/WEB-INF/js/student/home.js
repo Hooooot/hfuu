@@ -40,7 +40,7 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
             ,layEvent: 'LAYTABLE_TIPS'
             ,icon: 'layui-icon-tips'
         }]
-        ,title: '用户数据表'
+        ,title: '用户实验信息表'
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
            
@@ -52,11 +52,33 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
             ,{field:'taskDesc', title:'实验描述',align:"center", width:200, sort: false, templet: function(d){
                     return '<div style="text-align: center;">' + d.taskDesc + '</div>'
                 }}
-            ,{field:'deadline', title:'截止时间',align:"center", width:110, sort: true, templet:"<div>{{layui.util.toDateString(d.deadline, 'yyyy-MM-dd')}}</div>" 
+            //,{field:'deadline', title:'截止时间',align:"center", width:160, sort: true, templet:"<div>{{layui.util.toDateString(d.deadline, 'yyyy-MM-dd HH:mm:ss')}}</div>" 
+             //   }
+            ,{field:'deadline', title:'截止时间',align:"center", width:160, sort: true, templet: function(d){
+                let deadlineTime=layui.util.toDateString(d.deadline, 'yyyy-MM-dd HH:mm:ss');
+                let nowTime=layui.util.toDateString(new Date(), 'yyyy-MM-dd HH:mm:ss');
+               
+                if(deadlineTime>=nowTime){
+                    return '<div style="text-align: center;color: green;">' +deadlineTime + '</div>'
+                }else{
+                    return '<div style="text-align: center;color: red;">' +deadlineTime + '</div>'
                 }
-            ,{field:'pubTime', title:'提交时间',align:"center", width:110, sort: true, templet:"<div>{{layui.util.toDateString(d.pubTime, 'yyyy-MM-dd')}}</div>" 
-                }
-            ,{field:'subState', title:'状态', width:85, sort: true}
+                }}
+            ,{field:'subTime', title:'提交时间',align:"center", width:160, sort: true, templet: function(d){
+              
+                if(d.subTime==null){
+                    return '<div style="text-align: center;">' +" "+ '</div>'
+                    }else{
+                        return '<div style="text-align: center;">' +layui.util.toDateString(d.subTime, 'yyyy-MM-dd HH:mm:ss') + '</div>'
+                    }
+                }}
+            ,{field:'subState', title:'状态', width:85, sort: true,templet: function(d){
+                if(d.subState=="已批阅"){
+                    return '<div style="text-align: center;color: green;">' +d.subState + '</div>'
+                  }else{
+                    return '<div style="text-align: center;">' +d.subState + '</div>'
+                  }
+                }}
             ,{field:'score', title:'分数', width:75,align:"center", sort: true}
             
               
@@ -71,7 +93,9 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
            
             ,{fixed: 'right', title:'<div style="text-align: center;">操作</div>', toolbar: '#bar', width:160}
         ]]
+
     });
+   
     //头工具栏事件
     table.on('toolbar(${this.layFilter})', function(obj){ // 修改
         let checkStatus = table.checkStatus(obj.config.id);
