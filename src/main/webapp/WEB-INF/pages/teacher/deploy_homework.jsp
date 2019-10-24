@@ -83,29 +83,10 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">提交附件</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="open" lay-skin="switch" lay-filter="switchTest" lay-text="ON|OFF">
+                    <input type="checkbox" name="open" lay-skin="switch" lay-filter="upload_switch" lay-text="ON|OFF">
                 </div>
-            </div>
-            <!-- 你的HTML代码 -->
-            <button type="button" id="plupload" class="layui-btn layui-btn-normal"><i class="layui-icon layui-icon-upload"></i>上传测试</button>
-
-            <div class="layui-upload">
-                <div class="layui-upload-drag" id="upload_drag" style="margin-left: 10px;">
-                    <i class="layui-icon"></i>
-                    <p>点击选择附件，或将附件拖拽到此处</p>
+                <div class="upload_content" style="margin-top: 20px;">
                 </div>
-                <div class="layui-upload-list">
-                    <table class="layui-table">
-                        <thead>
-                        <tr><th>文件名</th>
-                            <th>大小</th>
-                            <th>状态</th>
-                            <th>操作</th>
-                        </tr></thead>
-                        <tbody id="fileList"></tbody>
-                    </table>
-                </div>
-                <input type="button" class="layui-btn" id="uploadAction" value="开始上传">
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">

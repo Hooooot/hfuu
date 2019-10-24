@@ -25,5 +25,10 @@ public class ConstValues {
     /**
      * 文件路径的分隔符
      * */
-    public static final String PATH_SEPARATOR = "; ";
+    public static final String FILE_PATH_SEPARATOR = "|";
+
+    /**
+     * 文件名分隔符（服务器保存名:原始文件名）
+     * */
+    public static final String FILE_NAME_SEPARATOR = ":";
 }

@@ -9,9 +9,8 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>lab Maven Webapp</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <name>hfuu</name>
+    <url>http://www.hfuu.edu.cn</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,12 +26,13 @@
         <hibernateVersion>5.2.17.Final</hibernateVersion>
         <mysqlVersion>8.0.17</mysqlVersion>
         <c3p0Version>0.9.5.3</c3p0Version>
-<!--        <jacksonVersion>2.9.9.2</jacksonVersion>-->
+        <jacksonVersion>2.9.8</jacksonVersion>
         <fastJsonVersion>1.2.62</fastJsonVersion>
         <gsonVersion>2.8.6</gsonVersion>
         <jacksonVersion>2.9.8</jacksonVersion>
         <commons-fileuploadVersion>1.4</commons-fileuploadVersion>
-        <commons-lang3Version>3.7</commons-lang3Version>
+        <commons-lang3Version>3.9</commons-lang3Version>
+        <codecVersion>1.13</codecVersion>
     </properties>
 
     <dependencies>
@@ -94,6 +94,13 @@
             <version>${commonsVersion}</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>${codecVersion}</version>
+        </dependency>
+
         <dependency>
             <groupId>org.apache.taglibs</groupId>
             <artifactId>taglibs-standard-spec</artifactId>
@@ -125,21 +132,21 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.9.8</version>
+            <version>${jacksonVersion}</version>
         </dependency>
 
         <!-- xml序列化工具，类似与JAXB，JAXB依赖jdk内部实现，这个功能更丰富 -->
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
-            <version>2.9.8</version>
+            <version>${jacksonVersion}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
-            <version>2.9.8</version>
+            <version>${jacksonVersion}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
@@ -154,7 +161,6 @@
             <artifactId>gson</artifactId>
             <version>${gsonVersion}</version>
         </dependency>
-
         <!-- SpringMVC中@ResponseBody依赖的jar包 end-->
 
         <dependency>

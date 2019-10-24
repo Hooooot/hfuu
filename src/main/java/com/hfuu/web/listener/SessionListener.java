@@ -37,8 +37,8 @@ public class SessionListener implements HttpSessionListener {
      * */
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
-        HttpSession session = httpSessionEvent.getSession();
-        this.removeTempFiles(session);
+//        HttpSession session = httpSessionEvent.getSession();
+//        this.removeTempFiles(session);
 
     }
 }

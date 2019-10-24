@@ -3,11 +3,11 @@ package com.hfuu.web.others.utils;
 import com.hfuu.web.others.ConstValues;
 import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
-import java.util.UUID;
 
 /**
  * @Description : 上传文件的工具类
@@ -18,41 +18,43 @@ import java.util.UUID;
  */
 public class UploadFileUtils {
     private static Logger log = Logger.getLogger(UploadFileUtils.class);
-
+    private static String toUploadPath = "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\";
     /**
      * 上传文件的方法
      *
      * @param file controller接收到的文件
      * @param pathInUploaded file要保存到uploaded文件夹中的位置，不需带文件名
      * @param session HttpSession对象的实例
-     * @return 上传文件的路径与带32位UUID的文件名（路径相对于uploaded文件夹）
+     * @return 上传文件被保存的路径与MD5文件名（格式：路径/MD5文件名:原文件名）
      * */
-    public static String uploadFile(HttpSession session, MultipartFile file, String pathInUploaded){
-        String uploadedPath = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\";
-        //  32位UUID防止出现文件名重复
-        String uuid = UUID.randomUUID().toString().replace("-", "");
-        String fileName = uuid + "." + file.getOriginalFilename();
+    public static String uploadFile(HttpSession session, MultipartFile file, String pathInUploaded) {
+        String uploadedPath = session.getServletContext().getRealPath("/") + toUploadPath;
+        String md5 = null;
         try{
-            FileUtils.copyInputStreamToFile(file.getInputStream(), new File(uploadedPath + pathInUploaded, fileName));
+            md5 = DigestUtils.md5DigestAsHex(file.getBytes());
+            //  TODO
+            System.out.println("服务器计算的MD5：" + md5);
+            // 用MD5做文件名
+            FileUtils.copyInputStreamToFile(file.getInputStream(), new File(uploadedPath + pathInUploaded, md5));
         }catch (Exception e){
             log.error("文件上传异常", e);
         }
-        return pathInUploaded + fileName;
+        return pathInUploaded + md5 + ConstValues.FILE_NAME_SEPARATOR + file.getOriginalFilename();
     }
 
     /**
-     * 删除paths中所有的文件（paths中的路径以“; ”(分号加空格)隔开，且路径是相对于upload文件夹的）
+     * 删除paths中所有的文件（paths中的路径以“|”(竖杠)隔开，且路径是相对于upload文件夹的）
      *
      * @param session HttpSession对象实例
-     * @param filePath 要删除的文件路径（paths中的路径以“; ”(分号加空格)隔开，且路径是相对于upload文件夹的）
+     * @param filePath 要删除的文件路径（paths中的路径以“|”(竖杠)隔开，且路径是相对于upload文件夹的）
      * */
     public static void deleteFiles(HttpSession session, String filePath){
         if (filePath == null || "".equals(filePath)) {
             return;
         }
-        String uploadedPath = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\";
+        String uploadedPath = session.getServletContext().getRealPath("/") + toUploadPath;
         try{
-            String[] paths = filePath.split(ConstValues.PATH_SEPARATOR);
+            String[] paths = filePath.split(ConstValues.FILE_PATH_SEPARATOR);
             for (String path : paths) {
                 FileUtils.forceDelete(new File(uploadedPath + path));
                 // TODO ：测试完成后应当考虑改为log.debug()
@@ -61,6 +63,40 @@ public class UploadFileUtils {
         }catch (Exception e){
             log.error("删除文件失败", e);
         }
+    }
+
+    /**
+     * 判断uploaded/files/文件夹下是否存在MD5为md5的文件，若存在则返回路径，否则返回null
+     *
+     * @param session HttpSession对象实例
+     * @param md5 要查找的文件的MD5
+     * @return 若存在则返回路径，否则返回null
+     * */
+    public static String getFilePathIfExist(HttpSession session, String md5){
+        return getFilePathIfExist(session, md5, "files\\");
+    }
+
+    /**
+     * 判断uploaded/"innerFolder/"文件夹下是否存在MD5为md5的文件，若存在则返回路径，否则返回null
+     * 用法{@link #getFilePathIfExist(HttpSession session, String md5)}
+     *
+     * @param session HttpSession对象实例
+     * @param md5 要查找的文件的MD5
+     * @param innerFolder uploaded文件夹下的文件夹名
+     * @return 若存在则返回路径，否则返回null
+     * */
+    public static String getFilePathIfExist(HttpSession session, String md5, String innerFolder){
+        String uploadedPath = session.getServletContext().getRealPath("/") + toUploadPath + innerFolder;
+        String [] fileName = new File(uploadedPath).list();
+        if (fileName == null){
+            return null;
+        }
+        for (String s : fileName){
+            if (md5.equals(s)){
+                return innerFolder + md5;
+            }
+        }
+        return null;
     }
 
     /**
