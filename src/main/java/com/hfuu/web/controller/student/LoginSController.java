@@ -2,6 +2,7 @@ package com.hfuu.web.controller.student;
 
 import com.hfuu.web.dao.SubmitDao;
 import com.hfuu.web.entity.*;
+import com.hfuu.web.others.utils.SaveToHtmlUtils;
 import com.hfuu.web.service.CourseService;
 import com.hfuu.web.service.StuService;
 import com.hfuu.web.service.SubmitService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 /**
@@ -146,18 +148,6 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/uploads"}, method = RequestMethod.GET)
     public String toUploadS() {
-        //学号
-        String stuNum = "1706072019";
-        //课程名称
-        String cozName = "数据结构与算法";
-        //判断传入的参数，
-       /* if(stuNum == null||cozName==null){
-            return;
-        }
-*/
-        List<Map> data=studentControllerService.getTaskFromCourse(stuNum,cozName);
-        System.out.println(data);
-
 
         return "student/upload";
     }
@@ -170,12 +160,10 @@ public class LoginSController {
      */
     @RequestMapping(value = {"/uploadbars"}, method = RequestMethod.GET)
     public String toUpTestS() {
-
-        //学号
-        String stuNum = "1706072019";
-
-        Map map=studentControllerService.getCourseByStuNum(stuNum);
-        System.out.println(map);
+     /*  String s=SaveToHtmlUtils.getHtmlContent("E:\\idea\\hfuu\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\5f8df87af48a48c7b29eb8ea578f9b25.html");
+        System.err.println(s);
+*/
         return "student/uploadBar";
+
     }
 }

@@ -15,20 +15,31 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <link rel="stylesheet" href="layui/css/layui.css">
 </head>
-<body>
-<div id="collapse" class="layui-collapse" lay-filter="collapse-filter">
+<body style="background:#fff;">
+<div id="collapse" class="layui-collapse" lay-filter="collapse-filter" style="margin-top: 20px;">
     <c:forEach items="${course}" var="courseMap" varStatus="coStatus">
         <div class="layui-colla-item">
-            <h2 class="layui-colla-title" data-loaded="false" data-cozname="${courseMap.key}"
-                data-tableid="data_table${coStatus.index}" data-tablefilter="data_table${coStatus.index}" data-stunum="${studentLogin.stuNum}"><b>${courseMap.key}</b></h2>
+            <c:if test="${coStatus.index%2==0}">
+                <h2 class="layui-colla-title"  data-loaded="false"
+                    data-cozname="${courseMap.key}"
+                    data-tableid="data_table${coStatus.index}" data-tablefilter="data_table${coStatus.index}"
+                    data-stunum="${studentLogin.stuNum}"><b>${courseMap.key}</b></h2>
+            </c:if>
+            <c:if test="${coStatus.index%2!=0}">
+                <h2 class="layui-colla-title" style="background-color: #fff" data-loaded="false"
+                    data-cozname="${courseMap.key}"
+                    data-tableid="data_table${coStatus.index}" data-tablefilter="data_table${coStatus.index}"
+                    data-stunum="${studentLogin.stuNum}"><b>${courseMap.key}</b></h2>
+            </c:if>
 
-            <div class="layui-colla-content" style="margin-top: -20px;">
-                <table class="layui-hide" id="data_table${coStatus.index}" lay-filter="data_table${coStatus.index}"></table>
+            <div class="layui-colla-content" style="margin-top: -20px;margin-bottom: -20px;">
+                <table class="layui-hide" id="data_table${coStatus.index}"
+                       lay-filter="data_table${coStatus.index}"></table>
             </div>
         </div>
     </c:forEach>
@@ -43,15 +54,15 @@
 </script>
 
 <script type="text/html" id="bar">
-   <%-- <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="deploy">提交作业</a>--%>
-   {{#  if((new Date(d.deadline) >new Date())&&(d.subState!="已批阅")){ }}
+    <%-- <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="deploy">提交作业</a>--%>
+    {{#  if((new Date(d.deadline) >new Date())&&(d.subState!="已批阅")){ }}
     <a class="layui-btn layui-btn-xs" lay-event="deploy">提交作业</a>
     {{#  } }}
-   {{#  if((new Date(d.deadline) < new Date())||(d.subState=="已批阅")){ }}
-   <a class="layui-btn layui-btn-xs layui-btn-disabled" >提交作业</a>
-   {{#  } }}
+    {{#  if((new Date(d.deadline) < new Date())||(d.subState=="已批阅")){ }}
+    <a class="layui-btn layui-btn-xs layui-btn-disabled">提交作业</a>
+    {{#  } }}
 
-   <a class="layui-btn layui-btn-xs" lay-event="deleterow">删除行</a>
+    <a class="layui-btn layui-btn-xs" lay-event="deleterow">删除行</a>
 </script>
 <script src="layui/layui.js"></script>
 <script src="js/student/home.js"></script>

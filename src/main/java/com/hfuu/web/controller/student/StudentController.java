@@ -1,19 +1,19 @@
 package com.hfuu.web.controller.student;
 
+import com.hfuu.web.others.utils.SaveToHtmlUtils;
+import com.hfuu.web.service.student.StudentControllerService;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -28,6 +28,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("")
 public class StudentController {
+    @Resource
+    StudentControllerService studentControllerService;
 
     /**
      * 获取项目路径
@@ -41,50 +43,36 @@ public class StudentController {
 
     @ResponseBody
     @RequestMapping(value = {"/saveHtml"}, method = RequestMethod.POST)
-    public Map<String, Object> saveHtml(HttpServletRequest request){
-        Map<String, Object> result = new HashMap<>();
-        String content=request.getParameter("content");//保存内容
-        String experimentalName=request.getParameter("experimentalName");//实验名称
-        String realPath=getRealPath(request);
+    public Map<String, Object> saveHtml(HttpSession session,String content,int taskId,String stuNum,String subRichTextPath){
+        Map<String, Object> result = new HashMap<>(2);
+        String htmlName=null;
+       if(subRichTextPath.length()==0){
+            htmlName=SaveToHtmlUtils.saveContentToHtml(session,content);
+            studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlName);
 
-        //1.....获取项目路径（本地路径）
-        //获取项目的上上一级目录
-        String parentPath = new File(new File(realPath).getParent()).getParent();
+        }else {
+            String htmlPathAndName=session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\"+subRichTextPath;
+            SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName,content);
+        }
+        result.put("success","true");
 
-        String templateContent="";
-        //filePath :设定的模板文件
-        String filePath = parentPath + "/src/main/webapp/WEB-INF/experimental/template/template.html";
-        //disrPath:生成html的存放路径
-        String disrPath=parentPath + "/src/main/webapp/WEB-INF/experimental/";
+        return result;
+    }
 
-       try{
-            FileInputStream fileInputStream=new FileInputStream(filePath);//读取模板文件
-            int length=fileInputStream.available();
-            byte[] bytes=new byte[length];
-            fileInputStream.read(bytes);
-            fileInputStream.close();
-            templateContent=new String(bytes);
-            //把模板中###content###替换成content中的内容
-            templateContent=templateContent.replaceAll("###content###",content);
+    @ResponseBody
+    @RequestMapping(value = {"/getContent"}, method = RequestMethod.POST)
+    public Map<String, Object> getContentOfHtml(HttpSession session,String subRichTextPath){
+        Map<String, Object> result = new HashMap<>(2);
 
-            String fileame="test.html";
-            fileame=disrPath+fileame;
-            //建立文件输出流
-            OutputStreamWriter oStreamWriter = new OutputStreamWriter(new FileOutputStream(fileame),"utf-8");
-            oStreamWriter.append(templateContent);
-            oStreamWriter.close();
-
-
-
-        }catch(Exception e){
-
+        String htmlPathAndName=session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\"+subRichTextPath;
+        if(subRichTextPath.length()==0){
+            result.put("data"," ");
+        }else {
+            String content=SaveToHtmlUtils.getHtmlContent(htmlPathAndName);
+            result.put("data",content);
         }
 
 
-
-        System.out.println(content);
-        System.out.println(getRealPath(request));
-        result.put("success","true");
         return result;
     }
 
@@ -95,11 +83,9 @@ public class StudentController {
      */
     @ResponseBody
     @RequestMapping(value = {"/uploadFile"}, method = RequestMethod.POST)
-    public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file,
-                                           HttpServletRequest request){
-        Map<String, Object> result = new HashMap<>();
+    public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file){
+        Map<String, Object> result = new HashMap<>(4);
         String contentType=file.getContentType();
-        System.out.println(contentType);
 
         result.put( "code",0);
         result.put("msg","");
@@ -115,7 +101,7 @@ public class StudentController {
     @ResponseBody
     @RequestMapping(value = {"/uploadImg"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> uploadImg(@RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) {
-        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>(2);
         try {
             // 获取项目路径
             String realPath = getRealPath(request);

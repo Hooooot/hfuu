@@ -67,16 +67,21 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
             ,{field:'subTime', title:'提交时间',align:"center", width:160, sort: true, templet: function(d){
               
                 if(d.subTime==null){
-                    return '<div style="text-align: center;">' +" "+ '</div>'
+                    return '<div style="text-align: center;">' +" "+ '</div>';
                     }else{
-                        return '<div style="text-align: center;">' +layui.util.toDateString(d.subTime, 'yyyy-MM-dd HH:mm:ss') + '</div>'
+                        return '<div style="text-align: center;">' +layui.util.toDateString(d.subTime, 'yyyy-MM-dd HH:mm:ss') + '</div>';
                     }
                 }}
             ,{field:'subState', title:'状态', width:85, sort: true,templet: function(d){
-                if(d.subState=="已批阅"){
-                    return '<div style="text-align: center;color: green;">' +d.subState + '</div>'
-                  }else{
-                    return '<div style="text-align: center;">' +d.subState + '</div>'
+                let state=d.subState;
+                if(state=="待批阅"){
+                    return '<div style="text-align: center;color: yellowgreen;">' +d.subState + '</div>';
+                  }
+                  if(state=="已批阅"){
+                    return '<div style="text-align: center;color: green;">' +d.subState + '</div>';
+                  }
+                   if(state=="待提交"){
+                    return '<div style="text-align: center;">' +d.subState + '</div>';
                   }
                 }}
             ,{field:'score', title:'分数', width:75,align:"center", sort: true}
@@ -93,7 +98,13 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
            
             ,{fixed: 'right', title:'<div style="text-align: center;">操作</div>', toolbar: '#bar', width:160}
         ]]
-
+        ,initSort: {
+            field: 'taskName', //排序字段，对应 cols 设定的各字段名
+            type: 'asc', //排序方式  asc: 升序、desc: 降序、null: 默认排序
+            rule: function(v, i, arr) { //v是指定排序的每一行的'taskName'字段值，i 是每一行对应的下标， arr是表格所有行的dom数组
+                return parseInt(v); //此处写自己想要转化为数字的逻辑，每一行都是通过返回的这个数字进行排序
+            }
+        }
     });
    
     //头工具栏事件

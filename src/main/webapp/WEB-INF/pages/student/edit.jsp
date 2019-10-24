@@ -28,7 +28,6 @@
 </head>
 <body>
 
-
 <h1 style="text-align: center;margin: 10px;"></h1>
 <h3 style="text-align: center;margin: 10px;"></h3>
 <div id="editor">
@@ -55,10 +54,27 @@
 
         var taskName;//实验名称
         var taskDesc;//实验描述
+        var taskId;//任务id
+        var stuNum ="${studentLogin.stuNum}";//学号
+        var subRichTextPath;//富文本内容保存的路径
+
 
         $(document).ready(function () {
-            //实验名称
+            //实验相关信息
             getExperiment();
+            $.ajax({
+                type:"POST",
+                url:'getContent',
+                data:{'subRichTextPath':subRichTextPath},
+                dataType:"json",
+                success:function (data) {
+                    //初始化editor内容
+                    editor.txt.html(data.data);
+                    console.log(data.data)
+                },error:function () {
+                    layer.msg("加载失败")
+                }
+            });
 
         });
 
@@ -68,6 +84,8 @@
             //console.log(parent_json.taskDesc);
             taskName=parent_json.taskName;
             taskDesc=parent_json.taskDesc;
+            taskId=parent_json.taskId;
+            subRichTextPath=parent_json.subRichTextPath;
             $("h1").text(taskName);
             $("h3").text(taskDesc);
         }
@@ -189,7 +207,7 @@
             $.ajax({
                 type:"POST",
                 url:'saveHtml',
-                data:{'content':editor.txt.html(),'experimentalName':taskName},//experimentalName实验名称
+                data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath},//experimentalName实验名称
                 dataType:"json",
                 success:function (data) {
                     if(data && data.success=="true"){

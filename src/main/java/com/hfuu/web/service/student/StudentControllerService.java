@@ -52,4 +52,16 @@ public interface StudentControllerService extends BaseService {
      * */
     Map groupByCozName(List<CourseEntity> list);
 
+
+    /**
+     * 对提交信息subRichTextPath字段数据进行更新
+     * @param taskId 任务id
+     * @param stuNum 学生学号
+     * @param subRichTextPath 富文本保存成html的路径
+     * @return
+     * */
+    void updateSubRichTextPath(int taskId,String stuNum,String subRichTextPath);
+
+
+
 }

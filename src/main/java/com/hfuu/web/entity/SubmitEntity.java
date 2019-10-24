@@ -2,6 +2,7 @@ package com.hfuu.web.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +70,7 @@ public class SubmitEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "subRichTextPath", nullable = true, length = 32)
+    @Column(name = "subRichTextPath", nullable = true, length = 40)
     public String getSubRichTextPath() {
         return subRichTextPath;
     }
