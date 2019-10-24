@@ -1,7 +1,7 @@
 /**
  * extPath为本文件所在文件夹
  * */
-let extPath="/hfuu/layui/uploader_ext/";
+const extPath="/hfuu/layui/uploader_ext/";
 
 layui.extend({
     webuploader: extPath + 'uploader/webuploader'
@@ -11,15 +11,52 @@ layui.extend({
         ,element = layui.element
         ,layer=layui.layer
         ,table=layui.table
-        ,rowData=[]//保存上传文件属性集合,添加table用
-        ,fileSize=100*1024*1024//默认上传文件大小
+        //  保存上传文件属性集合,添加table用
+        ,rowData=[]
+        //  默认上传文件大小100MB，单位B
+        ,fileSize=100*1024*1024
+        // 上传文件数量默认限制
+        ,fileAmount=4
         ,fileType='doc,docx,pdf,xls,xlsx,ppt,pptx,gif,jpg,jpeg,bmp,png,rar,zip'
-        ,uplaod;
+        ,uplaod
+        ,formUrlParams;
     layui.link(extPath + 'uploader/webuploader.css');
 
     let Class = function (options) {
         let that = this;
         that.options=options;
+        that.windowContent=
+            '<div  class="upload_select" style="clear:both;float: left;margin-left:10px;margin-top: 5px;">选择文件</div>'+
+            '<blockquote class="layui-elem-quote" style="margin-left: 150px;">TPS: 可以按Ctrl + V 来粘贴截图或者将文件拖拽至表格中上传</blockquote>'+
+            '<div class="upload-dnd">'+
+            '<table style="margin-top:-10px;" class="layui-table" id="extend-uploader-form" lay-filter="extend-uploader-form">' +
+            '  <thead>' +
+            '    <tr>' +
+            '      <th lay-data="{type:\'numbers\', fixed:\'left\'}"></th>' +
+            '      <th lay-data="{field:\'fileName\'}">文件名称</th>'+
+            '      <th lay-data="{field:\'fileSize\', width:200}">文件大小</th>'+
+            '      <th lay-data="{field:\'validateMd5\', width:150}">文件验证</th>'+
+            '      <th lay-data="{field:\'progress\',templet:\'#button-form-optProcess\'}">进度</th>'+
+            '      <th lay-data="{field:\'oper\', width:150, templet: \'#button-form-uploadTalbe\'}">操作</th>'+
+            '    </tr>'+
+            // '    <tr>' +
+            // '<div class="layui-upload-drag " style="margin-left: 10px;">' +
+            // '   <i class="layui-icon"></i>' +
+            // '   <p class="">点击选择附件或将附件拖拽到此处</p>' +
+            // '</div>'+
+            // '    </tr>'+
+            '  </thead>'+
+            '</table>'+
+            '</div>'+
+            '<script type="text/html" id="button-form-uploadTalbe">'+
+            '<a class="layui-btn layui-btn-xs layui-hide file-retry" lay-event="reload">重传</a>'+
+            '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'+
+            '</script>'+
+            '<script type="text/html" id="button-form-optProcess">'+
+            '<div style="margin-top: 5px;" class="layui-progress layui-progress-big" lay-filter="{{d.fileId}}"  lay-showPercent="true">'+
+            '<div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>'+
+            '</div>'+
+            '</script>';
         that.register();
         that.init();
         that.events();
@@ -34,67 +71,82 @@ layui.extend({
         if(!that.strIsNull(that.options.fileType)){
             fileType=that.options.fileType;
         }
+        if(!that.strIsNull(options.fileAmount)){
+            fileAmount = options.fileAmount;
+        }
+        if(!that.strIsNull(options.formUrlParams)){
+            formUrlParams = options.formUrlParams;
+        }
+        if(!that.strIsNull(options.contentDom)){
+            this.innerWindow(this);
+        }else{
+            this.popWindow(this);
+        }
+    };
+
+    Class.prototype.popWindow = function (that) {
         layer.open({
             type: 1,
-            area: ['850px', '500px'], //宽高
+            area: ['900px', '550px'], //宽高
             resize:false,
-            content:
-            '<div  id="extend-upload-chooseFile" style="float: left;margin-left: 5px;margin-top: 5px;">选择文件</div>'+
-            '<button id="extent-button-uploader" class="layui-btn" style="height: 37px;margin-top: 5px;margin-left: 5px;">开始上传</button>'+
-            '<table style="margin-top:-10px;" class="layui-table" id="extend-uploader-form" lay-filter="extend-uploader-form">' +
-                '  <thead>' +
-            '    <tr>' +
-            '      <th lay-data="{type:\'numbers\', fixed:\'left\'}"></th>' +
-            '      <th lay-data="{field:\'fileName\', width:250}">文件名称</th>' +
-            '      <th lay-data="{field:\'fileSize\', width:130}">文件大小</th>' +
-            '      <th lay-data="{field:\'validateMd5\', width:120}">文件验证</th>' +
-            '      <th lay-data="{field:\'progress\',width: 200,templet:\'#button-form-optProcess\'}">进度</th>' +
-            '      <th lay-data="{field:\'oper\', width: 100,templet: \'#button-form-uploadTalbe\'}">操作</th>' +
-            '    </tr>' +
-            '  </thead>'+
-            '</table>'+
-            '<script type="text/html" id="button-form-uploadTalbe">'+
-                '<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>'+
-            '</script>'+
-            '<script type="text/html" id="button-form-optProcess">' +
-                '<div style="margin-top: 5px;" class="layui-progress layui-progress-big" lay-filter="{{d.fileId}}"  lay-showPercent="true">'+
-                  '<div class="layui-progress-bar layui-bg-blue" lay-percent="0%"></div>'+
-                '</div>'+
-            '</script>'
-            ,
-
+            content:that.windowContent,
+            //  弹出层创建成功
             success: function(layero, index){
-                table.init('extend-uploader-form',{
-                    height: 380,
-                    unresize:true
-                });
-                console.log(options.url);
-                uplaod = webUploader.create({
-                    // 不压缩image
-                    resize: false,
-                    // swf文件路径
-                    swf:  'src/lib/extend/uploader/Uploader.swf',
-                    // 默认文件接收服务端。
-                    server: options.url,
-                    pick: '#extend-upload-chooseFile',
-                    fileSingleSizeLimit:fileSize,//单个文件大小
-                    //接收文件类型--自行添加options
-                    accept:[{
-                        title: 'file',
-                        extensions: fileType,
-                        mimeTypes: that.buildFileType(fileType)
-                    }]
-                });
-            }//可以自行添加按钮关闭,关闭请清空rowData
-            ,end:function () {
+                this.createUploadTable(that);
+            },
+            //  关闭弹出层
+            // 可以自行添加按钮关闭,关闭请清空rowData
+            end: function() {
                 rowData=[];
-                if(options.success){
-                    if(typeof options.success==='function') {
-                        options.success();
+                if(that.options.success){
+                    if(typeof that.options.success==='function') {
+                        console.log("options.success() run.");
+                        that.options.success();
                     }
                 }
             }
         });
+    };
+
+    Class.prototype.innerWindow = function(that){
+        let dom = $(that.options.contentDom);
+        dom.html(that.windowContent);
+        this.createUploadTable(that);
+    };
+
+    Class.prototype.createUploadTable = function(that){
+        table.init('extend-uploader-form', {
+            unresize:true
+        });
+        console.log(that.options.url);
+        uplaod = webUploader.create({
+            // swf文件路径
+            swf:  'src/lib/extend/uploader/Uploader.swf',
+            // 默认文件接收服务端。
+            server: that.options.url,
+            // 文件上传携带的参数
+            formData: that.options.params,
+            dnd: ".upload-dnd",
+            pick: {
+                id: '.upload_select',
+                multiple: true
+            },
+            paste: document.body,
+            //  单个文件大小
+            fileSingleSizeLimit:fileSize,
+            // 限制文件数量
+            fileNumLimit:fileAmount,
+            //接收文件类型--自行添加options
+            accept:[{
+                title: 'file',
+                extensions: fileType,
+                mimeTypes: that.buildFileType(fileType)
+            }],
+            // 不压缩image
+            compress: false,
+            prepareNextFile: true
+        });
+        that.reloadData(rowData);
     };
 
     Class.prototype.formatFileSize=function(size){
@@ -112,24 +164,24 @@ layui.extend({
         return fileSize;
     };
 
-    Class.prototype.buildFileType=function (type) {
+    Class.prototype.buildFileType=function(type) {
         let ts = type.split(',');
         let ty='';
 
         for(let i=0;i<ts.length;i++){
             ty=ty+ "."+ts[i]+",";
         }
-        return  ty.substring(0, ty.length - 1)
+        return ty.substring(0, ty.length - 1);
     };
 
-    Class.prototype.strIsNull=function (str) {
+    Class.prototype.strIsNull=function(str) {
         return typeof str == "undefined" || str == null || str === "";
     };
 
     Class.prototype.events=function () {
         let that = this;
-        //当文件添加进去
-        uplaod.on('fileQueued', function( file ){
+        //  添加文件
+        uplaod.on('fileQueued', function(file){
             let fileSize = that.formatFileSize(file.size);
             let row={fileId:file.id,fileName:file.name,fileSize:fileSize,validateMd5:'0%',progress:file.id,state:'就绪'};
             rowData.push(row);
@@ -138,7 +190,7 @@ layui.extend({
         });
 
         //监听进度条,更新进度条信息
-        uplaod.on( 'uploadProgress', function( file, percentage ) {
+        uplaod.on('uploadProgress', function(file, percentage) {
             element.progress(file.id, (percentage * 100).toFixed(0)+'%');
         });
 
@@ -153,29 +205,42 @@ layui.extend({
         });
 
 
-        //移除上传的文件
+        //监听按钮事件
         table.on('tool(extend-uploader-form)', function(obj){
             let data = obj.data;
             if(obj.event === 'del'){
-                that.removeArray(rowData,data.fileId);
-                uplaod.removeFile(data.fileId,true);
+                that.removeArray(rowData, data.fileId);
+                uplaod.removeFile(data.fileId, true);
                 obj.del();
+            }else if(obj.event === 'reload'){
+                uplaod.retry(data.fileId);
             }
         });
 
-        //开始上传
+        //  开始所有文件上传
         $("#extent-button-uploader").on("click", (function () {
             that.uploadToServer();
-
         }));
 
-        //单个文件上传成功
-        uplaod.on( 'uploadSuccess', function( file ) {
+        //  单个文件上传成功
+        uplaod.on('uploadSuccess', function(file) {
             that.setTableBtn(file.id,'完成');
         });
 
-        //所有文件上传成功后
-        uplaod.on('uploadFinished',function(){//成功后
+        //  只要有文件上传失败，就会触发
+        uplaod.on('uploadError', function (file) {
+            $('.file-retry').removeClass('layui-hide');
+        });
+
+        //  所有文件上传成功后
+        uplaod.on('uploadFinished',function(){
+            //  成功后
+            layer.alert("所有文件结束");
+            $.post(url,
+                data,
+                function () {
+                    
+                });
             $("#extent-button-uploader").text("开始上传");
             $("#extent-button-uploader").removeClass('layui-btn-disabled');
         });
@@ -183,7 +248,7 @@ layui.extend({
     };
 
     Class.prototype.reloadData=function(data){
-        layui.table.reload('extend-uploader-form',{
+        layui.table.reload('extend-uploader-form', {
             data : data
         });
     };
@@ -215,25 +280,35 @@ layui.extend({
                         }
                     }
                 }).then(function(val){
+                    console.log("本地MD5：" + val);
                     $.ajax({
                         type: "POST"
                         , url: options.md5
+                        //  请求参数
                         , data: {
-                            type: "md5Check",md5: val //后台接收 String md5
+                            type: "md5Check",
+                            md5: val
                         }
                         , cache: false
                         , timeout: 3000
                         , dataType: "json"
                     }).then(function(data, textStatus, jqXHR){
-                        if(data.data===0){   //若存在，这返回失败给WebUploader，表明该文件不需要上传
-                            task.reject(); //
+                        // 请求成功
+                        //TODO
+                        console.log("文件秒传");
+                        console.log(data);
+                        //  返回值为0则表明文件已存在
+                        if(data.code===0){
+                            task.reject();
                             uplaod.skipFile(file);
                             that.setTableBtn(file.id,'秒传');
                             element.progress(file.id,'100%');
                         }else{
                             task.resolve();
                         }
-                    }, function(jqXHR, textStatus, errorThrown){    //任何形式的验证失败，都触发重新上传
+                    }, function(jqXHR, textStatus, errorThrown){
+                        // 请求失败
+                        //  任何形式的验证失败，都触发重新上传
                         task.resolve();
                     });
                 });

@@ -1,5 +1,9 @@
 package com.hfuu.web.service.teacher;
 
+import com.hfuu.web.dao.SubmitDao;
+import com.hfuu.web.entity.StudentEntity;
+import com.hfuu.web.entity.SubmitEntity;
+import com.hfuu.web.entity.TaskEntity;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -7,6 +11,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.annotation.Resource;
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
 import java.util.Map;
 
 /**
@@ -22,11 +28,29 @@ import java.util.Map;
 public class TeacherHomeControllerTest {
     @Resource
     private TeacherControllerService teacherControllerService;
+    @Resource
+    private SubmitDao submitDao;
 
     @Test
     public void test() {
         Map map = teacherControllerService.getCourseByTeacherNum("1604012003");
         System.out.println(map.get("result"));
         System.out.println("测试成功！");
+    }
+
+    @Test
+    @Transactional()
+    public void insert(){
+        SubmitEntity submitEntity = new SubmitEntity();
+        StudentEntity stu = new StudentEntity();
+        stu.setStuNum("1604012011");
+        TaskEntity task = new TaskEntity();
+        task.setTaskId(14);
+        submitEntity.setStuEntity(stu);
+        submitEntity.setTaskEntity(task);
+        submitEntity.setSubId(12);
+        submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
+        submitDao.insert(submitEntity);
+
     }
 }

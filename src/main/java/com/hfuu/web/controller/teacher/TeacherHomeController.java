@@ -101,23 +101,25 @@ public class TeacherHomeController {
     @ResponseBody
     @RequestMapping(value = {"/teacher/upload"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map upload(@RequestParam("file") MultipartFile file, @RequestParam("pageId") String pageId, HttpSession session) {
-        Map<String, Integer> json = new HashMap<>(1);
+        Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.uploadFile(session, file, "files/");
-        Map<String, String> tmpFilePath = (Map<String, String>)session.getAttribute(ConstValues.TEMP_FILE_PATH);
-        if(tmpFilePath != null) {
-            String paths = tmpFilePath.get(pageId);
-            if(paths != null){
-                paths = paths + path + ConstValues.PATH_SEPARATOR;
-            }else {
-                paths = path + ConstValues.PATH_SEPARATOR;
-            }
-            tmpFilePath.put(pageId, paths);
-        }else {
-            tmpFilePath = new HashMap<>(3);
-            tmpFilePath.put(pageId, path + ConstValues.PATH_SEPARATOR);
-        }
-        session.setAttribute(ConstValues.TEMP_FILE_PATH, tmpFilePath);
+        // TODO
+        System.out.println("上传文件被保存的路径：" + path);
         json.put("code", 0);
+        json.put("path", path+ConstValues.FILE_PATH_SEPARATOR);
         return json;
     }
+
+    @ResponseBody
+    @RequestMapping(value = {"/teacher/md5check"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    public Map md5Check(@RequestParam String md5, HttpSession session){
+        Map<String, Object> json = new HashMap<>(1);
+        String path = UploadFileUtils.getFilePathIfExist(session, md5);
+        // TODO
+        System.out.println("请求md5：" + md5);
+        json.put("code", 0);
+        json.put("path", path+ConstValues.FILE_PATH_SEPARATOR);
+        return json;
+    }
+
 }
