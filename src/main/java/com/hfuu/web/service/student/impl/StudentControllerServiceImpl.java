@@ -120,7 +120,7 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
         submitEntity.setStuEntity(studentEntity);
         submitEntity.setTaskEntity(taskEntity);
         submitEntity.setSubRichTextPath(subRichTextPath);
-        submitEntity.setSubState("待提交");
+        submitEntity.setSubState("待批阅");
         submitEntity.setScore((short)0);
         submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
         submitDao.insert(submitEntity);
