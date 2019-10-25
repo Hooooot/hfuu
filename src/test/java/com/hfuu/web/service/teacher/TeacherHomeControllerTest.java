@@ -31,26 +31,17 @@ public class TeacherHomeControllerTest {
     @Resource
     private SubmitDao submitDao;
 
+
     @Test
     public void test() {
-        Map map = teacherControllerService.getCourseByTeacherNum("1604012003");
-        System.out.println(map.get("result"));
-        System.out.println("测试成功！");
+
     }
 
     @Test
     @Transactional()
     public void insert(){
-        SubmitEntity submitEntity = new SubmitEntity();
-        StudentEntity stu = new StudentEntity();
-        stu.setStuNum("1604012011");
-        TaskEntity task = new TaskEntity();
-        task.setTaskId(14);
-        submitEntity.setStuEntity(stu);
-        submitEntity.setTaskEntity(task);
-        submitEntity.setSubId(12);
-        submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
-        submitDao.insert(submitEntity);
+        Timestamp timestamp=new Timestamp(System.currentTimeMillis());
+        submitDao.executeHql("update SubmitEntity s set s.subTime=? where s.subId=?",timestamp,31);
 
     }
 }

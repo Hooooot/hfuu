@@ -109,6 +109,19 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
                 return parseInt(v); //此处写自己想要转化为数字的逻辑，每一行都是通过返回的这个数字进行排序
             }
         }
+        ,done:function(res){
+            //console.log(res.count)
+             if (res.count == 0)
+                {
+                    //Layui启用initSort后数据表格在查询不到数据时显示无数据,待实现
+                    layer.msg('暂无实验', {
+                        icon: 1,
+                        time: 1500 //1.5秒关闭（如果不配置，默认是3秒）
+                    }, function(){
+                         //do something
+                    });
+                }
+        }
     });
    
     //头工具栏事件
