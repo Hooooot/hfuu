@@ -43,27 +43,61 @@ public class StudentController {
         return request.getSession().getServletContext().getRealPath("");
     }
 
+    /**
+     * @Description: //保存实验
+     * @param session session
+     * @param content 实验编写的内容
+     * @param taskId 任务id
+     * @param stuNum 学生学号
+     * @param subRichTextPath 实验保存路径
+     * @param subId 提交id
+     * @Author: Starry the Night
+     * @Date:  2019/10/25 18:09
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     */
     @ResponseBody
-    @RequestMapping(value = {"/saveHtml"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/saveHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath,int subId) {
         Map<String, Object> result = new HashMap<>(2);
         System.err.println(subId);
         String htmlName = null;
+
         if (subRichTextPath.length() == 0) {
+            //第一次提交
             htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlName);
 
         } else {
+            //非第一次提交
             Timestamp subTime = new Timestamp(System.currentTimeMillis());
-            int i=studentControllerService.updateSubmitSubTime(subId,subTime);
-            if(i==0){
-                result.put("success", "false");
-            }
+            studentControllerService.updateSubmitSubTime(subId,subTime);
             String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
             SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
         }
         result.put("success", "true");
+        return result;
+    }
 
+    /**
+     * @Description: 提交实验
+     * @param session session
+     * @param content 实验编写的内容
+     * @param subRichTextPath 实验保存路径
+     * @param subId 提交id
+     * @Author: Starry the Night
+     * @Date:  2019/10/25 18:13
+     * @return java.util.Map<java.lang.String,java.lang.Object>
+     */
+    @ResponseBody
+    @RequestMapping(value = {"/submitHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    public Map<String, Object> submitHtml(HttpSession session,String content, String subRichTextPath,int subId) {
+        Map<String, Object> result = new HashMap<>(2);
+        Timestamp subTime = new Timestamp(System.currentTimeMillis());
+        studentControllerService.updateSubmitSubTimeAndSubState(subId,subTime,"待批阅");
+
+        String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+        SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
+        result.put("success", "true");
         return result;
     }
 

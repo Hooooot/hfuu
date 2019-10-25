@@ -122,7 +122,7 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
         submitEntity.setStuEntity(studentEntity);
         submitEntity.setTaskEntity(taskEntity);
         submitEntity.setSubRichTextPath(subRichTextPath);
-        submitEntity.setSubState("待批阅");
+        submitEntity.setSubState("待提交");
         submitEntity.setScore((short)0);
         submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
         submitDao.insert(submitEntity);
@@ -132,5 +132,10 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
     @Override
     public Integer updateSubmitSubTime(int subId, Timestamp subTime) {
         return submitDao.executeHql("update SubmitEntity s set s.subTime=? where s.subId=?",subTime,subId);
+    }
+
+    @Override
+    public Integer updateSubmitSubTimeAndSubState(int subId, Timestamp subTime, String subState) {
+        return submitDao.executeHql("update SubmitEntity s set s.subTime=? , s.subState=? where s.subId=?",subTime,subState,subId);
     }
 }

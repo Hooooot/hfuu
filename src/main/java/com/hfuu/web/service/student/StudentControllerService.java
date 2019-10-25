@@ -73,6 +73,17 @@ public interface StudentControllerService extends BaseService {
      */
     Integer updateSubmitSubTime(int subId,Timestamp subTime);
 
+    /**
+     * 更新数据库 提交时间
+     * @param subId  提交id
+     * @param subTime 当前时间
+     * @param subState 提交状态
+     * @Author: Starry the Night
+     * @Date:  2019/10/24 22:51
+     * @return java.lang.Integer
+     */
+    Integer updateSubmitSubTimeAndSubState(int subId,Timestamp subTime,String subState);
+
 
 
 }

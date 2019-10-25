@@ -55,10 +55,10 @@
 
 <script type="text/html" id="bar">
     <%-- <a class="layui-btn layui-btn-xs layui-btn-disabled" lay-event="deploy">提交作业</a>--%>
-    {{#  if((new Date(d.deadline) >new Date())&&(d.subState!="已批阅")){ }}
+    {{#  if((new Date(d.deadline) >new Date())&&(d.subState!="已批阅")&&(d.subState!="待批阅")){ }}
     <a class="layui-btn layui-btn-xs" lay-event="submitjob">提交作业</a>
     {{#  } }}
-    {{#  if((new Date(d.deadline) < new Date())||(d.subState=="已批阅")){ }}
+    {{#  if((new Date(d.deadline) < new Date())||(d.subState=="已批阅")||(d.subState=="待批阅")){ }}
     <a class="layui-btn layui-btn-xs layui-btn-disabled">提交作业</a>
     {{#  } }}
 

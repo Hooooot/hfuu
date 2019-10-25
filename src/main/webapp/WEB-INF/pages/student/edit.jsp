@@ -33,14 +33,10 @@
 <div id="editor">
 </div>
 
-
-<div class="layui-btn-group button-submit">
-    <button type="button" class="layui-btn layui-btn-primary" id="btn1">获取html</button>
-    <button type="button" class="layui-btn layui-btn-primary" id="btn2">获取text</button>
-    <button type="button" class="layui-btn layui-btn-primary" id="btn3">获取JSON</button>
-    <button type="button" class="layui-btn layui-btn-primary" id="btn4">预览</button>
-    <button type="button" class="layui-btn layui-btn-primary" id="btn5">保存</button>
-
+<div class="layui-btn-group button-submit" style="margin-top: 50px;">
+    <button type="button" class="layui-btn" id="save">保存</button>
+    <button type="button" class="layui-btn layui-btn-primary" id="preview">预览</button>
+    <button type="button" class="layui-btn" id="submit">提交</button>
 </div>
 <script src="weditor/wangEditor.js"></script>
 <script src="layui/layui.all.js"></script>
@@ -171,43 +167,52 @@
 
 
         editor.create();
-
-        document.getElementById('btn1').addEventListener('click', function () {
-            // 读取 html
-            alert(editor.txt.html())
-        }, false);
-
-        document.getElementById('btn2').addEventListener('click', function () {
-            // 读取 text
-            alert(editor.txt.text())
-        }, false);
-
-        document.getElementById('btn3').addEventListener('click', function () {
-            var json = editor.txt.getJSON();  // 获取 JSON 格式的内容
-            var jsonStr = JSON.stringify(json);
-            console.log(json);
-            console.log(jsonStr);
-            alert(jsonStr)
+        //提交页面
+        document.getElementById('submit').addEventListener('click', function () {
+            $.ajax({
+                type:"POST",
+                url:'submitHtml',
+                data:{'content':editor.txt.html(),'subRichTextPath':subRichTextPath,'subId':subId},
+                dataType:"json",
+                success:function (data) {
+                    if(data && data.success=="true"){
+                        layer.msg("提交成功", {
+                            icon: 6});
+                        ///////////////////////////////////////////
+                        parent.layui.table.reload(tableId);
+                    }
+                    //等待900毫秒后自动进行当前子窗口的关闭
+                    setTimeout(function(){
+                        //当你在iframe页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    },900);
+                },error:function () {
+                    layer.msg("提交失败",{
+                        icon: 5
+                    })
+                }
+            })
         });
 
         //预览
-        document.getElementById('btn4').addEventListener('click', function () {
+        document.getElementById('preview').addEventListener('click', function () {
             var _txt = editor.txt.html();
 
             layer.open({
-
                 type: 1,
                 area: ['100%', '100%'],
                 title: [taskName, 'font-size:18px;text-align: center;'],
                 id: '_txt', //设定一个id，防止重复弹出
                 shadeClose: true,
+                closeBtn: 1,
                 anim: 2,
                 content: '<!doctype html><html lang="zh"><head><title></title></head><body>' + _txt + '</body></html>',
             });
         });
 
         //保存页面
-        document.getElementById('btn5').addEventListener('click',function () {
+        document.getElementById('save').addEventListener('click',function () {
             $.ajax({
                 type:"POST",
                 url:'saveHtml',
