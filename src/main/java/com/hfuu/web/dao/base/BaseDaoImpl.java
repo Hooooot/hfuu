@@ -97,4 +97,20 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
         }
         return q.list();
     }
+
+    @Override
+    public Integer executeHql(String hql){
+        return  sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
+    }
+
+    @Override
+    public Integer executeHql(String hql, Object... param){
+        Query q = sessionFactory.getCurrentSession().createQuery(hql);
+        if (param != null && param.length > 0) {
+            for (int i = 0; i < param.length; i++) {
+                q.setParameter(i, param[i]);
+            }
+        }
+        return q.executeUpdate();
+    }
 }

@@ -75,12 +75,14 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
                     shiYan.put("subState",submitEntities.iterator().next().getSubState());
                     shiYan.put("subFile",submitEntities.iterator().next().getSubFile());
                     shiYan.put("subRichTextPath",submitEntities.iterator().next().getSubRichTextPath());
+                    shiYan.put("subId",submitEntities.iterator().next().getSubId());
                 }else {
                     shiYan.put("score",0);
                     shiYan.put("subTime",null);
                     shiYan.put("subState","待提交");
                     shiYan.put("subFile",null);
                     shiYan.put("subRichTextPath",null);
+                    shiYan.put("subId",null);
                 }
 
                 data.add(shiYan);
@@ -125,5 +127,10 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
         submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
         submitDao.insert(submitEntity);
 
+    }
+
+    @Override
+    public Integer updateSubmitSubTime(int subId, Timestamp subTime) {
+        return submitDao.executeHql("update SubmitEntity s set s.subTime=? where s.subId=?",subTime,subId);
     }
 }

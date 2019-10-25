@@ -79,4 +79,20 @@ public interface BaseDao<T> {
      * @return
      */
     List findByHql(String hql, Object... param);
+
+    /**
+     * 执行HQL语句
+     *
+     * @param hql
+     * @return 响应数目
+     */
+    public Integer executeHql(String hql);
+    /**
+     * 执行HQL语句
+     *
+     * @param hql
+     * @param param
+     * @return 响应数目
+     */
+    public Integer executeHql(String hql, Object... param);
 }

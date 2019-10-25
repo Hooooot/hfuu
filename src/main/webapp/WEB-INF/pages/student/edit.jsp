@@ -57,11 +57,14 @@
         var taskId;//任务id
         var stuNum ="${studentLogin.stuNum}";//学号
         var subRichTextPath;//富文本内容保存的路径
+        var subId;//提交id
+        var tableId;//父类表格id
 
 
         $(document).ready(function () {
             //实验相关信息
             getExperiment();
+
             $.ajax({
                 type:"POST",
                 url:'getContent',
@@ -70,7 +73,6 @@
                 success:function (data) {
                     //初始化editor内容
                     editor.txt.html(data.data);
-                    console.log(data.data)
                 },error:function () {
                     layer.msg("加载失败")
                 }
@@ -81,11 +83,13 @@
         function getExperiment() {
             //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
             var parent_json = eval('('+parent.json+')');
-            //console.log(parent_json.taskDesc);
+            tableId = eval('('+parent.table_json+')');
+            //console.log(tableId);
             taskName=parent_json.taskName;
             taskDesc=parent_json.taskDesc;
             taskId=parent_json.taskId;
             subRichTextPath=parent_json.subRichTextPath;
+            subId=parent_json.subId;
             $("h1").text(taskName);
             $("h3").text(taskDesc);
         }
@@ -108,7 +112,7 @@
         editor.customConfig.pasteTextHandle = function (content) {
             // content 即粘贴过来的内容（html 或 纯文本），可进行自定义处理然后返回
             return content + '<p>这是我复制过来的</p>'
-        }
+        };
 
         // 限制一次最多上传 1张图片
         editor.customConfig.uploadImgMaxLength = 1;
@@ -207,14 +211,25 @@
             $.ajax({
                 type:"POST",
                 url:'saveHtml',
-                data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath},//experimentalName实验名称
+                data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath,'subId':subId},//experimentalName实验名称
                 dataType:"json",
                 success:function (data) {
                     if(data && data.success=="true"){
-                        layer.msg("保存成功");
+                        layer.msg("保存成功", {
+                            icon: 6});
+                        ///////////////////////////////////////////
+                        parent.layui.table.reload(tableId);
                     }
+                    //等待900毫秒后自动进行当前子窗口的关闭
+                    setTimeout(function(){
+                        //当你在iframe页面关闭自身时
+                        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+                        parent.layer.close(index); //再执行关闭
+                    },900);
                 },error:function () {
-                    layer.msg("保存失败")
+                    layer.msg("保存失败",{
+                        icon: 5
+                    })
                 }
             })
         });

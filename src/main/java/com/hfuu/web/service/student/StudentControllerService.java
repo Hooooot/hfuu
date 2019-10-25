@@ -5,6 +5,7 @@ package com.hfuu.web.service.student;
 import com.hfuu.web.entity.CourseEntity;
 import com.hfuu.web.service.base.BaseService;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
 
@@ -61,6 +62,16 @@ public interface StudentControllerService extends BaseService {
      * @return
      * */
     void updateSubRichTextPath(int taskId,String stuNum,String subRichTextPath);
+
+    /**
+     * 更新数据库 提交时间
+     * @param subId  提交id
+     * @param subTime 当前时间
+     * @Author: Starry the Night
+     * @Date:  2019/10/24 22:51
+     * @return java.lang.Integer
+     */
+    Integer updateSubmitSubTime(int subId,Timestamp subTime);
 
 
 

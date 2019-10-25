@@ -14,16 +14,17 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * @Description :
- * @date :
  * @author :16688
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date :
  */
 @Controller
 @RequestMapping("")
@@ -33,43 +34,50 @@ public class StudentController {
 
     /**
      * 获取项目路径
+     *
      * @param request
      * @return
      */
-    private static String getRealPath(HttpServletRequest request){
+    private static String getRealPath(HttpServletRequest request) {
 
         return request.getSession().getServletContext().getRealPath("");
     }
 
     @ResponseBody
     @RequestMapping(value = {"/saveHtml"}, method = RequestMethod.POST)
-    public Map<String, Object> saveHtml(HttpSession session,String content,int taskId,String stuNum,String subRichTextPath){
+    public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath,int subId) {
         Map<String, Object> result = new HashMap<>(2);
-        String htmlName=null;
-       if(subRichTextPath.length()==0){
-            htmlName=SaveToHtmlUtils.saveContentToHtml(session,content);
+        System.err.println(subId);
+        String htmlName = null;
+        if (subRichTextPath.length() == 0) {
+            htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlName);
 
-        }else {
-            String htmlPathAndName=session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\"+subRichTextPath;
-            SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName,content);
+        } else {
+            Timestamp subTime = new Timestamp(System.currentTimeMillis());
+            int i=studentControllerService.updateSubmitSubTime(subId,subTime);
+            if(i==0){
+                result.put("success", "false");
+            }
+            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+            SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
         }
-        result.put("success","true");
+        result.put("success", "true");
 
         return result;
     }
 
     @ResponseBody
     @RequestMapping(value = {"/getContent"}, method = RequestMethod.POST)
-    public Map<String, Object> getContentOfHtml(HttpSession session,String subRichTextPath){
+    public Map<String, Object> getContentOfHtml(HttpSession session, String subRichTextPath) {
         Map<String, Object> result = new HashMap<>(2);
 
-        String htmlPathAndName=session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\"+subRichTextPath;
-        if(subRichTextPath.length()==0){
-            result.put("data"," ");
-        }else {
-            String content=SaveToHtmlUtils.getHtmlContent(htmlPathAndName);
-            result.put("data",content);
+        String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+        if (subRichTextPath.length() == 0) {
+            result.put("data", " ");
+        } else {
+            String content = SaveToHtmlUtils.getHtmlContent(htmlPathAndName);
+            result.put("data", content);
         }
 
 
@@ -83,16 +91,17 @@ public class StudentController {
      */
     @ResponseBody
     @RequestMapping(value = {"/uploadFile"}, method = RequestMethod.POST)
-    public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file){
+    public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file) {
         Map<String, Object> result = new HashMap<>(4);
-        String contentType=file.getContentType();
+        String contentType = file.getContentType();
 
-        result.put( "code",0);
-        result.put("msg","");
-        result.put("count",1);
-        result.put("data",new String[]{});
-        return  result;
+        result.put("code", 0);
+        result.put("msg", "");
+        result.put("count", 1);
+        result.put("data", new String[]{});
+        return result;
     }
+
     /**
      * 实验编辑页面图片上传
      *
@@ -106,7 +115,7 @@ public class StudentController {
             // 获取项目路径
             String realPath = getRealPath(request);
             // 获取图片文件名称
-            String imgName = UUID.randomUUID()+".jpg";
+            String imgName = UUID.randomUUID() + ".jpg";
 
 
             //1.....获取项目路径（本地路径）

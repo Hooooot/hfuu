@@ -74,14 +74,18 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
                 }}
             ,{field:'subState', title:'状态', width:85, sort: true,templet: function(d){
                 let state=d.subState;
+                let nowTime=layui.util.toDateString(new Date(), 'yyyy-MM-dd HH:mm:ss');
+                let deadlineTime=layui.util.toDateString(d.deadline, 'yyyy-MM-dd HH:mm:ss');
                 if(state=="待批阅"){
                     return '<div style="text-align: center;color: yellowgreen;">' +d.subState + '</div>';
                   }
                   if(state=="已批阅"){
                     return '<div style="text-align: center;color: green;">' +d.subState + '</div>';
                   }
-                   if(state=="待提交"){
-                    return '<div style="text-align: center;">' +d.subState + '</div>';
+                   if((state=="待提交")&&(deadlineTime < nowTime)){
+                    return '<div style="text-align: center;color: red;">' +d.subState + '</div>';
+                  }else{
+                     return '<div style="text-align: center;">' +d.subState + '</div>';
                   }
                 }}
             ,{field:'score', title:'分数', width:75,align:"center", sort: true}
@@ -134,9 +138,13 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
                 obj.del();
                 layer.close(index);
             });
-        } else if(obj.event === 'deploy'){
+        } else if(obj.event === 'submitjob'){
+            //所在表格的表格id
+            let tableid=obj.tr.parent().parent().parent().parent().parent().attr('lay-id');
             //这行是监听到的表格行数据信息，复制给json全局变量。  
             json = JSON.stringify(data);
+            table_json=JSON.stringify(tableid);
+            //console.log(tableid)
             layer.open({
                 type: 2,
                 area: ['80%', '90%'],
