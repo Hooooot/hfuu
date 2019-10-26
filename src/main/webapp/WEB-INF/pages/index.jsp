@@ -12,7 +12,7 @@
     <title>首页</title>
 </head>
 <body>
-<a href="${crx}/indexs">学生页面</a>
+<a href="${crx}/student/indexs">学生页面</a>
 <a href="${tcr}/logintPage">教师页面</a>
 <a href="${adm}/login">管理员页面</a>
 </body>

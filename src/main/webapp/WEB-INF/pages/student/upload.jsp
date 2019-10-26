@@ -10,8 +10,8 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="icon" href="../favicon.ico">
     <title>上传</title>
 </head>
 <body>
@@ -39,7 +39,7 @@
 </div>
 
 </body>
-<script src="layui/layui.all.js"></script>
-<script src="js/student/uploadFile.js"></script>
+<script src="../layui/layui.all.js"></script>
+<script src="../js/student/uploadFile.js"></script>
 
 </html>

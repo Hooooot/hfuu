@@ -9,8 +9,8 @@
 <html>
 <head>
     <title>编辑</title>
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="weditor/wangEditor.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../weditor/wangEditor.css">
     <style type="text/css">
         body {
             margin: 10px;
@@ -38,8 +38,8 @@
     <button type="button" class="layui-btn layui-btn-primary" id="preview">预览</button>
     <button type="button" class="layui-btn" id="submit">提交</button>
 </div>
-<script src="weditor/wangEditor.js"></script>
-<script src="layui/layui.all.js"></script>
+<script src="../weditor/wangEditor.js"></script>
+<script src="../layui/layui.all.js"></script>
 <script>
 
     layui.use(['element', 'jquery', 'layer', 'upload'], function () {
@@ -63,7 +63,7 @@
 
             $.ajax({
                 type:"POST",
-                url:'getContent',
+                url:'./getContent',
                 data:{'subRichTextPath':subRichTextPath},
                 dataType:"json",
                 success:function (data) {
@@ -171,7 +171,7 @@
         document.getElementById('submit').addEventListener('click', function () {
             $.ajax({
                 type:"POST",
-                url:'submitHtml',
+                url:'./submitHtml',
                 data:{'content':editor.txt.html(),'subRichTextPath':subRichTextPath,'subId':subId},
                 dataType:"json",
                 success:function (data) {
@@ -215,7 +215,7 @@
         document.getElementById('save').addEventListener('click',function () {
             $.ajax({
                 type:"POST",
-                url:'saveHtml',
+                url:'./saveHtml',
                 data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath,'subId':subId},//experimentalName实验名称
                 dataType:"json",
                 success:function (data) {

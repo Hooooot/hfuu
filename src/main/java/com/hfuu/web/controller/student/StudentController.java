@@ -56,7 +56,7 @@ public class StudentController {
      * @return java.util.Map<java.lang.String,java.lang.Object>
      */
     @ResponseBody
-    @RequestMapping(value = {"/saveHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    @RequestMapping(value = {"/student/saveHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath,int subId) {
         Map<String, Object> result = new HashMap<>(2);
         System.err.println(subId);
@@ -89,7 +89,7 @@ public class StudentController {
      * @return java.util.Map<java.lang.String,java.lang.Object>
      */
     @ResponseBody
-    @RequestMapping(value = {"/submitHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    @RequestMapping(value = {"/student/submitHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> submitHtml(HttpSession session,String content, String subRichTextPath,int subId) {
         Map<String, Object> result = new HashMap<>(2);
         Timestamp subTime = new Timestamp(System.currentTimeMillis());
@@ -102,7 +102,7 @@ public class StudentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = {"/getContent"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/student/getContent"}, method = RequestMethod.POST)
     public Map<String, Object> getContentOfHtml(HttpSession session, String subRichTextPath) {
         Map<String, Object> result = new HashMap<>(2);
 
@@ -124,7 +124,7 @@ public class StudentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"/uploadFile"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/student/uploadFile"}, method = RequestMethod.POST)
     public Map<String, Object> uploadFile(@RequestParam("file") MultipartFile file) {
         Map<String, Object> result = new HashMap<>(4);
         String contentType = file.getContentType();
@@ -142,7 +142,7 @@ public class StudentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = {"/uploadImg"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    @RequestMapping(value = {"/student/uploadImg"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> uploadImg(@RequestParam("image") MultipartFile multipartFile, HttpServletRequest request) {
         Map<String, Object> result = new HashMap<>(2);
         try {

@@ -18,7 +18,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
-    <link rel="stylesheet" href="layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
 </head>
 <body style="background:#fff;">
 <div id="collapse" class="layui-collapse" lay-filter="collapse-filter" style="margin-top: 20px;">
@@ -64,7 +64,7 @@
 
     <a class="layui-btn layui-btn-xs" lay-event="deleterow">删除行</a>
 </script>
-<script src="layui/layui.js"></script>
-<script src="js/student/home.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/student/home.js"></script>
 </body>
 </html>

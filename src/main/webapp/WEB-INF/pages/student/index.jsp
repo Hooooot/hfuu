@@ -10,11 +10,11 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="layui/css/admin.css">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/admin.css">
     <%--自定义图标--%>
-    <link rel="stylesheet" href="css/student/lock.css">
-    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="../css/student/lock.css">
+    <link rel="icon" href="../images/favicon.ico">
     <title>主页</title>
 
 </head>
@@ -39,7 +39,7 @@
                 <a href="javascript:;">锁屏</a>
             </li>
             <li class="layui-nav-item " lay-unselect>
-                <a href="javascript:;"><img src="images/face.jpg" class="layui-nav-img">${studentLogin.stuName}</a>
+                <a href="javascript:;"><img src="../images/face.jpg" class="layui-nav-img">${studentLogin.stuName}</a>
                 <dl class="layui-nav-child">
                     <dd><a href="javascript:;" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
                     </dd>
@@ -57,7 +57,7 @@
         <div class="layui-side-scroll">
 
             <div class="custom-logo">
-                <img src="layui/images/logo.png" alt=""/>
+                <img src="../layui/images/logo.png" alt=""/>
                 <h1>作业提交系统</h1>
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree">
@@ -67,7 +67,7 @@
                         <em>主页</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd class="comm"><a href="${crx}/homes?studentNum=${studentLogin.stuNum}">控制台</a></dd>
+                        <dd class="comm"><a href="${crx}/student/homes?studentNum=${studentLogin.stuNum}">控制台</a></dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -76,18 +76,18 @@
                         <em>作业</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="${crx}/personaldetas">表单</a></dd>
+                        <dd><a href="${crx}/student/personaldetas">表单</a></dd>
                         <dd>
                             <a href="javascript:;">页面</a>
                             <dl class="layui-nav-child">
                                 <dd>
-                                    <a href="${crx}/test?studentNum= ${studentLogin.stuNum}">测试</a>
+                                    <a href="${crx}/student/test?studentNum= ${studentLogin.stuNum}">测试</a>
                                 </dd>
                                 <dd>
-                                    <a href="${crx}/uploads">上传</a>
+                                    <a href="${crx}/student/uploads">上传</a>
                                 </dd>
                                 <dd>
-                                    <a href="${crx}/uploadbars">进度条上传</a>
+                                    <a href="${crx}/student/uploadbars">进度条上传</a>
                                 </dd>
                             </dl>
                         </dd>
@@ -107,8 +107,8 @@
                 <%--隐藏区域--!!!!!!!!!!!!!!!!!!! --%>
                 <li class="layui-nav-item layui-hide">
                     <dl class="layui-nav-child">
-                        <dd><a href="${crx}/userinfos" class="userInfo">个人信息</a></dd>
-                        <dd><a href="${crx}/personaldetas" class="changePassword">修改密码</a></dd>
+                        <dd><a href="${crx}/student/userinfos" class="userInfo">个人信息</a></dd>
+                        <dd><a href="${crx}/student/personaldetas" class="changePassword">修改密码</a></dd>
                     </dl>
                 </li>
             </ul>
@@ -129,8 +129,8 @@
 
     <div class="mobile-mask"></div>
 </div>
-<script src="layui/layui.js"></script>
-<script src="js/student/lock.js"></script>
-<script src="js/student/index.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/student/lock.js"></script>
+<script src="../js/student/index.js"></script>
 </body>
 </html>

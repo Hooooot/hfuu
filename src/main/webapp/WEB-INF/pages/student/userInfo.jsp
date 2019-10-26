@@ -10,9 +10,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="css/student/userInfo.css">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../css/student/userInfo.css">
+    <link rel="icon" href="../favicon.ico">
     <title>个人资料</title>
 </head>
 <body>
@@ -20,7 +20,7 @@
 <form class="layui-form layui-row">
     <div class="layui-col-md3 layui-col-xs12 user_right">
         <div class="layui-upload-list">
-            <img class="layui-upload-img layui-circle userFaceBtn userAvatar" id="userFace" src="images/face.jpg">
+            <img class="layui-upload-img layui-circle userFaceBtn userAvatar" id="userFace" src="../images/face.jpg">
         </div>
         <button type="button" class="layui-btn layui-btn-primary userFaceBtn"><i class="layui-icon">&#xe67c;</i> 更换头像</button>
     </div>
@@ -116,7 +116,7 @@
         </div>
     </div>
 </form>
-<script src="layui/layui.js"></script>
-<script src="js/student/userInfo.js"></script>
+<script src="../layui/layui.js"></script>
+<script src="../js/student/userInfo.js"></script>
 </body>
 </html>

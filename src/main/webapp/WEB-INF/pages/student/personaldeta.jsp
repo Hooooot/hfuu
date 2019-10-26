@@ -10,9 +10,9 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="layui/css/layui.css">
-    <link rel="stylesheet" href="layui/css/admin.css">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="stylesheet" href="../layui/css/layui.css">
+    <link rel="stylesheet" href="../layui/css/admin.css">
+    <link rel="icon" href="../favicon.ico">
     <title>信息</title>
 </head>
 <body class="layui-view-body">
@@ -78,6 +78,6 @@
         </div>
     </div>
 </div>
-<script src="layui/layui.all.js"></script>
+<script src="../layui/layui.all.js"></script>
 </body>
 </html>

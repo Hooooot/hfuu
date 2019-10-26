@@ -49,7 +49,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/indexs"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/indexs"}, method = RequestMethod.GET)
     public String toindexS(Model model) {
         StudentEntity studentEntity = stuService.findById(4);
         model.addAttribute("studentLogin", studentEntity);
@@ -61,7 +61,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/homes"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/homes"}, method = RequestMethod.GET)
     public String toHomeS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
         //学号
         Map map=studentControllerService.getCourseByStuNum(studentNum);
@@ -72,7 +72,7 @@ public class LoginSController {
 
 
     @ResponseBody
-    @RequestMapping(value = {"/json_test"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
+    @RequestMapping(value = {"/student/json_test"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
     public Map<String, Object> jsonCourse(String stuNum,String cozName){
         Map<String, Object> json=new HashMap<>(4);
         List<Map> data=studentControllerService.getTaskFromCourse(stuNum,cozName);
@@ -90,7 +90,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/test"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/test"}, method = RequestMethod.GET)
     public String toTestS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
         System.out.println(studentNum);
         return "student/test";
@@ -102,7 +102,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/edits"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/edits"}, method = RequestMethod.GET)
     public String toEditS() {
         return "student/edit";
     }
@@ -113,7 +113,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/consoles"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/consoles"}, method = RequestMethod.GET)
     public String toConsoleS() {
         return "student/console";
     }
@@ -124,7 +124,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/personaldetas"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/personaldetas"}, method = RequestMethod.GET)
     public String toPersonalDetaS() {
 
 
@@ -136,7 +136,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/userinfos"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/userinfos"}, method = RequestMethod.GET)
     public String toUserInfoS() {
         return "student/userInfo";
     }
@@ -146,7 +146,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/uploads"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/uploads"}, method = RequestMethod.GET)
     public String toUploadS() {
 
         return "student/upload";
@@ -158,7 +158,7 @@ public class LoginSController {
      *
      * @return
      */
-    @RequestMapping(value = {"/uploadbars"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/student/uploadbars"}, method = RequestMethod.GET)
     public String toUpTestS() {
      /*  String s=SaveToHtmlUtils.getHtmlContent("E:\\idea\\hfuu\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\5f8df87af48a48c7b29eb8ea578f9b25.html");
         System.err.println(s);

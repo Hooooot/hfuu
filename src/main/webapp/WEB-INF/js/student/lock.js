@@ -69,7 +69,7 @@ layui.define(['element', 'form', "layer"], function(exports) {
             area: ['60%', '500px'],
             title: false,
             shadeClose: true,
-            content: 'http://localhost:8080/hfuu/'+ 'logins',
+            content: 'http://localhost:8080/hfuu/student/'+ 'logins',
 
         });
 
