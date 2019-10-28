@@ -44,34 +44,32 @@ public class StudentController {
     }
 
     /**
-     * @Description: //保存实验
-     * @param session session
-     * @param content 实验编写的内容
-     * @param taskId 任务id
-     * @param stuNum 学生学号
+     * @param session         session
+     * @param content         实验编写的内容
+     * @param taskId          任务id
+     * @param stuNum          学生学号
      * @param subRichTextPath 实验保存路径
-     * @param subId 提交id
+     * @param subId           提交id
+     * @return java.util.Map<java.lang.String, java.lang.Object>
+     * @Description: //保存实验
      * @Author: Starry the Night
-     * @Date:  2019/10/25 18:09
-     * @return java.util.Map<java.lang.String,java.lang.Object>
+     * @Date: 2019/10/25 18:09
      */
     @ResponseBody
     @RequestMapping(value = {"/student/saveHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath,int subId) {
+    public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath, int subId) {
         Map<String, Object> result = new HashMap<>(2);
         String htmlName = null;
 
-
-
-       if (subRichTextPath.length() == 0) {
-            //第一次提交
+        if (subRichTextPath.length() == 0) {
+            //第一次保存
             htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlName);
 
         } else {
-            //非第一次提交
+            //非第一次保存
             Timestamp subTime = new Timestamp(System.currentTimeMillis());
-            studentControllerService.updateSubmitSubTime(subId,subTime);
+            studentControllerService.updateSubmitSubTime(subId, subTime);
             String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
             SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
         }
@@ -81,24 +79,35 @@ public class StudentController {
     }
 
     /**
-     * @Description: 提交实验
-     * @param session session
-     * @param content 实验编写的内容
+     * @param session         session
+     * @param content         实验编写的内容
      * @param subRichTextPath 实验保存路径
-     * @param subId 提交id
+     * @param subId           提交id
+     * @param taskId          任务id
+     * @param stuNum          学生学号
+     * @return java.util.Map<java.lang.String, java.lang.Object>
+     * @Description: 提交实验
      * @Author: Starry the Night
-     * @Date:  2019/10/25 18:13
-     * @return java.util.Map<java.lang.String,java.lang.Object>
+     * @Date: 2019/10/25 18:13
      */
     @ResponseBody
     @RequestMapping(value = {"/student/submitHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map<String, Object> submitHtml(HttpSession session,String content, String subRichTextPath,int subId) {
+    public Map<String, Object> submitHtml(HttpSession session, String content, String subRichTextPath, int subId, int taskId, String stuNum) {
         Map<String, Object> result = new HashMap<>(2);
-        Timestamp subTime = new Timestamp(System.currentTimeMillis());
-        studentControllerService.updateSubmitSubTimeAndSubState(subId,subTime,"待批阅");
+        if (subId == 0) {
+            //直接提交
+           String htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
+           studentControllerService.directSubmission(taskId,stuNum,"待批阅",htmlName);
 
-        String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
-        SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
+        } else {
+
+            //保存后提交
+            Timestamp subTime = new Timestamp(System.currentTimeMillis());
+            studentControllerService.updateSubmitSubTimeAndSubState(subId, subTime, "待批阅");
+
+            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+            SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
+        }
         result.put("success", "true");
         return result;
     }

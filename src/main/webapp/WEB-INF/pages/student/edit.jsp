@@ -169,10 +169,14 @@
         editor.create();
         //提交页面
         document.getElementById('submit').addEventListener('click', function () {
+            if(subRichTextPath==null&&subId==null){
+                //编辑后直接提交
+                subId=0;
+            }
             $.ajax({
                 type:"POST",
                 url:'./submitHtml',
-                data:{'content':editor.txt.html(),'subRichTextPath':subRichTextPath,'subId':subId},
+                data:{'content':editor.txt.html(),'subRichTextPath':subRichTextPath,'subId':subId,'taskId':taskId,'stuNum':stuNum},
                 dataType:"json",
                 success:function (data) {
                     if(data && data.success=="true"){

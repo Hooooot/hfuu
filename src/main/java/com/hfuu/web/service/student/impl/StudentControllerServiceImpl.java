@@ -138,4 +138,21 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
     public Integer updateSubmitSubTimeAndSubState(int subId, Timestamp subTime, String subState) {
         return submitDao.executeHql("update SubmitEntity s set s.subTime=? , s.subState=? where s.subId=?",subTime,subState,subId);
     }
+
+    @Override
+    public void directSubmission(int taskId, String stuNum, String subState, String subRichTextPath) {
+        TaskEntity taskEntity=new TaskEntity();
+        taskEntity.setTaskId(taskId);
+        StudentEntity studentEntity=new StudentEntity();
+        studentEntity.setStuNum(stuNum);
+
+        SubmitEntity submitEntity=new SubmitEntity();
+        submitEntity.setStuEntity(studentEntity);
+        submitEntity.setTaskEntity(taskEntity);
+        submitEntity.setSubRichTextPath(subRichTextPath);
+        submitEntity.setSubState(subState);
+        submitEntity.setScore((short)0);
+        submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
+        submitDao.insert(submitEntity);
+    }
 }

@@ -85,5 +85,16 @@ public interface StudentControllerService extends BaseService {
     Integer updateSubmitSubTimeAndSubState(int subId,Timestamp subTime,String subState);
 
 
+    /**
+     * 直接提交（不保存后提交）
+     * @param taskId 任务id
+     * @param stuNum 学生学号
+     * @param subState 提交状态
+     * @param subRichTextPath  富文本保存成html的路径
+     * @Author: Starry the Night
+     * @Date:  2019/10/28 21:48
+     */
+    void directSubmission(int taskId,String stuNum,String subState,String subRichTextPath);
+
 
 }
