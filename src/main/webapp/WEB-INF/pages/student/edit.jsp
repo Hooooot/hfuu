@@ -213,10 +213,13 @@
 
         //保存页面
         document.getElementById('save').addEventListener('click',function () {
+            if(subId==null) {
+                subId=0;
+            }
             $.ajax({
                 type:"POST",
                 url:'./saveHtml',
-                data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath,'subId':subId},//experimentalName实验名称
+                data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath,'subId':subId},
                 dataType:"json",
                 success:function (data) {
                     if(data && data.success=="true"){

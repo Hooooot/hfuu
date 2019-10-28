@@ -70,7 +70,7 @@ public class SubmitEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "subRichTextPath", nullable = true, length = 40)
+    @Column(name = "subRichTextPath", nullable = true, length = 50)
     public String getSubRichTextPath() {
         return subRichTextPath;
     }

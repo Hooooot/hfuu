@@ -208,17 +208,19 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function() {
                                 json = JSON.stringify(data);
                                 table_json = JSON.stringify(tableid);
                                 //console.log(tableid)
-                                layer.open({
-                                    title: " ",
-                                    type: 2,
-                                    area: ['80%', '90%'],
-                                    shadeClose: true,
-                                    resize:true,
-                                    move: '.layui-layer-title',
-                                    moveOut: true,
-                                    content: './edits',
-                                });
-                            }
+                                let index = layer.open({
+                                        title: " ",
+                                        type: 2,
+                                        area: ['80%', '90%'],
+                                        shadeClose: true,
+                                        resize:true,
+                                        move: '.layui-layer-title',
+                                        moveOut: true,
+                                        maxmin: true, //开启最大化最小化按钮
+                                        content: './edits',    
+                                    });
+                                    layer.full(index);//弹出层弹出后自动最大化
+                                }   
                         });
                     });
                     `;

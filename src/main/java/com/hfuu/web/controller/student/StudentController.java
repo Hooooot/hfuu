@@ -59,10 +59,11 @@ public class StudentController {
     @RequestMapping(value = {"/student/saveHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath,int subId) {
         Map<String, Object> result = new HashMap<>(2);
-        System.err.println(subId);
         String htmlName = null;
 
-        if (subRichTextPath.length() == 0) {
+
+
+       if (subRichTextPath.length() == 0) {
             //第一次提交
             htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlName);
@@ -74,6 +75,7 @@ public class StudentController {
             String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
             SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
         }
+
         result.put("success", "true");
         return result;
     }
