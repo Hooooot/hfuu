@@ -59,18 +59,19 @@ public class StudentController {
     @RequestMapping(value = {"/student/saveHtml"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> saveHtml(HttpSession session, String content, int taskId, String stuNum, String subRichTextPath, int subId) {
         Map<String, Object> result = new HashMap<>(2);
-        String htmlName = null;
+        String htmlRelativePath = null;
+
 
         if (subRichTextPath.length() == 0) {
             //第一次保存
-            htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
-            studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlName);
+            htmlRelativePath = "richtext/"+SaveToHtmlUtils.saveContentToHtml(session, content);
+            studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlRelativePath);
 
         } else {
             //非第一次保存
             Timestamp subTime = new Timestamp(System.currentTimeMillis());
             studentControllerService.updateSubmitSubTime(subId, subTime);
-            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\" + subRichTextPath;
             SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
         }
 
@@ -96,8 +97,8 @@ public class StudentController {
         Map<String, Object> result = new HashMap<>(2);
         if (subId == 0) {
             //直接提交
-           String htmlName = SaveToHtmlUtils.saveContentToHtml(session, content);
-           studentControllerService.directSubmission(taskId,stuNum,"待批阅",htmlName);
+           String htmlRelativePath = "richtext/"+ SaveToHtmlUtils.saveContentToHtml(session, content);
+           studentControllerService.directSubmission(taskId,stuNum,"待批阅",htmlRelativePath);
 
         } else {
 
@@ -105,7 +106,7 @@ public class StudentController {
             Timestamp subTime = new Timestamp(System.currentTimeMillis());
             studentControllerService.updateSubmitSubTimeAndSubState(subId, subTime, "待批阅");
 
-            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\" + subRichTextPath;
             SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
         }
         result.put("success", "true");
@@ -117,7 +118,7 @@ public class StudentController {
     public Map<String, Object> getContentOfHtml(HttpSession session, String subRichTextPath) {
         Map<String, Object> result = new HashMap<>(2);
 
-        String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\richtext\\" + subRichTextPath;
+        String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\" + subRichTextPath;
         if (subRichTextPath.length() == 0) {
             result.put("data", " ");
         } else {

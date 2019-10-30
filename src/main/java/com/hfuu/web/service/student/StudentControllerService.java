@@ -58,7 +58,7 @@ public interface StudentControllerService extends BaseService {
      * 对提交信息subRichTextPath字段数据进行更新
      * @param taskId 任务id
      * @param stuNum 学生学号
-     * @param subRichTextPath 富文本保存成html的路径
+     * @param subRichTextPath 富文本保存成html的相对路径
      * @return
      * */
     void updateSubRichTextPath(int taskId,String stuNum,String subRichTextPath);
@@ -90,7 +90,7 @@ public interface StudentControllerService extends BaseService {
      * @param taskId 任务id
      * @param stuNum 学生学号
      * @param subState 提交状态
-     * @param subRichTextPath  富文本保存成html的路径
+     * @param subRichTextPath  富文本保存成html的相对路径
      * @Author: Starry the Night
      * @Date:  2019/10/28 21:48
      */
