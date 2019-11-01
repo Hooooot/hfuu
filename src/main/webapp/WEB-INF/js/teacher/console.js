@@ -22,11 +22,12 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
 
     Collapse.prototype.loadDataTable = function(){
         let script = document.createElement("script");
-        script.innerHTML =`layui.use(['table'], function(){
-    let table = layui.table;
+        script.innerHTML =`layui.use(['table', 'jquery'], function(){
+    let table = layui.table,
+        $ = layui.jquery;
     table.render({
         elem: '#${this.tableId}' // 修改
-        ,url:'./json_test'
+        ,url:'./task_table_json'
         ,even: true
         ,where: {
             "cozName": "${this.cozName}"
@@ -40,71 +41,80 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
         ,title: '用户数据表'
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
-            // ,{field:'cozId', title:'ID', width:80, fixed: 'right', unresize: true, sort: true}
             ,{field:'cozNum', title:'课程代码', width:120, sort: true}
-            // ,{field:'email', title:'邮箱', width:150, edit: 'text', templet: function(res){
-            //         return '<em>'+ res.email +'</em>'
-            //     }}
-            ,{field:'cozName', title:'<div style="text-align: center;">课程名</div>', width:200, sort: false, templet: function(d){
+            ,{field:'cozName', title:'课程名', align:"center", sort: false, templet: function(d){
                     return '<div style="text-align: center;">' + d.cozName + '</div>'
                 }}
-            ,{field:'className', title:'班级名', width:150, sort: true}
+            ,{field:'classNum', title:'班级代码', align:"center", width:150, sort: true, templet: function(d){
+                    return '<div style="text-align: center;">' + d.classNum + '</div>'
+                }}
+            ,{field:'className', title:'班级名', align:"center", sort: true, templet: function(d){
+                    return '<div style="text-align: center;">' + d.className + '</div>'
+                }}
             ,{field:'taskCount', title:'未截止/已截止', width:150, sort: true, templet: function(d){
                      return '<div style="text-align: center;">' + d.taskCount.notClosed + " / " + d.taskCount.closed + '</div>'
                 }}
-            // ,{field:'city', title:'城市', width:100}
-            // ,{field:'sign', title:'签名'}
-            // ,{field:'experience', title:'积分', width:80, sort: true}
-            // ,{field:'ip', title:'IP', width:120}
-            // ,{field:'logins', title:'登入次数', width:100, sort: true}
-            // ,{field:'joinTime', title:'加入时间', width:120}
-            ,{fixed: 'right', title:'<div style="text-align: center;">操作</div>', toolbar: '#bar', width:160}
-        ]]
-    });
-    //头工具栏事件
-    table.on('toolbar(${this.layFilter})', function(obj){ // 修改
-        let checkStatus = table.checkStatus(obj.config.id);
-        let data;
-        switch(obj.event){
-            case 'getCheckData':
-                data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
-                break;
-            case 'getCheckLength':
-                data = checkStatus.data;
-                layer.msg('选中了：'+ data.length + ' 个');
-                break;
-            case 'isAll':
-                layer.msg(checkStatus.isAll ? '全选': '未全选');
-                break;
-            //自定义头工具栏右侧图标 - 提示
-            case 'LAYTABLE_TIPS':
-                layer.alert('这是工具栏右侧自定义的一个图标按钮');
-                break;
-        }
-    });
-    //监听行工具事件
-    table.on('tool(${this.layFilter})', function(obj){
-        let data = obj.data;
-        //console.log(obj)
-        if(obj.event === 'detail'){
-            layer.confirm('真的删除行么', function(index){
-                obj.del();
-                layer.close(index);
-            });
-        } else if(obj.event === 'deploy'){
-            layer.prompt({
-                formType: 2
-                ,value: data.email
-            }, function(value, index){
-                obj.update({
-                    email: value
+            ,{fixed: 'right', title:'操作', align:"center", toolbar: '#bar', width:160}
+            ]]
+        });
+        
+        // 触发发布作业事件
+        function deployTasks(data) {
+            let deployTaskBtn = $('.deployTask', parent.document);
+            let param = '?';
+            if(typeof data.forEach === 'function'){
+                data.forEach((item, index, data) => {
+                    param = param + 'cozNum=' + item.cozNum + '&';
+                    param = param + 'classNum=' + item.classNum + '&';
                 });
-                layer.close(index);
-            });
+            }else{
+                param = param + 'cozNum=' + data.cozNum + '&';
+                param = param + 'classNum=' + data.classNum;
+            }
+            let url = deployTaskBtn.attr('href');
+            deployTaskBtn.attr('href', url + param);
+            parent.layui.$('.deployTask', parent.document).trigger('click');
+            deployTaskBtn.attr('href', url);
         }
-    });
-});`;
+        
+        // 头工具栏事件
+        table.on('toolbar(${this.layFilter})', function(obj){ // 修改
+            let checkStatus = table.checkStatus(obj.config.id);
+            let data;
+            switch(obj.event){
+                case 'deployTasks':
+                    data = checkStatus.data;
+                    deployTasks(data);
+                    //layer.alert(JSON.stringify(data));
+                    break;
+                case 'getCheckLength':
+                    data = checkStatus.data;
+                    layer.msg('选中了：'+ data.length + ' 个');
+                    break;
+                case 'isAll':
+                    layer.msg(checkStatus.isAll ? '全选': '未全选');
+                    break;
+                //自定义头工具栏右侧图标 - 提示
+                case 'LAYTABLE_TIPS':
+                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
+                    break;
+            }
+        });
+        //监听行工具事件
+        table.on('tool(${this.layFilter})', function(obj){
+            let data = obj.data;
+            //console.log(obj)
+            if(obj.event === 'detail'){
+                layer.confirm('真的删除行么', function(index){
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if(obj.event === 'deploy'){
+                       deployTasks(data);
+            }
+        });
+    });`;
+
         document.body.appendChild(script);
     };
 

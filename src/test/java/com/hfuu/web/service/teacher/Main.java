@@ -1,10 +1,7 @@
 package com.hfuu.web.service.teacher;
 
-import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.springframework.util.DigestUtils;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,9 +19,9 @@ public class Main {
 
     @Test
     public void test() throws IllegalAccessException, IOException {
-        File f = new File("C:\\Users\\24469\\Desktop\\Java\\hfuu\\src\\main\\webapp\\WEB-INF\\uploaded\\files\\c0d108108e1ff87bbfa8b4e67633efa5");
-        String md5 = DigestUtils.md5DigestAsHex(FileUtils.readFileToByteArray(f));
-        System.out.println(md5);
+        String s = "files\\c0d108108e1ff87bbfa8b4e67633efa5:4564.jpg";
+        String sub = s.substring(0, s.indexOf(':'));
+        System.out.println(sub);
 
     }
 

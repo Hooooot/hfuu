@@ -5,12 +5,13 @@ const extPath="/hfuu/layui/uploader_ext/";
 
 layui.extend({
     webuploader: extPath + 'uploader/webuploader'
-}).define(['layer','laytpl','table','element','webuploader'],function(exports){
+}).define(['layer','laytpl','table','element','webuploader', 'form'],function(exports){
     let $ = layui.$
         ,webUploader= layui.webuploader
         ,element = layui.element
         ,layer=layui.layer
         ,table=layui.table
+        ,form=layui.form
         //  保存上传文件属性集合,添加table用
         ,rowData=[]
         //  默认上传文件大小100MB，单位B
@@ -217,6 +218,11 @@ layui.extend({
             }
         });
 
+        // 点击form提交按钮
+        form.on('submit(' + that.options.formSubmitBtn +')', function (data) {
+            layer.alert(JSON.stringify(data));
+        });
+
         //  开始所有文件上传
         $("#extent-button-uploader").on("click", (function () {
             that.uploadToServer();
@@ -244,7 +250,6 @@ layui.extend({
             $("#extent-button-uploader").text("开始上传");
             $("#extent-button-uploader").removeClass('layui-btn-disabled');
         });
-
     };
 
     Class.prototype.reloadData=function(data){

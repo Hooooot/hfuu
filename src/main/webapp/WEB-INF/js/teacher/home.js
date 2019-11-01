@@ -222,7 +222,7 @@ layui.define(['element', 'layer'], function (exports) {
 
 
 layui.use(['jquery', 'element', 'layer', 'upload'], function () {
-    var $ = layui.jquery,
+    let $ = layui.jquery,
         element = layui.element,
         layer = layui.layer,
         upload = layui.load;

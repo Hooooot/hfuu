@@ -106,6 +106,16 @@ public class UploadFileUtils {
      * @return 文件原始的文件名（不含路径）
      * */
     public static String getFileRealName(String fileName){
-        return fileName.substring(fileName.indexOf(".") + 1);
+        return fileName.substring(fileName.indexOf(":") + 1);
+    }
+
+    /**
+     * 返回文件的保存路径
+     *
+     * @param fileName 需要获取原始文件名的文件（可以带相对于uploaded文件夹的路径）
+     * @return 文件原始的路径
+     * */
+    public static String getFileRealPath(String fileName){
+        return fileName.substring(0, fileName.indexOf(':'));
     }
 }

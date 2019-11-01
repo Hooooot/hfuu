@@ -37,7 +37,7 @@
 
 <script type="text/html" id="toolBar">
     <div class="layui-btn-container">
-        <button type="button" class="layui-btn layui-btn-sm" lay-event="getCheckData">向选中班级发布作业</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-event="deployTasks">向选中班级发布作业</button>
         <button type="button" class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
         <button type="button" class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
     </div>

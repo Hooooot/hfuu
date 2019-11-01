@@ -82,7 +82,7 @@
                         <em>作业</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="deploy_homework">发布作业</a></dd>
+                        <dd><a class="deployTask" href="deploy_homework">发布作业</a></dd>
                         <dd>
                             <a href="already_homework">已发布作业</a>
                         </dd>

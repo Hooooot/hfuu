@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 /**
@@ -16,6 +17,10 @@ import java.util.UUID;
  */
 public class SaveToHtmlUtils {
     private static Logger log = Logger.getLogger(SaveToHtmlUtils.class);
+
+    public static String saveContentToHtml(HttpSession session, String content){
+        return saveContentToHtml(session, content, "\\richtext");
+    }
 
     /**
      * @param session HttpSession对象的实例
@@ -43,7 +48,7 @@ public class SaveToHtmlUtils {
             //把模板中内容替换成content中的内容
             templateContent = templateContent.replaceAll(templateContent, content);
             //建立文件输出流
-            OutputStreamWriter oStreamWriter = new OutputStreamWriter(new FileOutputStream(targetDir), "utf-8");
+            OutputStreamWriter oStreamWriter = new OutputStreamWriter(new FileOutputStream(targetDir), StandardCharsets.UTF_8);
             oStreamWriter.append(templateContent);
             oStreamWriter.close();
 
@@ -65,7 +70,7 @@ public class SaveToHtmlUtils {
     public static String getHtmlContent(String htmlPathAndName) {
         StringBuffer stringBuffer = new StringBuffer();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(htmlPathAndName), "UTF-8"));
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(htmlPathAndName), StandardCharsets.UTF_8));
             int tempChar;
             while ((tempChar = bufferedReader.read()) != -1) {
                 stringBuffer.append((char) tempChar);
@@ -90,7 +95,7 @@ public class SaveToHtmlUtils {
         htmlContent=htmlContent.replaceAll(htmlContent,content);
         try{
             //建立文件输出流
-            OutputStreamWriter oStreamWriter = new OutputStreamWriter(new FileOutputStream(htmlPathAndName), "utf-8");
+            OutputStreamWriter oStreamWriter = new OutputStreamWriter(new FileOutputStream(htmlPathAndName), StandardCharsets.UTF_8);
             oStreamWriter.append(htmlContent);
             oStreamWriter.close();
         }catch (Exception e){

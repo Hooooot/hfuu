@@ -1,5 +1,5 @@
 layui.config({
-    base: '/hfuu/js/teacher/'      //模块存放的目录
+    base: '/hfuu/js/common/'      //模块存放的目录
 }).extend({
     cookie: 'jquery.cookie'
 });
