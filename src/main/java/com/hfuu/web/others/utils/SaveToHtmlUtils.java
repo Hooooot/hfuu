@@ -20,21 +20,22 @@ public class SaveToHtmlUtils {
     /**
      * @param session HttpSession对象的实例
      * @param content 富文本里需要保存的内容
-     * @return 保存的文件名
+     * @param innerFolder uploaded文件夹下的文件夹名
+     * @return  保存文件 的相对路径
      * @Description: 富文本内容保存
      * @Author: Starry the Night
      * @Date: 2019/10/23 17:02
      */
-    public static String saveContentToHtml(HttpSession session, String content) {
+    public static String saveContentToHtml(HttpSession session, String content,String innerFolder) {
         String uploadedPath = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\";
         //  32位UUID防止出现文件名重复
         String uuid = UUID.randomUUID().toString().replace("-", "");
-        //保存文件名
-        String htmlName = uuid + ".html";
+        //保存文件相对路径
+        String htmlRelativePath = innerFolder+"/" +uuid + ".html";
         //模板路径
         String templatePath = uploadedPath + "template/template.html";
         //保存文件存放路径
-        String targetDir = uploadedPath + "uploaded/richtext/" + htmlName;
+        String targetDir = uploadedPath + "uploaded/"+htmlRelativePath;
         //模板里内容
         String templateContent = "";
         try {
@@ -51,7 +52,7 @@ public class SaveToHtmlUtils {
             return null;
         }
 
-        return htmlName;
+        return htmlRelativePath;
     }
 
     /**

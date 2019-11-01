@@ -64,7 +64,7 @@ public class StudentController {
 
         if (subRichTextPath.length() == 0) {
             //第一次保存
-            htmlRelativePath = "richtext/"+SaveToHtmlUtils.saveContentToHtml(session, content);
+            htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content,"richtext");
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlRelativePath);
 
         } else {
@@ -97,7 +97,7 @@ public class StudentController {
         Map<String, Object> result = new HashMap<>(2);
         if (subId == 0) {
             //直接提交
-           String htmlRelativePath = "richtext/"+ SaveToHtmlUtils.saveContentToHtml(session, content);
+           String htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content,"richtext");
            studentControllerService.directSubmission(taskId,stuNum,"待批阅",htmlRelativePath);
 
         } else {
