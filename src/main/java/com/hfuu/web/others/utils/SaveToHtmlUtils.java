@@ -68,18 +68,18 @@ public class SaveToHtmlUtils {
      * @return 返回文件内容
      */
     public static String getHtmlContent(String htmlPathAndName) {
-        StringBuffer stringBuffer = new StringBuffer();
+        StringBuilder stringBuilder = new StringBuilder();
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(htmlPathAndName), StandardCharsets.UTF_8));
             int tempChar;
             while ((tempChar = bufferedReader.read()) != -1) {
-                stringBuffer.append((char) tempChar);
+                stringBuilder.append((char) tempChar);
             }
             bufferedReader.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return stringBuffer.toString();
+        return stringBuilder.toString();
     }
 
     /**
