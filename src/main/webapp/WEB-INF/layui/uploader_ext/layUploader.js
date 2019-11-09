@@ -20,7 +20,8 @@ layui.extend({
         ,fileAmount=4
         ,fileType='doc,docx,pdf,xls,xlsx,ppt,pptx,gif,jpg,jpeg,bmp,png,rar,zip'
         ,uplaod
-        ,formUrlParams;
+        ,formParams
+        ,enclosure = "";
     layui.link(extPath + 'uploader/webuploader.css');
 
     let Class = function (options) {
@@ -28,7 +29,7 @@ layui.extend({
         that.options=options;
         that.windowContent=
             '<div  class="upload_select" style="clear:both;float: left;margin-left:10px;margin-top: 5px;">选择文件</div>'+
-            '<blockquote class="layui-elem-quote" style="margin-left: 150px;">TPS: 可以按Ctrl + V 来粘贴截图或者将文件拖拽至表格中上传</blockquote>'+
+            '<blockquote class="layui-elem-quote" style="margin-left: 150px;">Tip: 可以按Ctrl + V 来粘贴截图或者将文件拖拽至表格中上传</blockquote>'+
             '<div class="upload-dnd">'+
             '<table style="margin-top:-10px;" class="layui-table" id="extend-uploader-form" lay-filter="extend-uploader-form">' +
             '  <thead>' +
@@ -40,12 +41,6 @@ layui.extend({
             '      <th lay-data="{field:\'progress\',templet:\'#button-form-optProcess\'}">进度</th>'+
             '      <th lay-data="{field:\'oper\', width:150, templet: \'#button-form-uploadTalbe\'}">操作</th>'+
             '    </tr>'+
-            // '    <tr>' +
-            // '<div class="layui-upload-drag " style="margin-left: 10px;">' +
-            // '   <i class="layui-icon"></i>' +
-            // '   <p class="">点击选择附件或将附件拖拽到此处</p>' +
-            // '</div>'+
-            // '    </tr>'+
             '  </thead>'+
             '</table>'+
             '</div>'+
@@ -74,9 +69,6 @@ layui.extend({
         }
         if(!that.strIsNull(options.fileAmount)){
             fileAmount = options.fileAmount;
-        }
-        if(!that.strIsNull(options.formUrlParams)){
-            formUrlParams = options.formUrlParams;
         }
         if(!that.strIsNull(options.contentDom)){
             this.innerWindow(this);
@@ -218,18 +210,24 @@ layui.extend({
             }
         });
 
-        // 点击form提交按钮
+        function getRichTextHTML(index){
+            let richTextHTML = $('#LAY_layedit_' + index);
+            return "<html>" + richTextHTML.contents().find("html").html() + "</html>";
+        }
+
+
+        //  点击提交按钮
         form.on('submit(' + that.options.formSubmitBtn +')', function (data) {
-            layer.alert(JSON.stringify(data));
+            enclosure = "";
+            $(data.form).find('textarea[name="description"]').text(getRichTextHTML(that.options.layeditID));
+            formParams = $(data.form).serialize();
+            that.uploadToServer();
+
         });
 
-        //  开始所有文件上传
-        $("#extent-button-uploader").on("click", (function () {
-            that.uploadToServer();
-        }));
-
         //  单个文件上传成功
-        uplaod.on('uploadSuccess', function(file) {
+        uplaod.on('uploadSuccess', function(file, response) {
+            enclosure += response.path;
             that.setTableBtn(file.id,'完成');
         });
 
@@ -241,14 +239,12 @@ layui.extend({
         //  所有文件上传成功后
         uplaod.on('uploadFinished',function(){
             //  成功后
-            layer.alert("所有文件结束");
-            $.post(url,
-                data,
-                function () {
-                    
+            $.post('./newTask/',
+                formParams + "&enclosure=" + enclosure
+                ,function (callback) {
+                    location.reload();
+                    layer.alert(callback.msg);
                 });
-            $("#extent-button-uploader").text("开始上传");
-            $("#extent-button-uploader").removeClass('layui-btn-disabled');
         });
     };
 
@@ -306,6 +302,9 @@ layui.extend({
                         if(data.code===0){
                             task.reject();
                             uplaod.skipFile(file);
+                            let filePath = data.path + ":" + file.name + "|";
+                            console.log(filePath);
+                            enclosure = enclosure + filePath;
                             that.setTableBtn(file.id,'秒传');
                             element.progress(file.id,'100%');
                         }else{

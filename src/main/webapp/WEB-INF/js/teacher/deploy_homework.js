@@ -49,8 +49,6 @@ layui.extend({
             contentDom: ".upload_content",
             //  表单提交的url
             formUrl: './newTask/',
-            // 提交表单额外的参数
-            formUrlParams: {},
             formSubmitBtn: 'submit_btn',
             fileAmount: 4,
             //  md5验证地址，不填无md5验证，可不填
@@ -58,7 +56,8 @@ layui.extend({
             //  单个文件大小，有默认值，可不填，单位B
             size: 10240 * 1024 * 1024,
             //  允许上传文件格式,有默认值，可不填
-            fileType: 'doc,docx,iso,bat,jpg,jpeg,png,mp4,exe,pdf,bmp'
+            fileType: 'doc,docx,iso,bat,jpg,jpeg,png,mp4,exe,pdf,bmp',
+            layeditID: layeditID
         });
     });
 
@@ -70,13 +69,11 @@ layui.extend({
     form.on("submit(submit_btn_no_files)", function (data) {
         $(data.form).find('textarea[name="description"]').text(getRichTextHTML(layeditID));
         let param = $(data.form).serialize();
-        console.log($(data.form));
         $.post('./newTask/',
             param
             ,function (callback) {
-            layer.alert("已提交");
-        },
-        "json");
+            layer.alert(callback.msg);
+        });
     });
 
     function addClick () {

@@ -8,6 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description : 上传文件的工具类
@@ -56,7 +58,7 @@ public class UploadFileUtils {
         try{
             String[] paths = filePath.split(ConstValues.FILE_PATH_SEPARATOR);
             for (String path : paths) {
-                FileUtils.forceDelete(new File(uploadedPath + path));
+                FileUtils.forceDelete(new File(uploadedPath + getFileRealPath(path)));
                 // TODO ：测试完成后应当考虑改为log.debug()
                 log.info("文件删除成功！");
             }
@@ -73,7 +75,7 @@ public class UploadFileUtils {
      * @return 若存在则返回路径，否则返回null
      * */
     public static String getFilePathIfExist(HttpSession session, String md5){
-        return getFilePathIfExist(session, md5, "files\\");
+        return getFilePathIfExist(session, md5, "files/");
     }
 
     /**
@@ -106,7 +108,22 @@ public class UploadFileUtils {
      * @return 文件原始的文件名（不含路径）
      * */
     public static String getFileRealName(String fileName){
-        return fileName.substring(fileName.indexOf(":") + 1);
+        return fileName.substring(fileName.indexOf(":") + 1).replace("|", "");
+    }
+
+    /**
+     * 去除文件名里的UUID，并返回不包含路径的文件名
+     *
+     * @param fileNames 需要获取原始文件名的文件（可以带相对于uploaded文件夹的路径）
+     * @return 文件原始的文件名（不含路径）
+     * */
+    public static List<String> getFileRealNames(String fileNames){
+        String [] names = fileNames.split("\\|");
+        List<String> realNames = new ArrayList<>();
+        for (String name : names) {
+            realNames.add(name.substring(name.indexOf(":") + 1));
+        }
+        return realNames;
     }
 
     /**
@@ -117,5 +134,20 @@ public class UploadFileUtils {
      * */
     public static String getFileRealPath(String fileName){
         return fileName.substring(0, fileName.indexOf(':'));
+    }
+
+    /**
+     * 返回文件的保存路径
+     *
+     * @param fileNames 需要获取原始文件名的文件（可以带相对于uploaded文件夹的路径）
+     * @return 文件原始的路径
+     * */
+    public static List<String> getFileRealPaths(String fileNames){
+        String [] names = fileNames.split("\\|");
+        List<String> realNames = new ArrayList<>();
+        for (String name : names) {
+            realNames.add(name.substring(0, name.indexOf(':')));
+        }
+        return realNames;
     }
 }

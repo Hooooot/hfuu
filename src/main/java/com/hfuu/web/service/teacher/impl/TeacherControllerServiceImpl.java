@@ -1,10 +1,12 @@
 package com.hfuu.web.service.teacher.impl;
 
 import com.hfuu.web.dao.CourseDao;
+import com.hfuu.web.dao.TaskDao;
 import com.hfuu.web.dao.TeacherDao;
 import com.hfuu.web.dao.base.BaseDao;
 import com.hfuu.web.entity.ClassEntity;
 import com.hfuu.web.entity.CourseEntity;
+import com.hfuu.web.entity.TaskEntity;
 import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.service.base.BaseServiceImpl;
 import com.hfuu.web.service.teacher.TeacherControllerService;
@@ -31,6 +33,8 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     private CourseDao courseDao;
     @Resource
     private TeacherDao teacherDao;
+    @Resource
+    private TaskDao taskDao;
 
     @Override
     public BaseDao getBaseDao() {
@@ -71,6 +75,11 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
         map.put("classList", classList);
         map.put("cozList", cozList);
         return map;
+    }
+
+    @Override
+    public void insertTask(TaskEntity t) {
+        taskDao.insert(t);
     }
 
     @Override

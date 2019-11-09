@@ -19,10 +19,14 @@ public class Main {
 
     @Test
     public void test() throws IllegalAccessException, IOException {
-        String s = "files\\c0d108108e1ff87bbfa8b4e67633efa5:4564.jpg";
-        String sub = s.substring(0, s.indexOf(':'));
-        System.out.println(sub);
-
+        String s = "files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|";
+        String na = s.substring(0,s.indexOf(":")+1).replace("|", "");
+        System.out.println(na);
+        String [] fileName = s.split("\\|");
+        for (String name : fileName) {
+            String n = name.substring(name.indexOf(":") + 1);
+            System.out.println(n);
+        }
     }
 
     public int getId() {

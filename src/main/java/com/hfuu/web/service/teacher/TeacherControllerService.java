@@ -1,6 +1,7 @@
 package com.hfuu.web.service.teacher;
 
 import com.hfuu.web.entity.CourseEntity;
+import com.hfuu.web.entity.TaskEntity;
 import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.service.base.BaseService;
 
@@ -55,4 +56,10 @@ public interface TeacherControllerService extends BaseService {
      * @return Map<String, List> 长度为2，分别为classList、cozList，List则为这两个实体类的列表（无重复值）
      * */
     Map<String, List> duplicateRemoval(List<CourseEntity> list);
+
+    /**
+     * 向数据库中插入Task实体
+     * @param t 待写入的实体
+     * */
+    void insertTask(TaskEntity t);
 }

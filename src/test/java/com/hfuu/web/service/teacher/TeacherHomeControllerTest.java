@@ -13,7 +13,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
-import java.util.Map;
 
 /**
  * @Description : 测试类
@@ -33,9 +32,7 @@ public class TeacherHomeControllerTest {
 
     @Test
     public void test() {
-        Map map = teacherControllerService.getCourseByTeacherNum("1604012003");
-        System.out.println(map.get("result"));
-        System.out.println("测试成功！");
+
     }
 
     @Test

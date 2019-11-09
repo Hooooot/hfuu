@@ -155,12 +155,7 @@
             <artifactId>fastjson</artifactId>
             <version>${fastJsonVersion}</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>${gsonVersion}</version>
-        </dependency>
+
         <!-- SpringMVC中@ResponseBody依赖的jar包 end-->
 
         <dependency>
@@ -201,6 +196,11 @@
             <artifactId>annotations</artifactId>
             <version>RELEASE</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>annotations</artifactId>
+            <version>3.0.1</version>
         </dependency>
 
     </dependencies>

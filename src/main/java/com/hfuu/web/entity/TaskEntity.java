@@ -63,7 +63,7 @@ public class TaskEntity implements Serializable {
     }
 
     @Basic
-    @Column(name = "taskFiles", nullable = true, length = 64)
+    @Column(name = "taskFiles", nullable = true, length = 256)
     public String getTaskFiles() {
         return taskFiles;
     }

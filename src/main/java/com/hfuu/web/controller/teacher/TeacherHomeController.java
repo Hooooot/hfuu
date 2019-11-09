@@ -1,13 +1,17 @@
 package com.hfuu.web.controller.teacher;
 
 
+import com.hfuu.web.entity.ClassEntity;
 import com.hfuu.web.entity.CourseEntity;
+import com.hfuu.web.entity.TaskEntity;
 import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.others.ConstValues;
+import com.hfuu.web.others.utils.SaveToHtmlUtils;
 import com.hfuu.web.others.utils.UploadFileUtils;
 import com.hfuu.web.service.TaskService;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.apache.log4j.Logger;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -50,6 +54,7 @@ public class TeacherHomeController {
             return;
         }
         List list = teacherControllerService.getCourseByTeacherNum(tcNum);
+        //noinspection unchecked
         Map map = teacherControllerService.groupByCozName(list);
         model.addAttribute("course", map);
     }
@@ -86,23 +91,37 @@ public class TeacherHomeController {
     }
 
     @ResponseBody
-    @RequestMapping(value = {"/teacher/newTask"}, method = RequestMethod.POST)
-    public String newTask(@RequestParam String taskName, @RequestParam String description,
-                          @RequestParam Timestamp date, @RequestParam(value = "clazzId", required=false) List<String> clazzId,
-                          @RequestParam(value = "courseId", required=false) List<String> courseId, Model model){
-        // TODO
-        System.out.println(taskName);
-        System.out.println(description);
-        System.out.println(date);
-        for (String s : clazzId) {
-            // TODO
-            System.out.println(s);
+    @RequestMapping(value = {"/teacher/newTask"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    public Map newTask(@RequestParam String taskName, @RequestParam String description,
+                       @RequestParam Timestamp date, @RequestParam List<Integer> clazzId,
+                       @RequestParam List<Integer> courseId, @Nullable String enclosure, HttpSession session){
+        Map<String, Object> json = new HashMap<>(2);
+        int clazzSize = clazzId.size();
+        if(clazzId.size() != courseId.size()){
+            json.put("msg", "提交失败！参数错误！");
+            json.put("status", -1);
+            return json;
         }
-        for (String s : courseId) {
-            // TODO
-            System.out.println(s);
+        String decPath = SaveToHtmlUtils.saveContentToHtml(session, description);
+        Timestamp pubTime = new Timestamp(System.currentTimeMillis());
+        for (int i = 0; i < clazzSize; i++) {
+            TaskEntity newTask = new TaskEntity();
+            newTask.setTaskName(taskName);
+            newTask.setTaskDesc(decPath);
+            newTask.setPubTime(pubTime);
+            newTask.setDeadline(date);
+            ClassEntity clazz = new ClassEntity();
+            clazz.setClassId(clazzId.get(i));
+            CourseEntity coz = new CourseEntity();
+            coz.setClassEntity(clazz);
+            coz.setCozId(courseId.get(i));
+            newTask.setCozEntity(coz);
+            newTask.setTaskFiles(enclosure);
+            teacherControllerService.insertTask(newTask);
         }
-        return "";
+        json.put("msg", "提交成功！");
+        json.put("status", 0);
+        return json;
     }
 
     @ResponseBody
@@ -111,6 +130,7 @@ public class TeacherHomeController {
         Map<String, Object> json = new HashMap<>(4);
         TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List list = teacherControllerService.getCourseByTeacherNum(tc.getTcNum());
+        //noinspection unchecked
         List<CourseEntity> cozList = (List<CourseEntity>) teacherControllerService.groupByCozName(list).get(cozName);
         List<Map> data = new ArrayList<>();
         for (CourseEntity c : cozList){
@@ -131,7 +151,7 @@ public class TeacherHomeController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/upload"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map upload(@RequestParam("file") MultipartFile file, @RequestParam("pageId") String pageId, HttpSession session) {
+    public Map upload(@RequestParam("file") MultipartFile file, HttpSession session) {
         Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.uploadFile(session, file, "files/");
         // TODO
@@ -159,12 +179,16 @@ public class TeacherHomeController {
     @ResponseBody
     @RequestMapping(value = {"/teacher/md5check"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map md5Check(@RequestParam String md5, HttpSession session){
-        Map<String, Object> json = new HashMap<>(1);
+        Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.getFilePathIfExist(session, md5);
         // TODO
         System.out.println("请求md5：" + md5);
-        json.put("code", 0);
-        json.put("path", path+ConstValues.FILE_PATH_SEPARATOR);
+        if(path != null){
+            json.put("code", 0);
+        }else{
+            json.put("code", 1);
+        }
+        json.put("path", path);
         return json;
     }
 
