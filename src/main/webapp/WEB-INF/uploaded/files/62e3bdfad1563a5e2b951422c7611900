@@ -1,0 +1,56 @@
+title KMS激活程序
+@echo off
+color 2F
+mode con cols=70 lines=30
+
+setlocal
+set uac=~uac_permission_tmp_%random%
+md "%SystemRoot%\system32\%uac%" 2>nul
+if %errorlevel%==0 ( 
+    rd "%SystemRoot%\system32\%uac%" >nul 2>nul
+ ) else (
+    echo set uac = CreateObject^("Shell.Application"^)>"%temp%\%uac%.vbs"
+    echo uac.ShellExecute "%~s0","","","runas",1 >>"%temp%\%uac%.vbs"
+    echo WScript.Quit >>"%temp%\%uac%.vbs"
+    "%temp%\%uac%.vbs" /f
+    del /f /q "%temp%\%uac%.vbs"  & exit
+)
+endlocal
+
+@echo off
+title KMS激活程序
+echo 请确保您的计算机未被激活，已永久激活的系统可能会导致不再永久激活
+echo=
+echo 本脚本仅能激活180天，不过每周系统都会自动续期，可认为是永久激活
+echo 本脚本仅能激活Windows10 专业版
+echo=
+echo 按任意键将开始执行激活操作......
+pause>nul
+
+fltmc>nul
+if '%errorlevel%' EQU '0' (
+    goto setKMS
+) else (
+    goto errorQuit
+)
+
+:setKMS
+slmgr.vbs -upk >nul
+slmgr.vbs -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+slmgr.vbs -skms www.tobefree.com.cn
+::zh.us.to
+::kms.03k.org
+::kms.chinancce.com
+::kms.lotro.cc
+::cy2617.jios.org
+::kms.binye.xyz
+::kms.lolico.moe
+
+slmgr.vbs -ato 
+slmgr.vbs -dlv
+exit
+
+:errorQuit
+echo "权限不足，无法运行，请作为管理员运行"
+pause
+exit

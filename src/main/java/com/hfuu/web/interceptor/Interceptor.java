@@ -20,14 +20,14 @@ public class Interceptor implements HandlerInterceptor {
                              HttpServletResponse response, Object handler) throws Exception {
 
 
-        //获取父url  如果不是直接输入的话就是先前的访问过来的页面，要是用户输入了，这个父url是不存在的
-        String conString = request.getHeader("REFERER");
-        /*System.err.println(request.getContextPath());*/
-        //判断如果上一个目录为空的话，说明是用户直接输入url访问的
-        if("".equals(conString) || null==conString){
-            response.sendRedirect(request.getContextPath());
-            return false;
-        }
+//        //获取父url  如果不是直接输入的话就是先前的访问过来的页面，要是用户输入了，这个父url是不存在的
+//        String conString = request.getHeader("REFERER");
+//        /*System.err.println(request.getContextPath());*/
+//        //判断如果上一个目录为空的话，说明是用户直接输入url访问的
+//        if("".equals(conString) || null==conString){
+//            response.sendRedirect(request.getContextPath());
+//            return false;
+//        }
         return true;
     }
 

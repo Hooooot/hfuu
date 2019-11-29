@@ -105,12 +105,9 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
             let data = obj.data;
             //console.log(obj)
             if(obj.event === 'detail'){
-                layer.confirm('真的删除行么', function(index){
-                    obj.del();
-                    layer.close(index);
-                });
+                parent.layui.$('.alreadyTask', parent.document).trigger('click');
             } else if(obj.event === 'deploy'){
-                       deployTasks(data);
+                deployTasks(data);
             }
         });
     });`;

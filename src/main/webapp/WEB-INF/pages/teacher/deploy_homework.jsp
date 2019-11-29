@@ -53,13 +53,16 @@
 
             <div class="layui-form-item course_selects">
                 <c:choose>
+                    <%--      如果请求参数中有已选的班级和课程（来自console.jsp里的发布作业按钮）      --%>
                     <c:when test="${selectedClass != null && selectedCoz != null}">
+                        <%--  遍历所有的已选班级，同时用索引遍历所有已选课程  --%>
                         <c:forEach items='${selectedClass}' var="selectedItem" varStatus="selectedIndex">
                             <div class="layui-input-block clazz_course_select" style="margin-left: 0px; float: left; margin-top: 5px;">
                                 <label class="layui-form-label">班级</label>
                                 <div class="layui-input-inline" style="width: 250px;">
-                                    <select class="choose_clazz" name="clazzId" lay-filter="class_id" lay-verify="required">
+                                    <select class="choose_clazz" name="clazzNum" lay-filter="class_num" lay-verify="required">
                                         <option value="">请选择班级</option>
+                                        <%--  遍历所有班级，对于班级号与已选班级号相同的部分，加入select属性  --%>
                                         <c:forEach items='${allCourseAndClass.get("classList")}' var="clazz">
                                             <c:choose>
                                                 <c:when test='${!selectedItem.equals(clazz.classNum)}'>
@@ -74,8 +77,9 @@
                                 </div>
                                 <label class="layui-form-label">课程</label>
                                 <div class="layui-input-inline" style="width: 350px;">
-                                    <select class="choose_course" name="courseId" lay-filter="course_id" lay-verify="required">
+                                    <select class="choose_course" name="courseNum" lay-filter="course_num" lay-verify="required">
                                         <option value="">请选择课程</option>
+                                        <%--  遍历所有课程，对于课程号与已选课程号相同的部分，加入select属性  --%>
                                         <c:forEach items='${allCourseAndClass.get("cozList")}' var="course">
                                             <c:choose>
                                                 <c:when test='${!selectedCoz[selectedIndex.index].equals(course.cozNum)}'>
@@ -104,7 +108,7 @@
                         <div class="layui-input-block clazz_course_select" style="margin-left: 0px;">
                             <label class="layui-form-label">班级</label>
                             <div class="layui-input-inline" style="width: 250px;">
-                                <select class="choose_clazz" name="clazzId" lay-filter="class_id" lay-verify="required">
+                                <select class="choose_clazz" name="clazzNum" lay-filter="class_num" lay-verify="required">
                                     <option value="">请选择班级</option>
                                     <c:forEach items='${allCourseAndClass.get("classList")}' var="clazz">
                                         <option value="${clazz.classNum}">${clazz.className}</option>
@@ -113,7 +117,7 @@
                             </div>
                             <label class="layui-form-label">课程</label>
                             <div class="layui-input-inline" style="width: 350px;">
-                                <select class="choose_course" name="courseId" lay-filter="course_id" lay-verify="required">
+                                <select class="choose_course" name="courseNum" lay-filter="course_num" lay-verify="required">
                                     <option value="">请选择课程</option>
                                     <c:forEach items='${allCourseAndClass.get("cozList")}' var="course">
                                         <option value="${course.cozNum}">${course.cozName}</option>
@@ -155,7 +159,7 @@
     <div class="layui-input-block clazz_course_select" style="margin-left: 0px; float: left; margin-top: 5px;">
         <label class="layui-form-label">班级</label>
         <div class="layui-input-inline" style="width: 250px;">
-            <select class="choose_clazz" name="clazzId" lay-filter="class_id" lay-verify="required">
+            <select class="choose_clazz" name="clazzNum" lay-filter="class_num" lay-verify="required">
                 <option value="">请选择班级</option>
                 <c:forEach items='${allCourseAndClass.get("classList")}' var="clazz">
                     <option value="${clazz.classNum}">${clazz.className}</option>
@@ -164,7 +168,7 @@
         </div>
         <label class="layui-form-label">课程</label>
         <div class="layui-input-inline" style="width: 350px;">
-            <select class="choose_course" name="courseId" lay-filter="course_id" lay-verify="required">
+            <select class="choose_course" name="courseNum" lay-filter="course_num" lay-verify="required">
                 <option value="">请选择课程</option>
                 <c:forEach items='${allCourseAndClass.get("cozList")}' var="course">
                     <option value="${course.cozNum}">${course.cozName}</option>

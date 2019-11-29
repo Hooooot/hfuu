@@ -4,10 +4,8 @@ import com.hfuu.web.dao.CourseDao;
 import com.hfuu.web.dao.TaskDao;
 import com.hfuu.web.dao.TeacherDao;
 import com.hfuu.web.dao.base.BaseDao;
-import com.hfuu.web.entity.ClassEntity;
-import com.hfuu.web.entity.CourseEntity;
-import com.hfuu.web.entity.TaskEntity;
-import com.hfuu.web.entity.TeacherEntity;
+import com.hfuu.web.entity.*;
+import com.hfuu.web.others.utils.TermUtils;
 import com.hfuu.web.service.base.BaseServiceImpl;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.springframework.stereotype.Service;
@@ -83,16 +81,66 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     }
 
     @Override
+    public List<CourseEntity> getCourseByClassNumAndTcNumDuringThisTerm(List<String> classNum, String tcNum) {
+        String term = TermUtils.getCurrentTerm();
+        return courseDao.getCourseByClassNumAndTcNumAndTerm(classNum, tcNum, term);
+    }
+
+    @Override
+    public Map<String, List<StudentEntity>> getStudentsGroupByClazz(List<StudentEntity> student) {
+        Map<String, List<StudentEntity>> clazz = new HashMap<>(5);
+        for (StudentEntity s : student){
+            String clazzNum = s.getClassEntity().getClassNum();
+            if(clazz.containsKey(clazzNum)){
+                List<StudentEntity> st = clazz.get(clazzNum);
+                st.add(s);
+                clazz.put(clazzNum, st);
+            }else{
+                List<StudentEntity> st = new ArrayList<>();
+                st.add(s);
+                clazz.put(clazzNum, st);
+            }
+        }
+        return clazz;
+    }
+
+    @Override
+    public List<StudentEntity> getStudents(String tcNum, String term, String clazzNum, int taskId) {
+        return teacherDao.getStudentsByTcNumAndTermAndClazzNumAndTaskid(tcNum, term, clazzNum, taskId);
+    }
+
+    @Override
+    public List<ClassEntity> getClazzByTcNumAndTerm(String tcNum, String term) {
+        return teacherDao.getClazzByTcNumAndTerm(tcNum, term);
+    }
+
+    @Override
+    public Map<ClassEntity, List<TaskEntity>> getClazzAndTaskByTcNumAndTerm(String tcNum, String term) {
+        return teacherDao.getClazzAndTaskByTcNumAndTerm(tcNum, term);
+    }
+
+    @Override
     public List<CourseEntity> getCourseByTeacherNum(String tcNum) {
-        TeacherEntity tc = new TeacherEntity();
-        tc.setTcNum(tcNum);
-        List<CourseEntity> list= courseDao.findByHql("from CourseEntity c where c.tcEntity=?", tc);
-        return list;
+        //noinspection unchecked
+        return (List<CourseEntity>) courseDao.findByHql("from CourseEntity c where c.tcEntity.tcNum=?", tcNum);
+    }
+
+    @Override
+    public List<CourseEntity> getCourseByTeacherNumAndTerm(String tcNum, String term) {
+        //noinspection unchecked
+        return (List<CourseEntity>) courseDao.findByHql("from CourseEntity c where c.tcEntity.tcNum=? and c.term=?",
+                                                        tcNum, term);
     }
 
     @Override
     public TeacherEntity login(String name, String pw) {
         return teacherDao.getTeacherByNameAndPw(name, pw);
+    }
+
+    @Override
+    public CourseEntity getCourseByCozNumAndTcNum(String cozNum, TeacherEntity tc){
+        List list = courseDao.findByHql("from CourseEntity c where c.tcEntity=? and c.cozNum=?", tc, cozNum);
+        return list==null?null:(CourseEntity) list.get(0);
     }
 
     @Override
@@ -114,4 +162,5 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
         }
         return map;
     }
+
 }

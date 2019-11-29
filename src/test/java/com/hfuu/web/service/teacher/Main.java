@@ -2,7 +2,6 @@ package com.hfuu.web.service.teacher;
 
 import org.junit.Test;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -18,15 +17,9 @@ public class Main {
     private List friends;
 
     @Test
-    public void test() throws IllegalAccessException, IOException {
-        String s = "files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|files/c7f5e4f6d3d9f84b5a6fbc6d5f8b7309:QQ图片20191017132501.jpg|";
-        String na = s.substring(0,s.indexOf(":")+1).replace("|", "");
-        System.out.println(na);
-        String [] fileName = s.split("\\|");
-        for (String name : fileName) {
-            String n = name.substring(name.indexOf(":") + 1);
-            System.out.println(n);
-        }
+    public void test() {
+        String s = "2012";
+        System.out.println(s.substring(1));
     }
 
     public int getId() {

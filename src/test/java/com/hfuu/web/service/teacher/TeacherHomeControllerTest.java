@@ -13,6 +13,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import javax.annotation.Resource;
 import javax.transaction.Transactional;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @Description : 测试类
@@ -32,6 +33,11 @@ public class TeacherHomeControllerTest {
 
     @Test
     public void test() {
+        List<StudentEntity> list = teacherControllerService.getStudents("1604012003", "191", "1704092", 10);
+
+        for(StudentEntity s : list){
+            System.out.println(s);
+        }
 
     }
 
