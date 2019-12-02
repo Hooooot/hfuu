@@ -43,15 +43,13 @@ public class TeacherResponseBodyController {
         Map<String, Object> json = new HashMap<>(4);
         TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List<StudentEntity> student = teacherControllerService.getStudents(tc.getTcNum(), TermUtils.getCurrentTerm(), clazzNum, taskId);
-        List<Map> data = new ArrayList<>();
+        ArrayList<Map<String, Object>> data = new ArrayList<>();
         for (StudentEntity s : student){
             Map<String, Object> m = s.toMap();
             //noinspection unchecked
-            Set<SubmitEntity> submits = (Set)(m.get("submitSet"));
-            m.put("status", 0);
+            Set<SubmitEntity> submits = (Set<SubmitEntity>)(m.get("submitSet"));
             for (SubmitEntity sub : submits){
                 if (sub.getTaskEntity().getTaskId() == taskId){
-                    m.put("status", 1);
                     m.put("submit", sub.toMap());
                     break;
                 }
@@ -72,12 +70,12 @@ public class TeacherResponseBodyController {
     public Map<String, Object> taskTableData(String cozName, Model model){
         Map<String, Object> json = new HashMap<>(4);
         TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
-        List list = teacherControllerService.getCourseByTeacherNumAndTerm(tc.getTcNum(), TermUtils.getCurrentTerm());
-        //noinspection unchecked
-        List<CourseEntity> cozList = (List<CourseEntity>) teacherControllerService.groupByCozName(list).get(cozName);
-        List<Map> data = new ArrayList<>();
+        List<CourseEntity> list = teacherControllerService.getCourseByTeacherNumAndTerm(tc.getTcNum(), TermUtils.getCurrentTerm());
+        List<CourseEntity> cozList = teacherControllerService.groupByCozName(list).get(cozName);
+        List<Map<String, Object>> data = new ArrayList<>();
         for (CourseEntity c : cozList){
             Map<String, Object> m = c.toMap();
+            //noinspection rawtypes
             Set tasks = (Set)(m.get("taskSet"));
             Map<String, Object> taskCount = taskService.getTaskClosedAndNotClosedCount(tasks);
             m.put("taskCount", taskCount);
@@ -107,7 +105,7 @@ public class TeacherResponseBodyController {
         TeacherEntity tc = (TeacherEntity) session.getAttribute(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME);
         String decPath = SaveToHtmlUtils.saveContentToHtml(session, description);
         Timestamp pubTime = new Timestamp(System.currentTimeMillis());
-        List courses = teacherControllerService.getCourseByClassNumAndTcNumDuringThisTerm(clazzNum, tc.getTcNum());
+        List<CourseEntity> courses = teacherControllerService.getCourseByClassNumAndTcNumDuringThisTerm(clazzNum, tc.getTcNum());
         for (Object cours : courses) {
             TaskEntity newTask = new TaskEntity();
             newTask.setTaskName(taskName);
@@ -128,7 +126,7 @@ public class TeacherResponseBodyController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/upload"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map upload(@RequestParam("file") MultipartFile file, HttpSession session) {
+    public Map<String, Object> upload(@RequestParam("file") MultipartFile file, HttpSession session) {
         Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.uploadFile(session, file, "files/");
         json.put("code", 0);
@@ -138,7 +136,7 @@ public class TeacherResponseBodyController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/layuiUploadImg"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map layuiUploadImg(@RequestParam("file") MultipartFile file, HttpSession session) {
+    public Map<String, Object> layuiUploadImg(@RequestParam("file") MultipartFile file, HttpSession session) {
         Map<String, Object> json = new HashMap<>(3);
         Map<String, Object> data = new HashMap<>(1);
         String path = UploadFileUtils.uploadFile(session, file, "files/");
@@ -153,7 +151,7 @@ public class TeacherResponseBodyController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/md5check"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map md5Check(@RequestParam String md5, HttpSession session){
+    public Map<String, Object> md5Check(@RequestParam String md5, HttpSession session){
         Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.getFilePathIfExist(session, md5);
         if(path != null){

@@ -58,25 +58,6 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
             ]]
         });
         
-        // 触发发布作业事件
-        function deployTasks(data) {
-            let deployTaskBtn = $('.deployTask', parent.document);
-            let param = '?';
-            if(typeof data.forEach === 'function'){
-                data.forEach((item, index, data) => {
-                    param = param + 'cozNum=' + item.cozNum + '&';
-                    param = param + 'classNum=' + item.classNum + '&';
-                });
-            }else{
-                param = param + 'cozNum=' + data.cozNum + '&';
-                param = param + 'classNum=' + data.classNum;
-            }
-            let url = deployTaskBtn.attr('href');
-            deployTaskBtn.attr('href', url + param);
-            parent.layui.$('.deployTask', parent.document).trigger('click');
-            deployTaskBtn.attr('href', url);
-        }
-        
         // 头工具栏事件
         table.on('toolbar(${this.layFilter})', function(obj){ // 修改
             let checkStatus = table.checkStatus(obj.config.id);
@@ -113,6 +94,25 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
     });`;
 
         document.body.appendChild(script);
+    };
+
+    // 触发发布作业事件
+    window.deployTasks = function(data) {
+        let deployTaskBtn = $('.deployTask', parent.document);
+        let param = '?';
+        if(typeof data.forEach === 'function'){
+            data.forEach((item, index, data) => {
+                param = param + 'cozNum=' + item.cozNum + '&';
+                param = param + 'classNum=' + item.classNum + '&';
+            });
+        }else{
+            param = param + 'cozNum=' + data.cozNum + '&';
+            param = param + 'classNum=' + data.classNum;
+        }
+        let url = deployTaskBtn.attr('href');
+        deployTaskBtn.attr('href', url + param);
+        parent.layui.$('.deployTask', parent.document).trigger('click');
+        deployTaskBtn.attr('href', url);
     };
 
     //监听折叠

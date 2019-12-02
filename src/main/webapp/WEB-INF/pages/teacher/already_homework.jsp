@@ -16,9 +16,6 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
     <link rel="icon" href="../images/favicon.ico">
 </head>
@@ -56,7 +53,7 @@
     </c:forEach>
 </div>
 
-<script type="text/html" id="toolBar" template>
+<script type="text/html" id="toolBar">
     <div class="layui-btn-container">
         <button type="button" class="layui-btn layui-btn-sm" lay-event="correctSubmits">批改作业</button>
         <button type="button" class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
@@ -64,8 +61,8 @@
     </div>
 </script>
 
-<script type="text/html" id="bar" template>
-    {{#  if(d.status === 1){ }}
+<script type="text/html" id="bar">
+    {{#  if(d.submit !== undefined){ }}
             <a class="layui-btn layui-btn-xs" lay-event="correct">批改作业</a>
     {{#  }else{ }}
             <a class="layui-btn layui-btn-xs layui-btn-disabled">批改作业</a>

@@ -49,9 +49,8 @@ public class TeacherHomeController {
         if(tcNum == null){
             return;
         }
-        List list = teacherControllerService.getCourseByTeacherNumAndTerm(tcNum, TermUtils.getCurrentTerm());
-        //noinspection unchecked
-        Map map = teacherControllerService.groupByCozName(list);
+        List<CourseEntity> list = teacherControllerService.getCourseByTeacherNumAndTerm(tcNum, TermUtils.getCurrentTerm());
+        Map<String, List<CourseEntity>> map = teacherControllerService.groupByCozName(list);
         model.addAttribute("course", map);
     }
 

@@ -239,7 +239,7 @@ layui.extend({
         //  所有文件上传成功后
         uplaod.on('uploadFinished',function(){
             //  成功后
-            $.post('./newTask/',
+            $.post(that.options.formUrl,
                 formParams + "&enclosure=" + enclosure
                 ,function (callback) {
                     location.reload();
