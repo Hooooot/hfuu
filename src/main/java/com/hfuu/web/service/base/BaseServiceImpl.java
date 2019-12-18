@@ -8,11 +8,11 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @Description :
- * @date :
  * @author : 浅忆
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date :
  */
 @Service("baseService")
 @Transactional(rollbackFor = Exception.class)
@@ -20,6 +20,7 @@ public abstract class BaseServiceImpl<T> implements BaseService<T> {
 
     /**
      * 提供一个抽象方法，让子类返回对应的Dao
+     *
      * @return BaseDao<T>
      */
     public abstract BaseDao<T> getBaseDao();

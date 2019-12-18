@@ -1,69 +1,73 @@
 //获取系统时间
 var newDate = '';
 getLangDate();
+
 //值小于10时，在前面补0
-function dateFilter(date){
-    if(date < 10){return "0"+date;}
+function dateFilter(date) {
+    if (date < 10) {
+        return "0" + date;
+    }
     return date;
 }
-function getLangDate(){
+
+function getLangDate() {
     var dateObj = new Date(); //表示当前系统时间的Date对象
     var year = dateObj.getFullYear(); //当前系统时间的完整年份值
-    var month = dateObj.getMonth()+1; //当前系统时间的月份值
+    var month = dateObj.getMonth() + 1; //当前系统时间的月份值
     var date = dateObj.getDate(); //当前系统时间的月份中的日
     var day = dateObj.getDay(); //当前系统时间中的星期值
-    var weeks = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+    var weeks = ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"];
     var week = weeks[day]; //根据星期值，从数组中获取对应的星期字符串
     var hour = dateObj.getHours(); //当前系统时间的小时值
     var minute = dateObj.getMinutes(); //当前系统时间的分钟值
     var second = dateObj.getSeconds(); //当前系统时间的秒钟值
-    var timeValue = "" +((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午" ); //当前时间属于上午、晚上还是下午
-    newDate = dateFilter(year)+"年"+dateFilter(month)+"月"+dateFilter(date)+"日 "+" "+dateFilter(hour)+":"+dateFilter(minute)+":"+dateFilter(second);
-    document.getElementById("nowTime").innerHTML = timeValue+"好！当前时间为： "+newDate+"　"+week;
-    setTimeout("getLangDate()",1000);
+    var timeValue = "" + ((hour >= 12) ? (hour >= 18) ? "晚上" : "下午" : "上午"); //当前时间属于上午、晚上还是下午
+    newDate = dateFilter(year) + "年" + dateFilter(month) + "月" + dateFilter(date) + "日 " + " " + dateFilter(hour) + ":" + dateFilter(minute) + ":" + dateFilter(second);
+    document.getElementById("nowTime").innerHTML = timeValue + "好！当前时间为： " + newDate + "　" + week;
+    setTimeout("getLangDate()", 1000);
 }
 
 
-layui.define(['element','layer'],function(exports){
+layui.define(['element', 'layer'], function (exports) {
     var $ = layui.$,
         $body = $('body'),
         element = layui.element,
         layer = layui.layer;
 
     var screen_size = {
-        pc : [991, -1],
-        pad : [768, 990],
-        mobile : [0, 767]
+        pc: [991, -1],
+        pad: [768, 990],
+        mobile: [0, 767]
     };
 
-    var getDevice = function(){
+    var getDevice = function () {
         var width = $(window).width();//获取页面宽度
         for (var i in screen_size) {
             var sizes = screen_size[i],
                 min = sizes[0],
                 max = sizes[1];
-            if(max == -1) max = width;
-            if(min <= width && max >= width){
+            if (max == -1) max = width;
+            if (min <= width && max >= width) {
                 return i;
             }
         }
 
         return null;
-    }
+    };
 
-    var isDevice = function(label){
+    var isDevice = function (label) {
         return getDevice() == label;
-    }
+    };
 
-    var isMobile = function(){
+    var isMobile = function () {
         return isDevice('mobile');
-    }
+    };
 
-    var Tab = function(el){
+    var Tab = function (el) {
         this.el = el;
         this.urls = [];
-    }
-    Tab.prototype.title = function(title, url){
+    };
+    Tab.prototype.title = function (title, url) {
         var refresh = document.createElement("i");
         refresh.setAttribute("class", "layui-icon layui-icon-refresh");
         refresh.setAttribute("style", "margin-left:10px;font-size:14px;");
@@ -74,9 +78,9 @@ layui.define(['element','layer'],function(exports){
         refresh.setAttribute("onmouseleave", "this.classList.remove('layui-icon-refresh-3');this.classList.add('layui-icon-refresh');");
         return title + refresh.outerHTML;
         //querySelector() 方法仅仅返回匹配指定选择器的第一个元素,方便的获取DOM元素，语法跟jQuery类似。
-    }
+    };
 
-    Tab.prototype.content = function(src) {
+    Tab.prototype.content = function (src) {
         var iframe = document.createElement("iframe");//创建的元素节点
         iframe.setAttribute("frameborder", "0");//设置或者改变指定属性并指定值。
         iframe.setAttribute("src", src);
@@ -84,56 +88,56 @@ layui.define(['element','layer'],function(exports){
         return iframe.outerHTML;
     };
 
-    Tab.prototype.is = function(url) {
+    Tab.prototype.is = function (url) {
         return (this.urls.indexOf(url) !== -1)//如果要检索的字符串值没有出现，则该方法返回 -1。
     };
 
-    Tab.prototype.add = function(title, url) {
-        if(this.is(url)) return false;//if(num) 为非0非NAN即为真
+    Tab.prototype.add = function (title, url) {
+        if (this.is(url)) return false;//if(num) 为非0非NAN即为真
         this.urls.push(url);
         element.tabAdd(this.el, {
-            title : this.title(title, url)
-            ,content : this.content(url)
-            ,id : url
+            title: this.title(title, url)
+            , content: this.content(url)
+            , id: url
         });
         this.change(url);
 
     };
 
-    Tab.prototype.change = function(url) {
+    Tab.prototype.change = function (url) {
         element.tabChange(this.el, url)//切换到指定Tab项
 
     };
 
-    Tab.prototype.delete = function(url) {
+    Tab.prototype.delete = function (url) {
         element.tabDelete(this.el, url);
     };
 
-    Tab.prototype.onChange = function(callback){
-        element.on('tab('+this.el+')', callback)
+    Tab.prototype.onChange = function (callback) {
+        element.on('tab(' + this.el + ')', callback)
 
 
     };
 
-    Tab.prototype.onDelete = function(callback) {
+    Tab.prototype.onDelete = function (callback) {
         var self = this;
-        element.on('tabDelete('+this.el+')', function(data){
+        element.on('tabDelete(' + this.el + ')', function (data) {
             var i = data.index;
-            self.urls.splice(i,1);
+            self.urls.splice(i, 1);
             callback && callback(data);
         });
     };
 
-    var Home = function(){
+    var Home = function () {
 
         var tabs = new Tab('tabs'), navItems = [];
 
-        $('#Nav a').on('click',function(event){
+        $('#Nav a').on('click', function (event) {
             event.preventDefault();//阻止元素发生默认的行为
             var $this = $(this), url = $this.attr('href'),
                 title = $.trim($this.text());
-            if( url && url!=='javascript:;' ){
-                if(tabs.is(url)){
+            if (url && url !== 'javascript:;') {
+                if (tabs.is(url)) {
                     tabs.change(url);
                 } else {
                     navItems.push($this);
@@ -150,73 +154,73 @@ layui.define(['element','layer'],function(exports){
         // 默认触发第一个子菜单的点击事件
         $('#Nav li.layui-nav-item:eq(0) > dl.layui-nav-child > dd > a:eq(0)').trigger('click');
 
-        tabs.onChange(function(data){
+        tabs.onChange(function (data) {
             var i = data.index, $this = navItems[i];
-            if($this && typeof $this === 'object') {
-                $('#Nav dd').removeClass('layui-this')
-                $this.parent('dd').addClass('layui-this')
+            if ($this && typeof $this === 'object') {
+                $('#Nav dd').removeClass('layui-this');
+                $this.parent('dd').addClass('layui-this');
 
                 $this.closest('li.layui-nav-item')
                     .addClass('layui-nav-itemed')
                     .siblings()
                     .removeClass('layui-nav-itemed')
-            };
-        });
-
-
-
-        $('.layui-nav-item').on('click',function(){
-            $(this).siblings('li').attr('class','layui-nav-item');
+            }
 
         });
-        tabs.onDelete(function(data){
+
+
+        $('.layui-nav-item').on('click', function () {
+            $(this).siblings('li').attr('class', 'layui-nav-item');
+
+        });
+        tabs.onDelete(function (data) {
             var i = data.index;
-            navItems.splice(i,1);
+            navItems.splice(i, 1);
         });
 
         this.slideSideBar();
-    }
+    };
 
-    Home.prototype.slideSideBar = function() {
+    Home.prototype.slideSideBar = function () {
         var $slideSidebar = $('.slide-sidebar'),
             $pageContainer = $('.layui-body'),
             $mobileMask = $('.mobile-mask');
 
         var isFold = false;
-        $slideSidebar.click(function(e){
+        $slideSidebar.click(function (e) {
             e.preventDefault();
             var $this = $(this), $icon = $this.find('i'),
                 $admin = $body.find('.layui-layout-admin');
             var toggleClass = isMobile() ? 'fold-side-bar-xs' : 'fold-side-bar';
-            if($icon.hasClass('ai-menufold')){
+            if ($icon.hasClass('ai-menufold')) {
                 $icon.removeClass('ai-menufold').addClass('ai-menuunfold');
                 $admin.addClass(toggleClass);
                 isFold = true;
-                if(isMobile()) $mobileMask.show();
-            }else{
+                if (isMobile()) $mobileMask.show();
+            } else {
                 $icon.removeClass('ai-menuunfold').addClass('ai-menufold');
                 $admin.removeClass(toggleClass);
                 isFold = false;
-                if(isMobile()) $mobileMask.hide();
+                if (isMobile()) $mobileMask.hide();
             }
         });
 
         var tipIndex;
         // 菜单收起后的模块信息小提示
-        $('#Nav li > a').hover(function(){
+        $('#Nav li > a').hover(function () {
             var $this = $(this);
-            if(isFold) {
-                tipIndex = layer.tips($this.find('em').text(),$this);
+            if (isFold) {
+                tipIndex = layer.tips($this.find('em').text(), $this);
             }
-        }, function(){
-            if(isFold && tipIndex ){
+        }, function () {
+            if (isFold && tipIndex) {
                 layer.close(tipIndex);
                 tipIndex = null
             }
-        })
+        });
 
-        if(isMobile()){
-            $mobileMask.click(function(){
+        if (isMobile()) {
+            $mobileMask.click(function () {
                 $slideSidebar.trigger('click');
             });
         }

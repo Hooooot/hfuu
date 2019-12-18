@@ -9,10 +9,11 @@ import java.util.Set;
 
 /**
  * 院系类：
- *  depId:自增主键
- *  depNum:院系代码，2位（如计科系04）
- *  depName:院系名称：
+ * depId:自增主键
+ * depNum:院系代码，2位（如计科系04）
+ * depName:院系名称：
  */
+
 /**
  * @Description :
  * @date : 2019/9/26 0:39
@@ -116,7 +117,7 @@ public class DepEntity implements Serializable {
         return "[#" + depId + ": " + depNum + ", " + depName + "]";
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>(5);
         map.put("depId", depId);
         map.put("depNum", depNum);

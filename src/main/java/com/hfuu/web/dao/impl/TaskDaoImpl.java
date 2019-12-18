@@ -6,11 +6,11 @@ import com.hfuu.web.entity.TaskEntity;
 import org.springframework.stereotype.Repository;
 
 /**
- * @Description :
- * @date :2019/9/25 18:53
  * @author :Ciel-08
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date :2019/9/25 18:53
  */
 @Repository("taskDao")
 public class TaskDaoImpl extends BaseDaoImpl<TaskEntity> implements TaskDao {

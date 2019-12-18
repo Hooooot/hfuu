@@ -9,11 +9,12 @@ import java.util.Set;
 
 /**
  * 班级类：院系下设班级
- *  classId:自增主键
- *  classNum:班级代码，7位（如17软二1706072）
- *  className:班级名称
- *  depNum:外键，指向院系代码。删除院系前需先修改下设班级
+ * classId:自增主键
+ * classNum:班级代码，7位（如17软二1706072）
+ * className:班级名称
+ * depNum:外键，指向院系代码。删除院系前需先修改下设班级
  */
+
 /**
  * @Description :
  * @date : 2019/9/26 0:39
@@ -128,7 +129,7 @@ public class ClassEntity implements Serializable {
         return "[#" + classId + ": " + classNum + ", " + className + ", " + depEntity.getDepName() + "]";
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>(6);
         map.put("classId", classId);
         map.put("classNum", classNum);

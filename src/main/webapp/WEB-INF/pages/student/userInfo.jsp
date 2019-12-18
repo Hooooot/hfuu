@@ -22,7 +22,8 @@
         <div class="layui-upload-list">
             <img class="layui-upload-img layui-circle userFaceBtn userAvatar" id="userFace" src="../images/face.jpg">
         </div>
-        <button type="button" class="layui-btn layui-btn-primary userFaceBtn"><i class="layui-icon">&#xe67c;</i> 更换头像</button>
+        <button type="button" class="layui-btn layui-btn-primary userFaceBtn"><i class="layui-icon">&#xe67c;</i> 更换头像
+        </button>
     </div>
     <div class="layui-col-md6 layui-col-xs12">
         <div class="layui-form-item">
@@ -60,7 +61,8 @@
         <div class="layui-form-item">
             <label class="layui-form-label">出生年月</label>
             <div class="layui-input-block">
-                <input type="text" value="" placeholder="请输入出生年月" lay-verify="userBirthday" readonly class="layui-input userBirthday">
+                <input type="text" value="" placeholder="请输入出生年月" lay-verify="userBirthday" readonly
+                       class="layui-input userBirthday">
             </div>
         </div>
         <div class="layui-form-item userAddress">

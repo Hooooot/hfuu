@@ -7,7 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html>
 <head>
     <title>Title</title>
@@ -40,7 +40,8 @@
                     <td>0%</td>
                 </c:if>
                 <c:if test="${total[i]!=0}">
-                    <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="1" value="${1-dtj[i]/total[i]}"/></td>
+                    <td><fmt:formatNumber type="percent" maxIntegerDigits="3" maxFractionDigits="1"
+                                          value="${1-dtj[i]/total[i]}"/></td>
                 </c:if>
                 <c:if test="${(total[i]-dtj[i])==0}">
                     <td>0%</td>

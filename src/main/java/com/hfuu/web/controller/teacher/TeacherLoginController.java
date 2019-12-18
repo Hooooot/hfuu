@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 
 /**
- * @Description :教师登录控制器
- * @date :2019年10月10日 16点50分
  * @author :whh0987@foxmail.com
  * 最后修改时间：
  * 最后修改人：
+ * @Description :教师登录控制器
+ * @date :2019年10月10日 16点50分
  */
 @Controller
 @RequestMapping("")
@@ -34,16 +34,16 @@ public class TeacherLoginController {
     }
 
     @ModelAttribute
-    public void homeModel(String name, String pw, Model model){
-        if(name == null || pw == null){
+    public void homeModel(String name, String pw, Model model) {
+        if (name == null || pw == null) {
             return;
         }
         log.debug("name=" + name + ", pw=" + pw);
-        if(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null){
+        if (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null) {
             return;
         }
         TeacherEntity tc = teacherControllerService.login(name, pw);
-        if(tc != null){
+        if (tc != null) {
             model.addAttribute(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME, tc);
         }
     }
@@ -51,10 +51,10 @@ public class TeacherLoginController {
     @RequestMapping(value = {"/teacher/login"}, method = RequestMethod.POST)
     @ResponseBody
     public String toHome(Model model) {
-        if(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null){
+        if (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null) {
             log.debug("跳转到:teacher/home.jsp");
             return "teacher/home";
-        }else{
+        } else {
             log.debug("登录失败");
             return ConstValues.LOGIN_FAIL;
         }

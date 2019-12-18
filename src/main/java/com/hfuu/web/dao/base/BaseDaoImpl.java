@@ -11,25 +11,24 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 /**
- * @Description :基础Dao的实现类
- * @date :2019/9/25 18:53
  * @author :Ciel-08
  * 最后修改时间：
  * 最后修改人：
+ * @Description :基础Dao的实现类
+ * @date :2019/9/25 18:53
  */
 @Repository("baseDao")
 public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     private Class<T> clazz;
 
-    public BaseDaoImpl(){
+    public BaseDaoImpl() {
         Class<?> c = this.getClass();
         Type t = c.getGenericSuperclass();
-        if (t instanceof ParameterizedType){
+        if (t instanceof ParameterizedType) {
             Type[] p = ((ParameterizedType) t).getActualTypeArguments();
             this.clazz = (Class<T>) p[0];
-        }
-        else {
+        } else {
             System.err.println("父类类型与ParameterizedType不匹配，无法强转！");
         }
     }
@@ -54,22 +53,22 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
 
     @Override
     public T findById(Serializable id) {
-            return sessionFactory.getCurrentSession().get(clazz, id);
+        return sessionFactory.getCurrentSession().get(clazz, id);
     }
 
     @Override
     public boolean isExist(Serializable id) {
-        return findById(id)!=null;
+        return findById(id) != null;
     }
 
     @Override
     public List findAll() {
-        return sessionFactory.getCurrentSession().createQuery("from "+clazz.getSimpleName()).list();
+        return sessionFactory.getCurrentSession().createQuery("from " + clazz.getSimpleName()).list();
     }
 
     @Override
     public List pageQuery(int currPage, int max) {
-        Query query = sessionFactory.getCurrentSession().createQuery("from "+clazz.getSimpleName());
+        Query query = sessionFactory.getCurrentSession().createQuery("from " + clazz.getSimpleName());
         int first = (currPage - 1) * max;
         query.setFirstResult(first);
         query.setMaxResults(max);
@@ -99,12 +98,12 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
     }
 
     @Override
-    public Integer executeHql(String hql){
-        return  sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
+    public Integer executeHql(String hql) {
+        return sessionFactory.getCurrentSession().createQuery(hql).executeUpdate();
     }
 
     @Override
-    public Integer executeHql(String hql, Object... param){
+    public Integer executeHql(String hql, Object... param) {
         Query q = sessionFactory.getCurrentSession().createQuery(hql);
         if (param != null && param.length > 0) {
             for (int i = 0; i < param.length; i++) {

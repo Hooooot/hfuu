@@ -5,14 +5,17 @@ import com.hfuu.web.dao.base.BaseDaoImpl;
 import com.hfuu.web.entity.*;
 import org.springframework.stereotype.Repository;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @Description :
- * @date :2019/9/25 19:01
  * @author :Ciel-08
  * 最后修改时间：2019年10月8日 17点05分
  * 最后修改人：whh0987@foxmail.com
+ * @Description :
+ * @date :2019/9/25 19:01
  */
 @Repository("teacherDao")
 public class TeacherDaoImpl extends BaseDaoImpl<TeacherEntity> implements TeacherDao {
@@ -22,14 +25,14 @@ public class TeacherDaoImpl extends BaseDaoImpl<TeacherEntity> implements Teache
         tc.setTcName(name);
         tc.setTcPw(pw);
         List list = this.findByHql("from TeacherEntity tc where tc.tcName=? and tc.tcPw=?", name, pw);
-        if (list.size() != 0){
+        if (list.size() != 0) {
             return (TeacherEntity) list.get(0);
         }
         return null;
     }
 
     @Override
-    public List<StudentEntity> getStudentsByTcNumAndTermAndClazzNum(String tcNum, String term, String clazzNum){
+    public List<StudentEntity> getStudentsByTcNumAndTermAndClazzNum(String tcNum, String term, String clazzNum) {
         //noinspection unchecked
         return (List<StudentEntity>) this.findByHql("select s from StudentEntity s inner join CourseEntity c " +
                 "on c.classEntity=s.classEntity where c.tcEntity.tcNum=? and c.term=? and s.classEntity.classNum=?", tcNum, term, clazzNum);
@@ -49,7 +52,7 @@ public class TeacherDaoImpl extends BaseDaoImpl<TeacherEntity> implements Teache
         //noinspection unchecked
         List<CourseEntity> list = this.findByHql("from CourseEntity c where c.tcEntity.tcNum=? and c.term=?", tcNum, term);
         List<ClassEntity> clazz = new ArrayList<>();
-        for (CourseEntity c : list){
+        for (CourseEntity c : list) {
             clazz.add(c.getClassEntity());
         }
         return clazz;
@@ -60,7 +63,7 @@ public class TeacherDaoImpl extends BaseDaoImpl<TeacherEntity> implements Teache
         //noinspection unchecked
         List<CourseEntity> list = this.findByHql("from CourseEntity c where c.tcEntity.tcNum=? and c.term=?", tcNum, term);
         Map<ClassEntity, List<TaskEntity>> res = new HashMap<>(8);
-        for (CourseEntity c : list){
+        for (CourseEntity c : list) {
             res.put(c.getClassEntity(), new ArrayList<>(c.getTasksFromCoz()));
         }
         return res;

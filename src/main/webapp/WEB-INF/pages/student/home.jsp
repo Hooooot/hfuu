@@ -25,7 +25,7 @@
     <c:forEach items="${course}" var="courseMap" varStatus="coStatus">
         <div class="layui-colla-item">
             <c:if test="${coStatus.index%2==0}">
-                <h2 class="layui-colla-title"  data-loaded="false"
+                <h2 class="layui-colla-title" data-loaded="false"
                     data-cozname="${courseMap.key}"
                     data-tableid="data_table${coStatus.index}" data-tablefilter="data_table${coStatus.index}"
                     data-stunum="${studentLogin.stuNum}"><b>${courseMap.key}</b></h2>

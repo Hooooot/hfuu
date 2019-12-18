@@ -65,9 +65,9 @@ layui.define(['element', 'layer'], function (exports) {
         this.urls = [];
     };
 
-    Tab.prototype.title = function(title, url){
-        if(title.search("首页")!==-1){
-            title="首页";
+    Tab.prototype.title = function (title, url) {
+        if (title.search("首页") !== -1) {
+            title = "首页";
         }
         let refresh = document.createElement("i");
         refresh.setAttribute("class", "layui-icon layui-icon-refresh");

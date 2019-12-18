@@ -5,6 +5,7 @@ import com.hfuu.web.others.ConstValues;
 import com.hfuu.web.others.utils.SaveToHtmlUtils;
 import com.hfuu.web.others.utils.TermUtils;
 import com.hfuu.web.others.utils.UploadFileUtils;
+import com.hfuu.web.service.SubmitService;
 import com.hfuu.web.service.TaskService;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.apache.log4j.Logger;
@@ -36,20 +37,22 @@ public class TeacherResponseBodyController {
     TeacherControllerService teacherControllerService;
     @Resource
     TaskService taskService;
+    @Resource
+    SubmitService submitService;
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/student_table_json"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public Map<String, Object> studentTableData(int taskId, String clazzNum, Model model){
+    public Map<String, Object> studentTableData(int taskId, String clazzNum, Model model) {
         Map<String, Object> json = new HashMap<>(4);
-        TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
+        TeacherEntity tc = (TeacherEntity) (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List<StudentEntity> student = teacherControllerService.getStudents(tc.getTcNum(), TermUtils.getCurrentTerm(), clazzNum, taskId);
         ArrayList<Map<String, Object>> data = new ArrayList<>();
-        for (StudentEntity s : student){
+        for (StudentEntity s : student) {
             Map<String, Object> m = s.toMap();
             //noinspection unchecked
-            Set<SubmitEntity> submits = (Set<SubmitEntity>)(m.get("submitSet"));
-            for (SubmitEntity sub : submits){
-                if (sub.getTaskEntity().getTaskId() == taskId){
+            Set<SubmitEntity> submits = (Set<SubmitEntity>) (m.get("submitSet"));
+            for (SubmitEntity sub : submits) {
+                if (sub.getTaskEntity().getTaskId() == taskId) {
                     m.put("submit", sub.toMap());
                     break;
                 }
@@ -67,16 +70,16 @@ public class TeacherResponseBodyController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/task_table_json"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public Map<String, Object> taskTableData(String cozName, Model model){
+    public Map<String, Object> taskTableData(String cozName, Model model) {
         Map<String, Object> json = new HashMap<>(4);
-        TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
+        TeacherEntity tc = (TeacherEntity) (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List<CourseEntity> list = teacherControllerService.getCourseByTeacherNumAndTerm(tc.getTcNum(), TermUtils.getCurrentTerm());
         List<CourseEntity> cozList = teacherControllerService.groupByCozName(list).get(cozName);
         List<Map<String, Object>> data = new ArrayList<>();
-        for (CourseEntity c : cozList){
+        for (CourseEntity c : cozList) {
             Map<String, Object> m = c.toMap();
             //noinspection rawtypes
-            Set tasks = (Set)(m.get("taskSet"));
+            Set tasks = (Set) (m.get("taskSet"));
             Map<String, Object> taskCount = taskService.getTaskClosedAndNotClosedCount(tasks);
             m.put("taskCount", taskCount);
             m.put("classNum", c.getClassEntity().getClassNum());
@@ -94,10 +97,9 @@ public class TeacherResponseBodyController {
     @RequestMapping(value = {"/teacher/newTask"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> newTask(@RequestParam String taskName, @RequestParam String description,
                                        @RequestParam Timestamp date, @RequestParam List<String> clazzNum,
-                                       @RequestParam List<String> courseNum, @Nullable String enclosure, HttpSession session){
-
+                                       @RequestParam List<String> courseNum, @Nullable String enclosure, HttpSession session) {
         Map<String, Object> json = new HashMap<>(2);
-        if(clazzNum.size() != courseNum.size()){
+        if (clazzNum.size() != courseNum.size()) {
             json.put("msg", "提交失败！参数错误！");
             json.put("status", -1);
             return json;
@@ -130,7 +132,7 @@ public class TeacherResponseBodyController {
         Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.uploadFile(session, file, "files/");
         json.put("code", 0);
-        json.put("path", path+ConstValues.FILE_PATH_SEPARATOR);
+        json.put("path", path + ConstValues.FILE_PATH_SEPARATOR);
         return json;
     }
 
@@ -151,16 +153,38 @@ public class TeacherResponseBodyController {
 
     @ResponseBody
     @RequestMapping(value = {"/teacher/md5check"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
-    public Map<String, Object> md5Check(@RequestParam String md5, HttpSession session){
+    public Map<String, Object> md5Check(@RequestParam String md5, HttpSession session) {
         Map<String, Object> json = new HashMap<>(2);
         String path = UploadFileUtils.getFilePathIfExist(session, md5);
-        if(path != null){
+        if (path != null) {
             json.put("code", 0);
-        }else{
+        } else {
             json.put("code", 1);
         }
         json.put("path", path);
         return json;
     }
 
+    @ResponseBody
+    @RequestMapping(value = {"/teacher/correct"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
+    public Map<String, Object> correct(@RequestParam int subId, @RequestParam short score) {
+        Map<String, Object> json = new HashMap<>(2);
+        int num = 0;
+        try {
+            num = submitService.updateScoreAndStateById(subId, score, "已批改");
+        } catch (Exception e) {
+            json.put("code", 0);
+            json.put("msg", "服务器内部错误！提交失败！");
+            return json;
+        }
+        if (num == 1) {
+            json.put("code", 1);
+            json.put("msg", "提交成功！");
+
+        } else {
+            json.put("code", 0);
+            json.put("msg", "提交失败！");
+        }
+        return json;
+    }
 }

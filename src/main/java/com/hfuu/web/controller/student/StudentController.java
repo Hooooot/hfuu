@@ -13,7 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.*;
+import java.io.File;
+import java.io.InputStream;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -64,7 +65,7 @@ public class StudentController {
 
         if (subRichTextPath.length() == 0) {
             //第一次保存
-            htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content,"richtext");
+            htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content, "richtext");
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlRelativePath);
 
         } else {
@@ -97,8 +98,8 @@ public class StudentController {
         Map<String, Object> result = new HashMap<>(2);
         if (subId == 0) {
             //直接提交
-           String htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content,"richtext");
-           studentControllerService.directSubmission(taskId,stuNum,"待批阅",htmlRelativePath);
+            String htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content, "richtext");
+            studentControllerService.directSubmission(taskId, stuNum, "待批阅", htmlRelativePath);
 
         } else {
 

@@ -10,15 +10,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <title>首页</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    <link rel="stylesheet" href="../layui/css/layui.css"  media="all">
+    <link rel="stylesheet" href="../layui/css/layui.css" media="all">
     <link rel="icon" href="../images/favicon.ico">
 </head>
 <body>
@@ -27,9 +24,11 @@
     <c:forEach items="${course}" var="courseMap" varStatus="coStatus">
         <div class="layui-colla-item">
             <h2 class="layui-colla-title" data-loaded="false" data-cozname="${courseMap.key}"
-                data-tableid="data_table${coStatus.index}" data-tablefilter="data_table${coStatus.index}">${courseMap.key}</h2>
+                data-tableid="data_table${coStatus.index}"
+                data-tablefilter="data_table${coStatus.index}">${courseMap.key}</h2>
             <div class="layui-colla-content">
-                <table class="layui-hide" id="data_table${coStatus.index}" lay-filter="data_table${coStatus.index}"></table>
+                <table class="layui-hide" id="data_table${coStatus.index}"
+                       lay-filter="data_table${coStatus.index}"></table>
             </div>
         </div>
     </c:forEach>

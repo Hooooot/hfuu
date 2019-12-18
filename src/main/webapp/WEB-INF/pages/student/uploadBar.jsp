@@ -43,10 +43,10 @@
 <script src="../layui/layui.all.js"></script>
 <script>
     //创建监听函数
-    var xhrOnProgress=function(fun) {
+    var xhrOnProgress = function (fun) {
         xhrOnProgress.onprogress = fun; //绑定监听
         //使用闭包实现监听绑
-        return function() {
+        return function () {
             //通过$.ajaxSettings.xhr();获得XMLHttpRequest对象
             var xhr = $.ajaxSettings.xhr();
             //判断监听函数是否为函数
@@ -58,8 +58,8 @@
             }
             return xhr;
         }
-    }
-    layui.use('upload', function() {
+    };
+    layui.use('upload', function () {
         var $ = layui.jquery,
             upload = layui.upload;
 
@@ -73,30 +73,30 @@
                 multiple: true,
                 auto: false,
                 bindAction: '#uploadListAction',
-                xhr:xhrOnProgress,
-                progress: function(index,value){//上传进度回调 value进度值
-                    element.progress('progressBar'+index, value+'%');//设置页面进度条
+                xhr: xhrOnProgress,
+                progress: function (index, value) {//上传进度回调 value进度值
+                    element.progress('progressBar' + index, value + '%');//设置页面进度条
                 },
-                choose: function(obj) {
+                choose: function (obj) {
                     var files = this.files = obj.pushFile(); //将每次选择的文件追加到文件队列
                     //读取本地文件
-                    obj.preview(function(index, file, result) {
+                    obj.preview(function (index, file, result) {
                         var tr = $(['<tr id="upload-' + index + '">', '<td>' + file.name + '</td>', '<td>' + (file.size / 1014).toFixed(1) + 'kb</td>', '<td>等待上传</td>', '<td>'
-                            ,'<div class="layui-progress layui-progress-big layui-progress-radius-fix" lay-showpercent="true" lay-filter="progressBar'+index+'">'
-                            ,'<div class="layui-progress-bar" lay-percent="0%">'
-                            ,'<span class="layui-progress-text">0%</span>'
-                            ,'</div>'
-                            ,'</div>'
-                            ,'</td>'
-                            ,'<td>', '<button class="layui-btn layui-btn-mini file-reload layui-hide">重传</button>', '<button class="layui-btn layui-btn-mini layui-btn-danger file-delete">删除</button>', '</td>', '</tr>'].join(''));
+                            , '<div class="layui-progress layui-progress-big layui-progress-radius-fix" lay-showpercent="true" lay-filter="progressBar' + index + '">'
+                            , '<div class="layui-progress-bar" lay-percent="0%">'
+                            , '<span class="layui-progress-text">0%</span>'
+                            , '</div>'
+                            , '</div>'
+                            , '</td>'
+                            , '<td>', '<button class="layui-btn layui-btn-mini file-reload layui-hide">重传</button>', '<button class="layui-btn layui-btn-mini layui-btn-danger file-delete">删除</button>', '</td>', '</tr>'].join(''));
 
                         //单个重传
-                        tr.find('.file-reload').on('click', function() {
+                        tr.find('.file-reload').on('click', function () {
                             obj.upload(index, file);
                         });
 
                         //删除
-                        tr.find('.file-delete').on('click', function() {
+                        tr.find('.file-delete').on('click', function () {
                             delete files[index]; //删除对应的文件
                             tr.remove();
                             uploadListIns.config.elem.next()[0].value = ''; //清空 input file 值，以免删除后出现同名文件不可选
@@ -105,22 +105,22 @@
                         fileListView.append(tr);
                     });
                 },
-                done: function(res, index, upload) {
+                done: function (res, index, upload) {
                     if (res.code == 0) { //上传成功
                         var tr = fileListView.find('tr#upload-' + index),
                             tds = tr.children();
                         tds.eq(2).html('<span style="color: #5FB878;">上传成功</span>');
-                        tds.eq(3).find('.layui-progress-bar').css('background-color','#86EAA1');
+                        tds.eq(3).find('.layui-progress-bar').css('background-color', '#86EAA1');
                         tds.eq(4).html(''); //清空操作
                         return delete this.files[index]; //删除文件队列已经上传成功的文件
                     }
                     this.error(index, upload);
                 },
-                error: function(index, upload) {
+                error: function (index, upload) {
                     var tr = fileListView.find('tr#upload-' + index),
                         tds = tr.children();
                     tds.eq(2).html('<span style="color: #FF5722;">上传失败</span>');
-                    tds.eq(3).find('.layui-progress-bar').css('background-color','#ff5722');
+                    tds.eq(3).find('.layui-progress-bar').css('background-color', '#ff5722');
                     tds.eq(4).find('.file-reload').removeClass('layui-hide'); //显示重传
                 }
             });

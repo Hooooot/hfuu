@@ -1,23 +1,16 @@
 package com.hfuu.web.controller.student;
 
-import com.hfuu.web.dao.SubmitDao;
-import com.hfuu.web.entity.*;
-import com.hfuu.web.others.utils.SaveToHtmlUtils;
-import com.hfuu.web.service.CourseService;
+import com.hfuu.web.entity.StudentEntity;
 import com.hfuu.web.service.StuService;
-import com.hfuu.web.service.SubmitService;
-import com.hfuu.web.service.TaskService;
 import com.hfuu.web.service.student.StudentControllerService;
-import com.mchange.v2.sql.filter.SynchronizedFilterDataSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Description //TODO
@@ -64,24 +57,24 @@ public class LoginSController {
     @RequestMapping(value = {"/student/homes"}, method = RequestMethod.GET)
     public String toHomeS(@RequestParam(value = "studentNum", required = false) String studentNum, Model model) {
         //学号
-        Map map=studentControllerService.getCourseByStuNum(studentNum);
+        Map map = studentControllerService.getCourseByStuNum(studentNum);
         System.out.println(map);
-        model.addAttribute("course",map);
+        model.addAttribute("course", map);
         return "student/home";
     }
 
 
     @ResponseBody
     @RequestMapping(value = {"/student/json_test"}, method = RequestMethod.GET, produces = "application/json;charset=utf8")
-    public Map<String, Object> jsonCourse(String stuNum,String cozName){
-        Map<String, Object> json=new HashMap<>(4);
-        List<Map> data=studentControllerService.getTaskFromCourse(stuNum,cozName);
+    public Map<String, Object> jsonCourse(String stuNum, String cozName) {
+        Map<String, Object> json = new HashMap<>(4);
+        List<Map> data = studentControllerService.getTaskFromCourse(stuNum, cozName);
         json.put("data", data);
         json.put("code", 0);
         json.put("count", data.size());
         json.put("msg", "");
         System.out.println(data);
-        return  json;
+        return json;
     }
 
 

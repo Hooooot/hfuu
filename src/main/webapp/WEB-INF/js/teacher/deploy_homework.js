@@ -3,7 +3,7 @@
  * @see js/common/date_extend.js
  * */
 let date_extend = document.createElement("script");
-date_extend.src='../js/common/date_extend.js';
+date_extend.src = '../js/common/date_extend.js';
 document.head.appendChild(date_extend);
 
 layui.extend({
@@ -16,24 +16,24 @@ layui.extend({
         layUploader = layui.layUploader,
         form = layui.form;
 
-    let layeditID = layedit.build('taskTips',{
-        'uploadImage':{
-            url:'./layuiUploadImg/',
-            type:'post'
+    let layeditID = layedit.build('taskTips', {
+        'uploadImage': {
+            url: './layuiUploadImg/',
+            type: 'post'
         },
-        height:350
+        height: 350
     });
 
     //常规用法
     laydate.render({
         elem: '#date'
-        ,type: "datetime"
-        ,value: new Date (new Date().setDate(new Date().getDate() + 7))
+        , type: "datetime"
+        , value: new Date(new Date().setDate(new Date().getDate() + 7))
     });
 
     form.on("switch(upload_switch)", function (data) {
         let submitBtn = $('.task_submit');
-        if(!data.elem.checked){
+        if (!data.elem.checked) {
             $('.upload_content').html("");
             submitBtn.attr("lay-filter", "submit_btn_no_files");
             return;
@@ -61,7 +61,7 @@ layui.extend({
         });
     });
 
-    function getRichTextHTML(index){
+    function getRichTextHTML(index) {
         let richTextHTML = $('#LAY_layedit_' + index);
         return "<html>" + richTextHTML.contents().find("html").html() + "</html>";
     }
@@ -71,25 +71,29 @@ layui.extend({
         let param = $(data.form).serialize();
         $.post('./newTask/',
             param
-            ,function (callback) {
-            layer.alert(callback.msg);
-        });
+            , function (callback) {
+                layer.msg(callback.msg, function () {
+                    location.reload();
+                });
+            }
+        );
     });
 
-    function addClick () {
+    function addClick() {
         let selectContent = $('#clazz_course_select_temp').html();
         let selects = $('.course_selects');
         let num = $('.clazz_course_select').length;
-        if(num >= 1){
+        if (num >= 1) {
             $('.del_select').show();
         }
         selects.append(selectContent);
         form.render('select');
     }
+
     function delClick() {
         let parent = $(this).parent();
         let num = $('.clazz_course_select').length;
-        if(num <= 2){
+        if (num <= 2) {
             $('.del_select').hide();
         }
         parent.remove();
@@ -100,7 +104,7 @@ layui.extend({
         $("body").on('click', '.add_select', addClick);
         $('body').on('click', '.del_select', delClick);
         let num = $('.clazz_course_select').length;
-        if(num <= 1){
+        if (num <= 1) {
             $('.del_select').hide();
         }
     });

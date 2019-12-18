@@ -11,43 +11,44 @@
 
     <!--配置spring的扫描的注解，不扫描Controller、ControllerAdvice，目的和spring mvc区别开 ,避免重复扫描 -->
     <context:component-scan base-package="com.hfuu.web">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation"
+                                expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
     </context:component-scan>
 
     <!--扫描配置文件(这里指向的是之前配置的那个config.properties) -->
-    <context:property-placeholder location="classpath:/database.properties" />
+    <context:property-placeholder location="classpath:/database.properties"/>
 
     <!--配置数据源 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="${jdbc.driver}" />  <!--数据库连接驱动 -->
-        <property name="jdbcUrl" value="${jdbc.url}" />     <!--数据库地址 -->
-        <property name="user" value="${jdbc.username}" />   <!--用户名 -->
-        <property name="password" value="${jdbc.password}" />   <!--密码 -->
-        <property name="acquireIncrement" value="${jdbc.acquireIncrement}" />
-        <property name="maxPoolSize" value="${jdbc.maxPoolSize}" />      <!--最大连接数 -->
-        <property name="minPoolSize" value="${jdbc.minPoolSize}" />       <!--最小连接数 -->
-        <property name="initialPoolSize" value="${jdbc.initialPoolSize}" />      <!--初始化连接池内的数据库连接 -->
-        <property name="maxStatements" value="${jdbc.maxStatements}" />  <!--最大空闲时间 -->
-        <property name="maxStatementsPerConnection" value="${jdbc.maxStatementsPerConnection}" />
+        <property name="driverClass" value="${jdbc.driver}"/>  <!--数据库连接驱动 -->
+        <property name="jdbcUrl" value="${jdbc.url}"/>     <!--数据库地址 -->
+        <property name="user" value="${jdbc.username}"/>   <!--用户名 -->
+        <property name="password" value="${jdbc.password}"/>   <!--密码 -->
+        <property name="acquireIncrement" value="${jdbc.acquireIncrement}"/>
+        <property name="maxPoolSize" value="${jdbc.maxPoolSize}"/>      <!--最大连接数 -->
+        <property name="minPoolSize" value="${jdbc.minPoolSize}"/>       <!--最小连接数 -->
+        <property name="initialPoolSize" value="${jdbc.initialPoolSize}"/>      <!--初始化连接池内的数据库连接 -->
+        <property name="maxStatements" value="${jdbc.maxStatements}"/>  <!--最大空闲时间 -->
+        <property name="maxStatementsPerConnection" value="${jdbc.maxStatementsPerConnection}"/>
     </bean>
 
     <!--配置session工厂-->
     <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
         <property name="configLocation" value="classpath:hibernate.cfg.xml"/>
-        <property name="packagesToScan" value="com.hfuu.web.entity" />
+        <property name="packagesToScan" value="com.hfuu.web.entity"/>
     </bean>
 
     <!--  配置HibernateTemplate  -->
-<!--    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">-->
-<!--        <property name="sessionFactory" ref="sessionFactory"/>-->
-<!--    </bean>-->
+    <!--    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate5.HibernateTemplate">-->
+    <!--        <property name="sessionFactory" ref="sessionFactory"/>-->
+    <!--    </bean>-->
 
     <!-- 事物管理器配置 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory" />
+        <property name="sessionFactory" ref="sessionFactory"/>
     </bean>
 
-    <tx:annotation-driven proxy-target-class="true" />
+    <tx:annotation-driven proxy-target-class="true"/>
 </beans>

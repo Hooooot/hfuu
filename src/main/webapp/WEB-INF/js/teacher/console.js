@@ -1,17 +1,17 @@
-layui.use(['table', 'element', 'layer', "jquery"], function(){
+layui.use(['table', 'element', 'layer', "jquery"], function () {
     let table = layui.table,
         element = layui.element,
         layer = layui.layer,
         $ = layui.jquery;
 
-    let Collapse = function(tableId, layFilter, cozName){
+    let Collapse = function (tableId, layFilter, cozName) {
         this.tableId = tableId;
         this.layFilter = layFilter;
         this.cozName = cozName;
     };
 
     /** @deprecated 请优先使用JSTL表达式创建Collapse，<h2></h2>元素中应当添加一些data属性才能被loadDataTable()使用*/
-    Collapse.prototype.createCollapse = function(collapsesTitle){
+    Collapse.prototype.createCollapse = function (collapsesTitle) {
         let co = document.getElementById("collapse");
         let item = document.createElement("div");
         item.setAttribute("class", "layui-colla-item");
@@ -20,9 +20,9 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
         co.appendChild(item);
     };
 
-    Collapse.prototype.loadDataTable = function(){
+    Collapse.prototype.loadDataTable = function () {
         let script = document.createElement("script");
-        script.innerHTML =`layui.use(['table', 'jquery'], function(){
+        script.innerHTML = `layui.use(['table', 'jquery'], function(){
     let table = layui.table,
         $ = layui.jquery;
     table.render({
@@ -97,15 +97,15 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
     };
 
     // 触发发布作业事件
-    window.deployTasks = function(data) {
+    window.deployTasks = function (data) {
         let deployTaskBtn = $('.deployTask', parent.document);
         let param = '?';
-        if(typeof data.forEach === 'function'){
+        if (typeof data.forEach === 'function') {
             data.forEach((item, index, data) => {
                 param = param + 'cozNum=' + item.cozNum + '&';
                 param = param + 'classNum=' + item.classNum + '&';
             });
-        }else{
+        } else {
             param = param + 'cozNum=' + data.cozNum + '&';
             param = param + 'classNum=' + data.classNum;
         }
@@ -116,8 +116,8 @@ layui.use(['table', 'element', 'layer', "jquery"], function(){
     };
 
     //监听折叠
-    element.on('collapse(collapse-filter)', function(data){
-        if (!$(this).data("loaded")){
+    element.on('collapse(collapse-filter)', function (data) {
+        if (!$(this).data("loaded")) {
             let tableId = $(this).data("tableid");
             let tableFilter = $(this).data("tablefilter");
             let cozName = $(this).data("cozname");

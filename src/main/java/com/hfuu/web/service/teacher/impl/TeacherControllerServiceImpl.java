@@ -18,11 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description : Teacher的Controller层service实现
- * @date : 2019/10/04 18:49
  * @author : whh0987@foxmail.com
  * 最后修改时间：
  * 最后修改人：
+ * @Description : Teacher的Controller层service实现
+ * @date : 2019/10/04 18:49
  */
 @Service("teacherControllerService")
 @Transactional(rollbackFor = Exception.class)
@@ -40,7 +40,7 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     }
 
     @Override
-    public List getCourseByTcNumAndTerm(String tcNum, String term){
+    public List getCourseByTcNumAndTerm(String tcNum, String term) {
         TeacherEntity tc = new TeacherEntity();
         tc.setTcNum(tcNum);
         return findByHql("from CourseEntity c where c.TeacherEntity = ? and c.term=?", tc, term);
@@ -48,24 +48,24 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
 
     @Override
     public Map<String, List> duplicateRemoval(List<CourseEntity> list) {
-        if (list == null){
+        if (list == null) {
             return null;
         }
         List<ClassEntity> classList = new ArrayList<>();
         List<CourseEntity> cozList = new ArrayList<>();
-        for(CourseEntity c : list){
+        for (CourseEntity c : list) {
             boolean exist = false;
-            for(CourseEntity courseEntity : cozList){
-                if(c.getCozNum().equals(courseEntity.getCozNum())){
+            for (CourseEntity courseEntity : cozList) {
+                if (c.getCozNum().equals(courseEntity.getCozNum())) {
                     exist = true;
                     break;
                 }
             }
-            if(!exist){
+            if (!exist) {
                 cozList.add(c);
             }
             ClassEntity clazz = c.getClassEntity();
-            if(!classList.contains(clazz)){
+            if (!classList.contains(clazz)) {
                 classList.add(clazz);
             }
         }
@@ -89,13 +89,13 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     @Override
     public Map<String, List<StudentEntity>> getStudentsGroupByClazz(List<StudentEntity> student) {
         Map<String, List<StudentEntity>> clazz = new HashMap<>(5);
-        for (StudentEntity s : student){
+        for (StudentEntity s : student) {
             String clazzNum = s.getClassEntity().getClassNum();
-            if(clazz.containsKey(clazzNum)){
+            if (clazz.containsKey(clazzNum)) {
                 List<StudentEntity> st = clazz.get(clazzNum);
                 st.add(s);
                 clazz.put(clazzNum, st);
-            }else{
+            } else {
                 List<StudentEntity> st = new ArrayList<>();
                 st.add(s);
                 clazz.put(clazzNum, st);
@@ -129,7 +129,7 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     public List<CourseEntity> getCourseByTeacherNumAndTerm(String tcNum, String term) {
         //noinspection unchecked
         return (List<CourseEntity>) courseDao.findByHql("from CourseEntity c where c.tcEntity.tcNum=? and c.term=?",
-                                                        tcNum, term);
+                tcNum, term);
     }
 
     @Override
@@ -138,23 +138,23 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     }
 
     @Override
-    public CourseEntity getCourseByCozNumAndTcNum(String cozNum, TeacherEntity tc){
+    public CourseEntity getCourseByCozNumAndTcNum(String cozNum, TeacherEntity tc) {
         List list = courseDao.findByHql("from CourseEntity c where c.tcEntity=? and c.cozNum=?", tc, cozNum);
-        return list==null?null:(CourseEntity) list.get(0);
+        return list == null ? null : (CourseEntity) list.get(0);
     }
 
     @Override
     public Map<String, List<CourseEntity>> groupByCozName(List<CourseEntity> list) {
-        if (list == null){
+        if (list == null) {
             return null;
         }
         Map<String, List<CourseEntity>> map = new HashMap<>(5);
-        for(CourseEntity c : list){
-            if(map.containsKey(c.getCozName())){
+        for (CourseEntity c : list) {
+            if (map.containsKey(c.getCozName())) {
                 List<CourseEntity> li = map.get(c.getCozName());
                 li.add(c);
                 map.put(c.getCozName(), li);
-            }else{
+            } else {
                 List<CourseEntity> li = new ArrayList<>();
                 li.add(c);
                 map.put(c.getCozName(), li);

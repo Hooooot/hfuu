@@ -32,20 +32,20 @@
         <%--和下方隐藏区域对应--%>
         <ul class="layui-nav layui-layout-right">
             <%--显示时间--%>
-            <li class="layui-nav-item" >
+            <li class="layui-nav-item">
                 <i id="nowTime"></i>
             </li>
             <li class="layui-nav-item lockpc">
-                <a href="javascript:;">锁屏</a>
+                <a href="javascript:">锁屏</a>
             </li>
             <li class="layui-nav-item " lay-unselect>
-                <a href="javascript:;"><img src="../images/face.jpg" class="layui-nav-img">${studentLogin.stuName}</a>
+                <a href="javascript:"><img src="../images/face.jpg" class="layui-nav-img">${studentLogin.stuName}</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:;" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
+                    <dd><a href="javascript:" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
                     </dd>
-                    <dd><a href="javascript:;" class="showChangePassword">修改密码</a></dd>
-                    <dd><a href="javascript:;">退出</a></dd>
-                    <dd><a href="javascript:;" class="showNotice"><i
+                    <dd><a href="javascript:" class="showChangePassword">修改密码</a></dd>
+                    <dd><a href="javascript:">退出</a></dd>
+                    <dd><a href="javascript:" class="showNotice"><i
                             class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a>
                     </dd>
                 </dl>
@@ -62,7 +62,7 @@
             </div>
             <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon">&#xe609;</i>
                         <em>主页</em>
                     </a>
@@ -71,14 +71,14 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon">&#xe857;</i>
                         <em>作业</em>
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="${crx}/student/personaldetas">表单</a></dd>
                         <dd>
-                            <a href="javascript:;">页面</a>
+                            <a href="javascript:">页面</a>
                             <dl class="layui-nav-child">
                                 <dd>
                                     <a href="${crx}/student/test?studentNum= ${studentLogin.stuNum}">测试</a>
@@ -94,7 +94,7 @@
                     </dl>
                 </li>
                 <li class="layui-nav-item">
-                    <a href="javascript:;">
+                    <a href="javascript:">
                         <i class="layui-icon">&#xe612;</i>
                         <em>用户</em>
                     </a>

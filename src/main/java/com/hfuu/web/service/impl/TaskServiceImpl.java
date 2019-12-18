@@ -16,11 +16,11 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @Description :
- * @date : 2019/9/25 19:03
  * @author : Ciel-08
  * 最后修改时间：2019年10月19日 23点19分
  * 最后修改人：whh0987@foxmail.com
+ * @Description :
+ * @date : 2019/9/25 19:03
  */
 @Service("taskService")
 @Transactional(rollbackFor = Exception.class)
@@ -37,7 +37,7 @@ public class TaskServiceImpl extends BaseServiceImpl<TaskEntity> implements Task
     @Override
     public Map<String, Object> getTaskClosedAndNotClosedCount(Set taskSet) {
         Map<String, Object> map = new HashMap<>(2);
-        if (taskSet==null){
+        if (taskSet == null) {
             map.put("closed", 0);
             map.put("notClosed", 0);
             return map;
@@ -45,14 +45,14 @@ public class TaskServiceImpl extends BaseServiceImpl<TaskEntity> implements Task
         Date date = new Date();
         int closed = 0;
         int notClosed = 0;
-        for (Object task : taskSet){
-            Timestamp dead = ((TaskEntity)task).getDeadline();
-            if(dead == null){
+        for (Object task : taskSet) {
+            Timestamp dead = ((TaskEntity) task).getDeadline();
+            if (dead == null) {
                 continue;
             }
-            if(date.before(dead)){
+            if (date.before(dead)) {
                 notClosed++;
-            }else{
+            } else {
                 closed++;
             }
         }

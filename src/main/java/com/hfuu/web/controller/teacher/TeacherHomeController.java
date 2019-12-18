@@ -19,11 +19,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description : 教师页面首页控制器
- * @date :2019年10月10日 16点49分
  * @author :whh0987@foxmail.com
  * 最后修改时间：
  * 最后修改人：
+ * @Description : 教师页面首页控制器
+ * @date :2019年10月10日 16点49分
  */
 @Controller
 @RequestMapping("")
@@ -36,8 +36,8 @@ public class TeacherHomeController {
     TaskService taskService;
 
     @RequestMapping(value = {"/teacher/home"}, method = RequestMethod.GET)
-    public String toHome(Model model){
-        if (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null){
+    public String toHome(Model model) {
+        if (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null) {
             log.debug("跳转到:teacher/home.jsp");
             return "teacher/home";
         }
@@ -45,8 +45,8 @@ public class TeacherHomeController {
     }
 
     @ModelAttribute
-    public void consoleModel(String tcNum, Model model){
-        if(tcNum == null){
+    public void consoleModel(String tcNum, Model model) {
+        if (tcNum == null) {
             return;
         }
         List<CourseEntity> list = teacherControllerService.getCourseByTeacherNumAndTerm(tcNum, TermUtils.getCurrentTerm());
@@ -62,7 +62,7 @@ public class TeacherHomeController {
 
     @RequestMapping(value = {"/teacher/already_homework"}, method = RequestMethod.GET)
     public String toAlreadyHomework(String term, Model model) {
-        TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
+        TeacherEntity tc = (TeacherEntity) (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         // TODO
         System.out.println("term:" + term);
         Map<ClassEntity, List<TaskEntity>> clazz = teacherControllerService.getClazzAndTaskByTcNumAndTerm(tc.getTcNum(), TermUtils.getCurrentTerm());
@@ -73,9 +73,9 @@ public class TeacherHomeController {
 
     @RequestMapping(value = {"/teacher/deploy_homework"}, method = RequestMethod.GET)
     public String toDeployHomework(@RequestParam(required = false) List<String> cozNum, @RequestParam(required = false) List<String> classNum, Model model) {
-        TeacherEntity tc = (TeacherEntity)(model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
+        TeacherEntity tc = (TeacherEntity) (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
         List<CourseEntity> courseList = teacherControllerService.getCourseByTeacherNumAndTerm(tc.getTcNum(), TermUtils.getCurrentTerm());
-        if(cozNum != null && classNum != null){
+        if (cozNum != null && classNum != null) {
             model.addAttribute("selectedCoz", cozNum);
             model.addAttribute("selectedClass", classNum);
         }

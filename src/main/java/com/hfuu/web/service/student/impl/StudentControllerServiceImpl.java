@@ -18,7 +18,7 @@ import java.util.*;
 /**
  * @Description: Student的Controller层service实现
  * @Author: Starry the Night
- * @Date:  2019/10/18 20:13
+ * @Date: 2019/10/18 20:13
  * @return
  */
 @Service("studentControllerService")
@@ -39,7 +39,7 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
     @Override
     public Map<String, List<CourseEntity>> getCourseByStuNum(String stuNum) {
         //from Department as d inner join fetch d.employees e where e.name='Tom';
-        List<CourseEntity> list=courseDao.findByHql("from CourseEntity c inner join fetch c.classEntity.stusFromClass s where s.stuNum=?",stuNum);
+        List<CourseEntity> list = courseDao.findByHql("from CourseEntity c inner join fetch c.classEntity.stusFromClass s where s.stuNum=?", stuNum);
         return this.groupByCozName(list);
     }
 
@@ -52,12 +52,12 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
 
     @Override
     public List<Map> getTaskFromCourse(String stuNum, String cozName) {
-        List<CourseEntity> list=getCourse(stuNum,cozName);
+        List<CourseEntity> list = getCourse(stuNum, cozName);
         List<Map> data = new ArrayList<Map>();
         for (CourseEntity c : list) {
             Set<TaskEntity> taskList = c.getTasksFromCoz();
             for (TaskEntity t : taskList) {
-                Map<String, Object> shiYan=t.toMap();
+                Map<String, Object> shiYan = t.toMap();
                 shiYan.remove("submitSet");
 
                 Set<SubmitEntity> submitEntities = t.getSubmitsFromTask();
@@ -70,19 +70,19 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
                     }
                 }
                 if (!submitEntities.isEmpty()) {
-                    shiYan.put("score",submitEntities.iterator().next().getScore());
-                    shiYan.put("subTime",submitEntities.iterator().next().getSubTime());
-                    shiYan.put("subState",submitEntities.iterator().next().getSubState());
-                    shiYan.put("subFile",submitEntities.iterator().next().getSubFile());
-                    shiYan.put("subRichTextPath",submitEntities.iterator().next().getSubRichTextPath());
-                    shiYan.put("subId",submitEntities.iterator().next().getSubId());
-                }else {
-                    shiYan.put("score",0);
-                    shiYan.put("subTime",null);
-                    shiYan.put("subState","待提交");
-                    shiYan.put("subFile",null);
-                    shiYan.put("subRichTextPath",null);
-                    shiYan.put("subId",null);
+                    shiYan.put("score", submitEntities.iterator().next().getScore());
+                    shiYan.put("subTime", submitEntities.iterator().next().getSubTime());
+                    shiYan.put("subState", submitEntities.iterator().next().getSubState());
+                    shiYan.put("subFile", submitEntities.iterator().next().getSubFile());
+                    shiYan.put("subRichTextPath", submitEntities.iterator().next().getSubRichTextPath());
+                    shiYan.put("subId", submitEntities.iterator().next().getSubId());
+                } else {
+                    shiYan.put("score", 0);
+                    shiYan.put("subTime", null);
+                    shiYan.put("subState", "待提交");
+                    shiYan.put("subFile", null);
+                    shiYan.put("subRichTextPath", null);
+                    shiYan.put("subId", null);
                 }
 
                 data.add(shiYan);
@@ -93,16 +93,16 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
 
     @Override
     public Map groupByCozName(List<CourseEntity> list) {
-        if (list == null){
+        if (list == null) {
             return null;
         }
         Map<String, List<CourseEntity>> map = new HashMap<>(5);
-        for(CourseEntity c : list){
-            if(map.containsKey(c.getCozName())){
+        for (CourseEntity c : list) {
+            if (map.containsKey(c.getCozName())) {
                 List<CourseEntity> li = map.get(c.getCozName());
                 li.add(c);
                 map.put(c.getCozName(), li);
-            }else{
+            } else {
                 List<CourseEntity> li = new ArrayList<>();
                 li.add(c);
                 map.put(c.getCozName(), li);
@@ -113,17 +113,17 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
 
     @Override
     public void updateSubRichTextPath(int taskId, String stuNum, String subRichTextPath) {
-        TaskEntity taskEntity=new TaskEntity();
+        TaskEntity taskEntity = new TaskEntity();
         taskEntity.setTaskId(taskId);
-        StudentEntity studentEntity=new StudentEntity();
+        StudentEntity studentEntity = new StudentEntity();
         studentEntity.setStuNum(stuNum);
 
-        SubmitEntity submitEntity=new SubmitEntity();
+        SubmitEntity submitEntity = new SubmitEntity();
         submitEntity.setStuEntity(studentEntity);
         submitEntity.setTaskEntity(taskEntity);
         submitEntity.setSubRichTextPath(subRichTextPath);
         submitEntity.setSubState("待提交");
-        submitEntity.setScore((short)0);
+        submitEntity.setScore((short) 0);
         submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
         submitDao.insert(submitEntity);
 
@@ -131,27 +131,27 @@ public class StudentControllerServiceImpl extends BaseServiceImpl implements Stu
 
     @Override
     public Integer updateSubmitSubTime(int subId, Timestamp subTime) {
-        return submitDao.executeHql("update SubmitEntity s set s.subTime=? where s.subId=?",subTime,subId);
+        return submitDao.executeHql("update SubmitEntity s set s.subTime=? where s.subId=?", subTime, subId);
     }
 
     @Override
     public Integer updateSubmitSubTimeAndSubState(int subId, Timestamp subTime, String subState) {
-        return submitDao.executeHql("update SubmitEntity s set s.subTime=? , s.subState=? where s.subId=?",subTime,subState,subId);
+        return submitDao.executeHql("update SubmitEntity s set s.subTime=? , s.subState=? where s.subId=?", subTime, subState, subId);
     }
 
     @Override
     public void directSubmission(int taskId, String stuNum, String subState, String subRichTextPath) {
-        TaskEntity taskEntity=new TaskEntity();
+        TaskEntity taskEntity = new TaskEntity();
         taskEntity.setTaskId(taskId);
-        StudentEntity studentEntity=new StudentEntity();
+        StudentEntity studentEntity = new StudentEntity();
         studentEntity.setStuNum(stuNum);
 
-        SubmitEntity submitEntity=new SubmitEntity();
+        SubmitEntity submitEntity = new SubmitEntity();
         submitEntity.setStuEntity(studentEntity);
         submitEntity.setTaskEntity(taskEntity);
         submitEntity.setSubRichTextPath(subRichTextPath);
         submitEntity.setSubState(subState);
-        submitEntity.setScore((short)0);
+        submitEntity.setScore((short) 0);
         submitEntity.setSubTime(new Timestamp(System.currentTimeMillis()));
         submitDao.insert(submitEntity);
     }

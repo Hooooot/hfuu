@@ -51,7 +51,7 @@
         var taskName;//实验名称
         var taskDesc;//实验描述
         var taskId;//任务id
-        var stuNum ="${studentLogin.stuNum}";//学号
+        var stuNum = "${studentLogin.stuNum}";//学号
         var subRichTextPath;//富文本内容保存的路径
         var subId;//提交id
         var tableId;//父类表格id
@@ -62,14 +62,14 @@
             getExperiment();
 
             $.ajax({
-                type:"POST",
-                url:'./getContent',
-                data:{'subRichTextPath':subRichTextPath},
-                dataType:"json",
-                success:function (data) {
+                type: "POST",
+                url: './getContent',
+                data: {'subRichTextPath': subRichTextPath},
+                dataType: "json",
+                success: function (data) {
                     //初始化editor内容
                     editor.txt.html(data.data);
-                },error:function () {
+                }, error: function () {
                     layer.msg("加载失败")
                 }
             });
@@ -78,14 +78,14 @@
 
         function getExperiment() {
             //从父层获取值，json是父层的全局js变量。eval是将该string类型的json串变为标准的json串
-            var parent_json = eval('('+parent.json+')');
-            tableId = eval('('+parent.table_json+')');
+            var parent_json = eval('(' + parent.json + ')');
+            tableId = eval('(' + parent.table_json + ')');
             //console.log(tableId);
-            taskName=parent_json.taskName;
-            taskDesc=parent_json.taskDesc;
-            taskId=parent_json.taskId;
-            subRichTextPath=parent_json.subRichTextPath;
-            subId=parent_json.subId;
+            taskName = parent_json.taskName;
+            taskDesc = parent_json.taskDesc;
+            taskId = parent_json.taskId;
+            subRichTextPath = parent_json.subRichTextPath;
+            subId = parent_json.subId;
             $("h1").text(taskName);
             $("h3").text(taskDesc);
         }
@@ -95,7 +95,7 @@
         var editor = new E('#editor'); // 两个参数也可以传入 elem 对象，class 选择器
 
         // 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
-        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0
+        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
         //开启debug模式
         editor.customConfig.debug = true;
         // 隐藏“网络图片”tab
@@ -169,30 +169,37 @@
         editor.create();
         //提交页面
         document.getElementById('submit').addEventListener('click', function () {
-            if(subRichTextPath==null&&subId==null){
+            if (subRichTextPath == null && subId == null) {
                 //编辑后直接提交
-                subId=0;
+                subId = 0;
             }
             $.ajax({
-                type:"POST",
-                url:'./submitHtml',
-                data:{'content':editor.txt.html(),'subRichTextPath':subRichTextPath,'subId':subId,'taskId':taskId,'stuNum':stuNum},
-                dataType:"json",
-                success:function (data) {
-                    if(data && data.success=="true"){
+                type: "POST",
+                url: './submitHtml',
+                data: {
+                    'content': editor.txt.html(),
+                    'subRichTextPath': subRichTextPath,
+                    'subId': subId,
+                    'taskId': taskId,
+                    'stuNum': stuNum
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data && data.success == "true") {
                         layer.msg("提交成功", {
-                            icon: 6});
+                            icon: 6
+                        });
                         ///////////////////////////////////////////
                         parent.layui.table.reload(tableId);
                     }
                     //等待900毫秒后自动进行当前子窗口的关闭
-                    setTimeout(function(){
+                    setTimeout(function () {
                         //当你在iframe页面关闭自身时
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                         parent.layer.close(index); //再执行关闭
-                    },900);
-                },error:function () {
-                    layer.msg("提交失败",{
+                    }, 900);
+                }, error: function () {
+                    layer.msg("提交失败", {
                         icon: 5
                     })
                 }
@@ -216,30 +223,37 @@
         });
 
         //保存页面
-        document.getElementById('save').addEventListener('click',function () {
-            if(subId==null) {
-                subId=0;
+        document.getElementById('save').addEventListener('click', function () {
+            if (subId == null) {
+                subId = 0;
             }
             $.ajax({
-                type:"POST",
-                url:'./saveHtml',
-                data:{'content':editor.txt.html(),'taskId':taskId,'stuNum':stuNum,'subRichTextPath':subRichTextPath,'subId':subId},
-                dataType:"json",
-                success:function (data) {
-                    if(data && data.success=="true"){
+                type: "POST",
+                url: './saveHtml',
+                data: {
+                    'content': editor.txt.html(),
+                    'taskId': taskId,
+                    'stuNum': stuNum,
+                    'subRichTextPath': subRichTextPath,
+                    'subId': subId
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (data && data.success == "true") {
                         layer.msg("保存成功", {
-                            icon: 6});
+                            icon: 6
+                        });
                         ///////////////////////////////////////////
                         parent.layui.table.reload(tableId);
                     }
                     //等待900毫秒后自动进行当前子窗口的关闭
-                    setTimeout(function(){
+                    setTimeout(function () {
                         //当你在iframe页面关闭自身时
                         var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                         parent.layer.close(index); //再执行关闭
-                    },900);
-                },error:function () {
-                    layer.msg("保存失败",{
+                    }, 900);
+                }, error: function () {
+                    layer.msg("保存失败", {
                         icon: 5
                     })
                 }

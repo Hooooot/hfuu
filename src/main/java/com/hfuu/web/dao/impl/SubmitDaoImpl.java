@@ -10,11 +10,11 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 
 /**
- * @Description :submitDao的实现类
- * @date :2019/9/25 18:53
  * @author :Ciel-08
  * 最后修改时间：2019/9/28
  * 最后修改人：Ciel-08
+ * @Description :submitDao的实现类
+ * @date :2019/9/25 18:53
  */
 @Repository("submitDao")
 public class SubmitDaoImpl extends BaseDaoImpl<SubmitEntity> implements SubmitDao {
@@ -24,7 +24,7 @@ public class SubmitDaoImpl extends BaseDaoImpl<SubmitEntity> implements SubmitDa
 
     @Override
     public Long countSubmitByState(int taskId, String state) {
-        Query query =this.sessionFactory.getCurrentSession().createQuery("select count(*) from SubmitEntity where taskEntity.id = ? and subState = ? ");
+        Query query = this.sessionFactory.getCurrentSession().createQuery("select count(*) from SubmitEntity where taskEntity.id = ? and subState = ? ");
         query.setParameter(0, taskId);
         query.setParameter(1, state);
         return (Long) query.uniqueResult();

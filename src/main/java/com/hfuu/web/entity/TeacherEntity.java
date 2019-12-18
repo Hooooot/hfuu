@@ -9,15 +9,16 @@ import java.util.Set;
 
 /**
  * 教师类：院系包括教师
- *  tcId:自增主键
- *  tcNum:教师工号，10位
- *  tcName:教师姓名
- *  tcPw:教师登录密码
- *  depNum:外键，指向院系代码，删除院系前需先修改其下教师
- *  tcSex:教师性别，男或女
- *  tcPhone:教师联系方式，11位
- *  tcAvatar:教师头像，目前设为varchar(64)保存图片名称
+ * tcId:自增主键
+ * tcNum:教师工号，10位
+ * tcName:教师姓名
+ * tcPw:教师登录密码
+ * depNum:外键，指向院系代码，删除院系前需先修改其下教师
+ * tcSex:教师性别，男或女
+ * tcPhone:教师联系方式，11位
+ * tcAvatar:教师头像，目前设为varchar(64)保存图片名称
  */
+
 /**
  * @Description :
  * @date : 2019/9/26 0:39
@@ -193,10 +194,10 @@ public class TeacherEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex +", " + depEntity.getDepName() + "]";
+        return "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex + ", " + depEntity.getDepName() + "]";
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>(10);
         map.put("tcId", tcId);
         map.put("tcNum", tcNum);

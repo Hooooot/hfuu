@@ -13,21 +13,22 @@ import java.util.Calendar;
 public class TermUtils {
     /**
      * 获取当前时间的学期
+     *
      * @return 获取的学期，格式如：191    代表19年第一学期
-     * */
-    static public String getCurrentTerm(){
+     */
+    static public String getCurrentTerm() {
         // 数组需要有序
-        int []firstTermMonth = {1, 2, 9, 10 ,11, 12};
-        int []secondTermMonth = {3, 4 ,5, 6, 7};
+        int[] firstTermMonth = {1, 2, 9, 10, 11, 12};
+        int[] secondTermMonth = {3, 4, 5, 6, 7};
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH);
         String term = null;
         // Arrays.binarySearch 只对有序数组有效
-        if (Arrays.binarySearch(firstTermMonth, month) > 0){
+        if (Arrays.binarySearch(firstTermMonth, month) > 0) {
             term = Integer.toString(year).substring(2) + "1";
-        }else if (Arrays.binarySearch(secondTermMonth, month) > 0) {
-            term = Integer.toString(year-1).substring(2) + "2";
+        } else if (Arrays.binarySearch(secondTermMonth, month) > 0) {
+            term = Integer.toString(year - 1).substring(2) + "2";
         }
         return term;
     }

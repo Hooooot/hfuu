@@ -1,10 +1,10 @@
-layui.define(["form","jquery"],function(exports){
+layui.define(["form", "jquery"], function (exports) {
     var form = layui.form,
         $ = layui.jquery,
         Address = {
-            provinces : function() {
+            provinces: function () {
                 //加载省数据
-                var proHtml = '',that = this;
+                var proHtml = '', that = this;
                 $.get("json/address.json", function (data) {
                     for (var i = 0; i < data.length; i++) {
                         proHtml += '<option value="' + data[i].code + '">' + data[i].name + '</option>';
@@ -24,8 +24,8 @@ layui.define(["form","jquery"],function(exports){
                 })
             },
             //加载市数据
-            citys : function(citys) {
-                var cityHtml = '<option value="">请选择市</option>',that = this;
+            citys: function (citys) {
+                var cityHtml = '<option value="">请选择市</option>', that = this;
                 for (var i = 0; i < citys.length; i++) {
                     cityHtml += '<option value="' + citys[i].code + '">' + citys[i].name + '</option>';
                 }
@@ -41,7 +41,7 @@ layui.define(["form","jquery"],function(exports){
                 });
             },
             //加载县/区数据
-            areas : function(areas) {
+            areas: function (areas) {
                 var areaHtml = '<option value="">请选择县/区</option>';
                 for (var i = 0; i < areas.length; i++) {
                     areaHtml += '<option value="' + areas[i].code + '">' + areas[i].name + '</option>';
@@ -50,5 +50,5 @@ layui.define(["form","jquery"],function(exports){
                 form.render();
             }
         };
-    exports("address",Address);
-})
+    exports("address", Address);
+});

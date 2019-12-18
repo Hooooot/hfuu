@@ -8,20 +8,21 @@ import java.util.Objects;
 
 /**
  * 管理员类：使用工号和密码登录
- *  adminId:自增主键
- *  adminNum:管理员工号
- *  adminName:管理员姓名
- *  adminPw:管理员登录密码
- *  adminSex:管理员性别，男或女
- *  adminPhone:管理员联系方式，11位
- *  adminAvatar:管理员头像，目前设为varchar(64)保存图片名称
+ * adminId:自增主键
+ * adminNum:管理员工号
+ * adminName:管理员姓名
+ * adminPw:管理员登录密码
+ * adminSex:管理员性别，男或女
+ * adminPhone:管理员联系方式，11位
+ * adminAvatar:管理员头像，目前设为varchar(64)保存图片名称
  */
+
 /**
- * @Description :
- * @date : 2019/9/26 0:39
  * @author : Ciel-08
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date : 2019/9/26 0:39
  */
 @Entity
 @Table(name = "admin", schema = "hfuutest")
@@ -159,10 +160,10 @@ public class AdminEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "[#" + adminId + ": " + adminNum + ", " + adminName + ", " + adminSex +", " + adminPhone + "]";
+        return "[#" + adminId + ": " + adminNum + ", " + adminName + ", " + adminSex + ", " + adminPhone + "]";
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>(7);
         map.put("adminId", adminId);
         map.put("adminNum", adminNum);

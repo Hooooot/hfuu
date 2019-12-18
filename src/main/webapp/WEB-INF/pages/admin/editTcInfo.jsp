@@ -12,7 +12,15 @@
     <title>修改教师信息</title>
     <link rel="stylesheet" href="../layui/css/layui.css"/>
     <style>
-        body{padding:25px 25px 0 0; font-size:14px; background:#fff; margin:0 auto; font-size:14px; line-height:20px; overflow:hidden;}
+        body {
+            padding: 25px 25px 0 0;
+            font-size: 14px;
+            background: #fff;
+            margin: 0 auto;
+            font-size: 14px;
+            line-height: 20px;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -27,12 +35,14 @@
             <div class="layui-input-inline">
                 <select name="depNum">
                     <c:forEach items="${deps}" var="dep">
-                        <option value="${dep.depNum}" <c:if test="${tc.depEntity.depNum eq dep.depNum}">selected</c:if> >${dep.depName}</option>
+                        <option value="${dep.depNum}"
+                                <c:if test="${tc.depEntity.depNum eq dep.depNum}">selected</c:if> >${dep.depName}</option>
                     </c:forEach>
                 </select>
             </div>
             <label class="layui-form-label">重置密码</label>
-            <div class="layui-input-inline"><input type="password" name="tcPw" class="layui-input" value="${tc.tcPw}"></div>
+            <div class="layui-input-inline"><input type="password" name="tcPw" class="layui-input" value="${tc.tcPw}">
+            </div>
             <div class="layui-input-inline" style="margin-left: 40px">
                 <button class="layui-btn" type="submit" id="editButton">更新</button>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
@@ -46,7 +56,7 @@
 <script src="../layui/layui.js"></script>
 <script type="text/javascript" src="../js/tc/jquery.min.js"></script>
 <script>
-    layui.use('form', function(){
+    layui.use('form', function () {
         var form = layui.form;
     });
 </script>

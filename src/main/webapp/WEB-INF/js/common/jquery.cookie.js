@@ -47,7 +47,8 @@ layui.define(["jquery"], function (exports) {
                     // If we can't parse the cookie, ignore it, it's unusable.
                     s = decodeURIComponent(s.replace(pluses, ' '));
                     return config.json ? JSON.parse(s) : s;
-                } catch(e) {}
+                } catch (e) {
+                }
             }
 
             function read(s, converter) {
@@ -109,7 +110,7 @@ layui.define(["jquery"], function (exports) {
                 }
 
                 // Must not alter options, thus extending a fresh object...
-                $.cookie(key, '', $.extend({}, options, { expires: -1 }));
+                $.cookie(key, '', $.extend({}, options, {expires: -1}));
                 return !$.cookie(key);
             };
 

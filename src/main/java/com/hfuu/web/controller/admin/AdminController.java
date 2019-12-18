@@ -1,11 +1,12 @@
 package com.hfuu.web.controller.admin;
 
-import com.hfuu.web.entity.*;
+import com.hfuu.web.entity.AdminEntity;
+import com.hfuu.web.entity.DepEntity;
+import com.hfuu.web.entity.TaskEntity;
+import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.service.*;
-import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -19,11 +20,11 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * @Description :
- * @date :
  * @author :
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date :
  */
 @Controller
 @RequestMapping("/admin")
@@ -63,7 +64,7 @@ public class AdminController {
     }
 
     @RequestMapping(value = {"/analyseByTask"}, method = RequestMethod.GET)
-    public ModelAndView toAnalyseByTask(){
+    public ModelAndView toAnalyseByTask() {
 
         //获取任务实体
         List<TaskEntity> tasks = taskService.findAll();
@@ -89,14 +90,14 @@ public class AdminController {
         modelAndView.addObject("tasks", tasks);
         modelAndView.addObject("dtj", dtj);
         modelAndView.addObject("dpy", dpy);
-        modelAndView.addObject("ypy",ypy);
-        modelAndView.addObject("total",total);
+        modelAndView.addObject("ypy", ypy);
+        modelAndView.addObject("total", total);
         modelAndView.setViewName("admin/analyseByTask");
         return modelAndView;
     }
 
     @RequestMapping(value = {"/analyseByDep"}, method = RequestMethod.GET)
-    public ModelAndView toAnalyseByDep(){
+    public ModelAndView toAnalyseByDep() {
 
         //获取院系实体
         List<DepEntity> deps = depService.findAll();
@@ -108,7 +109,7 @@ public class AdminController {
 
         //获取各院系提交情况
         int i = 0;
-        for (DepEntity dep : deps){
+        for (DepEntity dep : deps) {
             //获取某院系所有任务
             List<TaskEntity> tasks = taskService.findByHql(
                     "from TaskEntity t where t.cozEntity.classEntity.depEntity.depId = ? ", dep.getDepId());
@@ -134,25 +135,25 @@ public class AdminController {
         modelAndView.addObject("deps", deps);
         modelAndView.addObject("dtj", dtj);
         modelAndView.addObject("dpy", dpy);
-        modelAndView.addObject("ypy",ypy);
-        modelAndView.addObject("total",total);
+        modelAndView.addObject("ypy", ypy);
+        modelAndView.addObject("total", total);
         modelAndView.setViewName("admin/analyseByDep");
         return modelAndView;
     }
 
     @RequestMapping(value = {"/editAdminInfo"}, method = RequestMethod.GET)
-    public String toEditAdminInfo(){
+    public String toEditAdminInfo() {
         return "admin/editAdminInfo";
     }
 
-    @RequestMapping(value = "/editAdminInfoSubmit",method = RequestMethod.POST,produces = "text/plain;charset=utf-8")
+    @RequestMapping(value = "/editAdminInfoSubmit", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
     @ResponseBody
-    public String editAdminInfoSubmit(AdminEntity admin, MultipartFile avatarPath, HttpServletRequest request) throws Exception{
+    public String editAdminInfoSubmit(AdminEntity admin, MultipartFile avatarPath, HttpServletRequest request) throws Exception {
 
         AdminEntity newAdmin = adminService.findById(admin.getAdminId());
         //上传用户头像(图片组件的name不能和用户类的头像属性一致，否则会出现参数绑定出错，报400)
         String originalFilename = avatarPath.getOriginalFilename();
-        if(avatarPath != null && originalFilename != null && originalFilename.length()>0){
+        if (avatarPath != null && originalFilename != null && originalFilename.length() > 0) {
             //新的图片名，随机数+扩展名(提取原始名称.及以后的部分)
             String avatarFilename = UUID.randomUUID() + originalFilename.substring(originalFilename.lastIndexOf("."));
             //存储图片的物理路径
@@ -197,7 +198,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/editTcInfoSubmit"}, method = RequestMethod.POST)
     @ResponseBody
-    public void editTcInfoSubmit(TeacherEntity tc, String depNum){
+    public void editTcInfoSubmit(TeacherEntity tc, String depNum) {
         TeacherEntity newTc = teacherService.findById(tc.getTcId());
         DepEntity dep = (DepEntity) depService.findByHql("from DepEntity where depNum = ?", depNum).get(0);
         newTc.setDepEntity(dep);

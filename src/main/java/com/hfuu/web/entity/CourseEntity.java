@@ -9,13 +9,14 @@ import java.util.Set;
 
 /**
  * 课程类：由班级代码classNum和教师工号tcNum确定一门课程
- *  cozId:自增主键
- *  cozNum:课程代码，9位（如041320013离散结构，可以重复）
- *  cozName:课程名称
- *  classNum:外键，开设班级代码
- *  tcNum:外键，授课教师工号
- *  term:课程开设学期，char(3)，如182，代表18-19年第二学期。
+ * cozId:自增主键
+ * cozNum:课程代码，9位（如041320013离散结构，可以重复）
+ * cozName:课程名称
+ * classNum:外键，开设班级代码
+ * tcNum:外键，授课教师工号
+ * term:课程开设学期，char(3)，如182，代表18-19年第二学期。
  */
+
 /**
  * @Description :
  * @date : 2019/9/26 0:39
@@ -125,7 +126,7 @@ public class CourseEntity implements Serializable {
 
             return false;
         }
-        if (!Objects.equals(term, that.term)){
+        if (!Objects.equals(term, that.term)) {
 
             return false;
         }
@@ -147,7 +148,7 @@ public class CourseEntity implements Serializable {
                 ", " + tcEntity.getTcName() + ", " + term + "]";
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>(7);
         map.put("cozId", cozId);
         map.put("cozNum", cozNum);

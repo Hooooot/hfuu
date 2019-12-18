@@ -1,7 +1,5 @@
 package com.hfuu.web.listener.student;
 
-import sun.plugin2.message.GetAuthenticationMessage;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -9,14 +7,14 @@ import javax.servlet.annotation.WebListener;
 
 
 /**
- * @Description :
- * @date :
  * @author :
  * 最后修改时间：
  * 最后修改人：
+ * @Description :
+ * @date :
  */
 @WebListener
-public class AppListener implements ServletContextListener{
+public class AppListener implements ServletContextListener {
 
 
     @Override
@@ -27,8 +25,8 @@ public class AppListener implements ServletContextListener{
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
         //取到ServletContext
-        ServletContext context=arg0.getServletContext();
-        context.setAttribute("crx", "http://localhost:8080"+context.getContextPath());
+        ServletContext context = arg0.getServletContext();
+        context.setAttribute("crx", "http://localhost:8080" + context.getContextPath());
 
 
     }

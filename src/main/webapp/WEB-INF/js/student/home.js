@@ -1,10 +1,10 @@
-layui.use(['table', 'element', 'layer', "jquery", "form"], function() {
+layui.use(['table', 'element', 'layer', "jquery", "form"], function () {
     let table = layui.table,
         element = layui.element,
         layer = layui.layer,
         $ = layui.jquery;
 
-    let Collapse = function(tableId, layFilter, cozName, stuNum) {
+    let Collapse = function (tableId, layFilter, cozName, stuNum) {
         this.tableId = tableId;
         this.layFilter = layFilter;
         this.cozName = cozName;
@@ -12,7 +12,7 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function() {
     };
 
     /** @deprecated 请优先使用JSTL表达式创建Collapse，<h2></h2>元素中应当添加一些data属性才能被loadDataTable()使用*/
-    Collapse.prototype.createCollapse = function(collapsesTitle) {
+    Collapse.prototype.createCollapse = function (collapsesTitle) {
         let co = document.getElementById("collapse");
         let item = document.createElement("div");
         item.setAttribute("class", "layui-colla-item");
@@ -21,7 +21,7 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function() {
         co.appendChild(item);
     };
 
-    Collapse.prototype.loadDataTable = function() {
+    Collapse.prototype.loadDataTable = function () {
         let script = document.createElement("script");
         script.innerHTML = `layui.use(['table'], function() {
                         let table = layui.table;
@@ -228,7 +228,7 @@ layui.use(['table', 'element', 'layer', "jquery", "form"], function() {
     };
 
     //监听折叠
-    element.on('collapse(collapse-filter)', function(data) {
+    element.on('collapse(collapse-filter)', function (data) {
         if (!$(this).data("loaded")) {
             let tableId = $(this).data("tableid");
             let tableFilter = $(this).data("tablefilter");

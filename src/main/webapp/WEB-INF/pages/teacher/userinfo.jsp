@@ -8,6 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <link rel="icon" href="../images/favicon.ico">
     <title>用户信息</title>
 </head>

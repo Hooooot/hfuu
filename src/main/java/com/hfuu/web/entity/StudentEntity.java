@@ -9,15 +9,16 @@ import java.util.Set;
 
 /**
  * 学生类：班级包括学生
- *  stuId:自增主键
- *  stuNum:学号，10位
- *  stuName:学生姓名
- *  stuPw:学生登录密码
- *  classNum:外键，指向班级代码
- *  stuSex:学生性别，男或女
- *  stuPhone:学生联系方式，11位
- *  stuAvatar:学生头像，目前设为varchar(64)保存图片名称
+ * stuId:自增主键
+ * stuNum:学号，10位
+ * stuName:学生姓名
+ * stuPw:学生登录密码
+ * classNum:外键，指向班级代码
+ * stuSex:学生性别，男或女
+ * stuPhone:学生联系方式，11位
+ * stuAvatar:学生头像，目前设为varchar(64)保存图片名称
  */
+
 /**
  * @Description :
  * @date : 2019/9/26 0:39
@@ -183,10 +184,10 @@ public class StudentEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "[#" + stuId + ": " + stuNum + ", " + stuName + ", " + stuSex +", " + classEntity.getClassName() + "]";
+        return "[#" + stuId + ": " + stuNum + ", " + stuName + ", " + stuSex + ", " + classEntity.getClassName() + "]";
     }
 
-    public Map<String, Object> toMap(){
+    public Map<String, Object> toMap() {
         Map<String, Object> map = new HashMap<>(9);
         map.put("stuId", stuId);
         map.put("stuNum", stuNum);

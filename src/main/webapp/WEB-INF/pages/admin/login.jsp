@@ -15,7 +15,7 @@
     <title>管理员登录页面</title>
 </head>
 <body>
-    <a href="${adm}/index">跳转到首页</a>
+<a href="${adm}/index">跳转到首页</a>
 
 <script src="layui/layui.js"></script>
 </body>

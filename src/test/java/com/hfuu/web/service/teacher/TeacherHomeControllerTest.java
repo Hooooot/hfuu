@@ -16,11 +16,11 @@ import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * @Description : 测试类
- * @date : 2019年10月5日 00点33分
  * @author : whh0987@foxmail.com
  * 最后修改时间：
  * 最后修改人：
+ * @Description : 测试类
+ * @date : 2019年10月5日 00点33分
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -35,7 +35,7 @@ public class TeacherHomeControllerTest {
     public void test() {
         List<StudentEntity> list = teacherControllerService.getStudents("1604012003", "191", "1704092", 10);
 
-        for(StudentEntity s : list){
+        for (StudentEntity s : list) {
             System.out.println(s);
         }
 
@@ -43,7 +43,7 @@ public class TeacherHomeControllerTest {
 
     @Test
     @Transactional()
-    public void insert(){
+    public void insert() {
         SubmitEntity submitEntity = new SubmitEntity();
         StudentEntity stu = new StudentEntity();
         stu.setStuNum("1604012011");

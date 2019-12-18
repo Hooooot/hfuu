@@ -1,6 +1,7 @@
 //获取系统时间
 var newDate = '';
 getLangDate();
+
 //值小于10时，在前面补0
 function dateFilter(date) {
     if (date < 10) {
@@ -36,7 +37,7 @@ layui.define(['element', 'layer'], function (exports) {
         pc: [991, -1],
         pad: [768, 990],
         mobile: [0, 767]
-    }
+    };
 
     var getDevice = function () {
         var width = $(window).width();
@@ -50,22 +51,22 @@ layui.define(['element', 'layer'], function (exports) {
             }
         }
         return null;
-    }
+    };
 
     var isDevice = function (label) {
         return getDevice() == label;
-    }
+    };
 
     var isMobile = function () {
         return isDevice('mobile');
-    }
+    };
 
     var Tab = function (el) {
         this.el = el;
         this.urls = [];
-    }
+    };
 
-    Tab.prototype.title = function(title, url){
+    Tab.prototype.title = function (title, url) {
         var refresh = document.createElement("i");
         refresh.setAttribute("class", "layui-icon layui-icon-refresh");
         refresh.setAttribute("style", "margin-left:10px;font-size:14px;");
@@ -76,7 +77,7 @@ layui.define(['element', 'layer'], function (exports) {
         refresh.setAttribute("onmouseleave", "this.classList.remove('layui-icon-refresh-3');this.classList.add('layui-icon-refresh');");
         return title + refresh.outerHTML;
         //querySelector() 方法仅仅返回匹配指定选择器的第一个元素,方便的获取DOM元素，语法跟jQuery类似。
-    }
+    };
 
     Tab.prototype.content = function (src) {
         var iframe = document.createElement("iframe");
@@ -169,7 +170,7 @@ layui.define(['element', 'layer'], function (exports) {
         });
 
         this.slideSideBar();
-    }
+    };
 
     Home.prototype.slideSideBar = function () {
         var $slideSidebar = $('.slide-sidebar'),
@@ -207,7 +208,7 @@ layui.define(['element', 'layer'], function (exports) {
                 layer.close(tipIndex);
                 tipIndex = null
             }
-        })
+        });
 
         if (isMobile()) {
             $mobileMask.on('click', function () {

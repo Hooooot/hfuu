@@ -8,11 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
     <link rel="stylesheet" href="../layui/css/layui.css">
     <link rel="stylesheet" href="../layui/css/admin.css">
     <link rel="stylesheet" href="../css/teacher/lock.css">
@@ -97,16 +95,7 @@
                         <dd><a href="login">登录</a></dd>
                     </dl>
                 </li>
-
-<%--                &lt;%&ndash;隐藏区域--!!!!!!!!!!!!!!!!!!! &ndash;%&gt;--%>
-<%--                <li class="layui-nav-item layui-hide">--%>
-<%--                    <dl class="layui-nav-child">--%>
-<%--                        <dd><a href="userinfos" class="userInfo">个人信息</a></dd>--%>
-<%--                        <dd><a href="personaldetas" class="changePassword">修改密码</a></dd>--%>
-<%--                    </dl>--%>
-<%--                </li>--%>
             </ul>
-
         </div>
     </div>
 
@@ -119,7 +108,8 @@
     </div>
 
     <div class="layui-footer">
-        <p class="maker-footer"><i class="layui-icon layui-icon-website"></i>&nbsp;2019&nbsp;<a href="http://www.hfuu.edu.cn/" target="_blank">合肥学院</a></p>
+        <p class="maker-footer"><i class="layui-icon layui-icon-website"></i>&nbsp;2019&nbsp;<a
+                href="http://www.hfuu.edu.cn/" target="_blank">合肥学院</a></p>
     </div>
 
     <div class="mobile-mask"></div>

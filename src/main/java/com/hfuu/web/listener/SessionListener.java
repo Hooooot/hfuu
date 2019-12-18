@@ -23,8 +23,8 @@ public class SessionListener implements HttpSessionListener {
         session.setMaxInactiveInterval(900);
     }
 
-    private void removeTempFiles(HttpSession session){
-        Map<String, String> tempFilePath = (Map<String, String>)session.getAttribute(ConstValues.TEMP_FILE_PATH);
+    private void removeTempFiles(HttpSession session) {
+        Map<String, String> tempFilePath = (Map<String, String>) session.getAttribute(ConstValues.TEMP_FILE_PATH);
         if (tempFilePath != null) {
             for (Map.Entry<String, String> en : tempFilePath.entrySet()) {
                 UploadFileUtils.deleteFiles(session, en.getValue());
@@ -34,7 +34,7 @@ public class SessionListener implements HttpSessionListener {
 
     /**
      * HttpSession销毁事件，先写自己的方法，再在sessionDestroyed方法中调用
-     * */
+     */
     @Override
     public void sessionDestroyed(HttpSessionEvent httpSessionEvent) {
 //        HttpSession session = httpSessionEvent.getSession();
