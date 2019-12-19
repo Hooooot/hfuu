@@ -20,7 +20,11 @@ import java.util.List;
  */
 public class UploadFileUtils {
     private static Logger log = Logger.getLogger(UploadFileUtils.class);
+    // 项目里的uploaded文件夹路径
     // private static String toUploadPath = "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\";
+    /**
+     * target路径下的uploaded文件夹，写入此文件夹会自动刷新文件目录，防止出现idea不刷新导致文件404的bug
+     * */
     private static String toUploadPath = "\\WEB-INF\\uploaded\\";
 
     /**
