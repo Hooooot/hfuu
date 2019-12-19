@@ -20,7 +20,8 @@ import java.util.List;
  */
 public class UploadFileUtils {
     private static Logger log = Logger.getLogger(UploadFileUtils.class);
-    private static String toUploadPath = "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\";
+    // private static String toUploadPath = "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\";
+    private static String toUploadPath = "\\WEB-INF\\uploaded\\";
 
     /**
      * 上传文件的方法
