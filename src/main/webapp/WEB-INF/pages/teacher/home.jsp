@@ -38,7 +38,7 @@
             <li class="layui-nav-item">
                 <i id="nowTime"></i>
             </li>
-            <li class="layui-nav-item lockpc" data-tcname="${teacher.tcName}">
+            <li id="tc_name" class="layui-nav-item lockpc" data-tcname="${teacher.tcName}">
                 <a href="javascript:">锁屏</a>
             </li>
             <%-- 右上角的用户 --%>
