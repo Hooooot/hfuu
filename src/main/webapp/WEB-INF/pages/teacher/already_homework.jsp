@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt_rt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -41,36 +42,36 @@
                                 data-tablefilter="data_table${clazzStatus.index}${taskStatus.index}">
                                     <%--                                二级标题，任务名   --%>
                                 <div class="layui-fluid">
-                                    <div class="layui-row layui-col-space5" style="font-size: 18px;">
+                                    <div class="layui-row layui-col-space5" style="font-size: 18px; text-align: center;">
                                         <div class="layui-col-md4">
                                             <div style="margin-left: 15%;">${taskVar.taskName}</div>
+                                        </div>
+                                        <jsp:useBean id="now" class="java.util.Date"/>
+                                        <c:set var="state" value="${taskVar.deadline.after(now)}"/>
+                                        <div class="layui-col-md4">
+                                            <c:choose>
+                                                <c:when test="${state}">
+                                                    <span style="color: green;">作业状态：未截止</span>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span>作业状态：已截止</span>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </div>
                                         <div class="layui-col-md4">
                                             <div>
                                                 截止日期：
-                                                <jsp:useBean id="now" class="java.util.Date"/>
-                                                <c:set var="state" value="${taskVar.deadline.after(now)}"/>
                                                 <c:choose>
                                                     <c:when test="${state}">
                                                                 <span style="color: green;"><fmt:formatDate type="both"
                                                                                                             value="${taskVar.deadline}"/></span>
                                                     </c:when>
                                                     <c:otherwise>
-                                                                <span style="color: red;"><fmt:formatDate type="both"
+                                                                <span><fmt:formatDate type="both"
                                                                                                           value="${taskVar.deadline}"/></span>
                                                     </c:otherwise>
                                                 </c:choose>
                                             </div>
-                                        </div>
-                                        <div class="layui-col-md4">
-                                            <c:choose>
-                                                <c:when test="${state}">
-                                                                <span style="color: green;">作业状态：未截止</span>
-                                                </c:when>
-                                                <c:otherwise>
-                                                                <span style="color: red;">作业状态：已截止</span>
-                                                </c:otherwise>
-                                            </c:choose>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +92,7 @@
 <script type="text/html" id="toolBar">
     <div class="layui-btn-container">
         <button type="button" class="layui-btn layui-btn-sm" lay-event="correctSubmits">批改作业</button>
-        <button type="button" class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
+        <button type="button" class="layui-btn layui-btn-sm" lay-event="getTaskDetail">查看任务详情</button>
         <button type="button" class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
     </div>
 </script>

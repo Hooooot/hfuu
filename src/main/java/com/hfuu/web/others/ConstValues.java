@@ -12,6 +12,7 @@ public class ConstValues {
      * 教师登录后保存到Session中的TeacherEntity实例名
      */
     public static final String TEACHER_LOGGED_IN_INSTANCE_NAME = "teacher";
+
     /**
      * 登录失败
      */
@@ -31,4 +32,25 @@ public class ConstValues {
      * 文件名分隔符（服务器保存名:原始文件名）
      */
     public static final String FILE_NAME_SEPARATOR = ":";
+
+    /**
+     * 同一收件邮件的发送间隔时间，单位：秒(second)
+     * */
+    public static final short EMAIL_SENDER_COLD_DOWN_TIME = 30;
+
+    /**
+     * HttpSession中忘记密码页面的验证码的Key值
+     * */
+    public static final String FORGET_PWD_IC = "forgetPasswordVerifyCode";
+    /**
+     * HttpSession中邮件验证码的Key值
+     * */
+    public static final String FORGET_PWD_EMAIL_IC = "forgetPasswordEmailVerifyCode";
+
+    /**
+     * 忘记密码时Session中教师信息的Key值
+     * */
+    public static final String FORGET_PWD_TC = "forgetPasswordTeacher";
+
+
 }

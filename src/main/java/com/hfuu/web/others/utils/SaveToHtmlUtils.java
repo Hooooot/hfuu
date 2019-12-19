@@ -19,7 +19,7 @@ public class SaveToHtmlUtils {
     private static Logger log = Logger.getLogger(SaveToHtmlUtils.class);
 
     public static String saveContentToHtml(HttpSession session, String content) {
-        return saveContentToHtml(session, content, "\\richtext");
+        return saveContentToHtml(session, content, "/richtext");
     }
 
     /**

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%--
@@ -7,7 +8,6 @@
   Time: 12:35
   To change this template use File | Settings | File Templates.
 --%>
-<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../layui/css/layui.css" media="all">
     <link rel="icon" href="../images/favicon.ico">
 </head>
-<body>
+<body style="margin: 20px;background-color: snow;">
 
 <div id="collapse" class="layui-collapse" lay-filter="collapse-filter">
     <c:forEach items="${course}" var="courseMap" varStatus="coStatus">

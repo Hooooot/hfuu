@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%--
   Created by IntelliJ IDEA.
   User: 24469
@@ -17,32 +18,34 @@
     <script src="js/teacher/login.js"></script>
     <link rel="icon" href="images/favicon.ico">
 </head>
-<body class="layui-main">
-<form class="layui-form" style="width: 350px; margin: 0 auto;">
-    <div class="layui-form-item">
-        <label class="layui-form-label" for="name">用户名</label>
-        <div class="layui-input-inline">
-            <input id="name" class="layui-input" type="text" name="name" placeholder="请输入用户名">
+<body style="width: 100%; height: 100%;">
+    <form class="layui-form" style="width: 500px; margin: 0 auto; transform: translateY(50%);">
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="tc_num">用户名</label>
+            <div class="layui-input-inline">
+                <input id="tc_num" class="layui-input" type="text" name="tcNum" placeholder="请输入工号">
+            </div>
         </div>
-    </div>
-
-    <div class="layui-form-item">
-        <label class="layui-form-label" for="pw">密码</label>
-        <div class="layui-input-inline">
-            <input id="pw" class="layui-input" type="password" name="pw" placeholder="请输入密码" autocomplete="off">
+        <div class="layui-form-item">
+            <label class="layui-form-label" for="pw">密码</label>
+            <div class="layui-input-inline">
+                <input id="pw" class="layui-input" type="password" name="pw" placeholder="请输入密码" autocomplete="off">
+            </div>
         </div>
-    </div>
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <input lay-skin="primary" type="checkbox" title="记住密码" name="remember_pw" checked>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-inline" style="width: 120px;">
+                <input lay-skin="primary" type="checkbox" title="记住密码" name="remember_pw" checked>
+            </div>
+            <div class="layui-form-mid layui-word-aux">
+                <a href="./teacher/forget_password">忘记密码</a>
+            </div>
         </div>
-    </div>
-
-    <div class="layui-form-item">
-        <div class="layui-input-block">
-            <input id="submit" class="layui-btn" style="width: 150px;" type="button" value="登录">
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <input id="submit" class="layui-btn" style="width: 190px;" type="button" value="登录">
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 </body>
 </html>

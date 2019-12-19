@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.UUID" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -18,7 +19,6 @@
     <script src="../layui/layui.js"></script>
     <script src="../js/teacher/deploy_homework.js"></script>
     <link rel="icon" href="../images/favicon.ico">
-    <meta name="pageId" content="<%=UUID.randomUUID()%>">
     <title>deploy homework</title>
 </head>
 <body>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <%--
   Created by IntelliJ IDEA.
   User: 24469
@@ -19,7 +20,6 @@
     <script src="../js/teacher/home.js"></script>
     <link rel="icon" href="../images/favicon.ico">
     <title>主页</title>
-
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -38,17 +38,17 @@
             <li class="layui-nav-item">
                 <i id="nowTime"></i>
             </li>
-            <li class="layui-nav-item lockpc">
+            <li class="layui-nav-item lockpc" data-tcname="${teacher.tcName}">
                 <a href="javascript:">锁屏</a>
             </li>
             <%-- 右上角的用户 --%>
             <li class="layui-nav-item " lay-unselect>
-                <a href="javascript:"><img src="../images/face.jpg" class="layui-nav-img">我</a>
+                <a href="javascript:"><img id="tc_avatar" src="../uploaded/${teacher.tcAvatar}" class="layui-nav-img">我</a>
                 <dl class="layui-nav-child">
-                    <dd><a href="javascript:" class="showUserInfo"><i class="iconfont">&#xe847</i><cite>个人资料</cite></a>
+                    <dd><a href="javascript:" class="showUserInfo" data-tcemail="${teacher.tcEmail}"><i class="layui-icon">&#xe66f;</i><cite>个人资料</cite></a>
                     </dd>
-                    <dd><a href="javascript:" class="showChangePassword">修改密码</a></dd>
-                    <dd><a href="javascript:">退出</a></dd>
+                    <dd><a href="javascript:" class="showChangePassword"><i class="layui-icon">&#xe673;</i>修改密码</a></dd>
+                    <dd><a href="javascript:" data-tcnum="${teacher.tcNum}" class="logout"><i class="layui-icon">&#x1007;</i>退出登录</a></dd>
                     <%--                    公告系统，待定         --%>
                     <%--                    <dd><a href="javascript:;;" class="showNotice"><i--%>
                     <%--                            class="layui-icon">&#xe645;</i><cite>系统公告</cite><span class="layui-badge-dot"></span></a>--%>
@@ -70,13 +70,13 @@
             <ul id="Nav" class="layui-nav layui-nav-tree">
                 <li class="layui-nav-item">
                     <a href="console?tcNum=${teacher.tcNum}">
-                        <i class="layui-icon">&#xe609;</i>
+                        <i class="layui-icon">&#xe68e;</i>
                         <em>首页</em>
                     </a>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:">
-                        <i class="layui-icon">&#xe857;</i>
+                        <i class="layui-icon">&#xe621;</i>
                         <em>作业</em>
                     </a>
                     <dl class="layui-nav-child">
@@ -92,7 +92,8 @@
                         <em>用户</em>
                     </a>
                     <dl class="layui-nav-child">
-                        <dd><a href="login">登录</a></dd>
+                        <dd><a id="change_info" href="userinfo?tcId=${teacher.tcId}">修改个人资料</a></dd>
+                        <dd><a id="change_pwd" href="change_password?tcId=${teacher.tcId}">修改密码</a></dd>
                     </dl>
                 </li>
             </ul>

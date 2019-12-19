@@ -33,13 +33,13 @@ public interface TeacherControllerService extends BaseService {
     List<CourseEntity> getCourseByTeacherNumAndTerm(String tcNum, String term);
 
     /**
-     * 通过教师用户名、密码获取教师信息
+     * 通过教师工号、密码获取教师信息
      *
-     * @param name 教师姓名
+     * @param tcNum 教师工号
      * @param pw   教师密码
      * @return Map内包含按cozNum分组的courseList，key为cozNum，value为所有cozNum相同的CourseEntity类型的List
      */
-    TeacherEntity login(String name, String pw);
+    TeacherEntity login(String tcNum, String pw);
 
     /**
      * 通过课程名来对CourseEntity类型的List进行切片

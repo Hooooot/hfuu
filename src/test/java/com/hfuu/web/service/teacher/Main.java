@@ -1,8 +1,9 @@
 package com.hfuu.web.service.teacher;
 
+import com.hfuu.web.others.utils.EmailUtils;
 import org.junit.Test;
 
-import java.util.List;
+import javax.mail.MessagingException;
 
 /**
  * @author :whh0987@foxmail.com
@@ -12,37 +13,18 @@ import java.util.List;
  * @date :2019/10/8 16:57
  */
 public class Main {
-    private int id;
-    private String name;
-    private List friends;
+    @Test
+    public void test(){
+        try{
+            EmailUtils.sendEmail("主题", "<h1>123456</h1>", "2446926687@qq.com");
+        }catch (MessagingException me){
+            System.out.println(me.getNextException().getMessage());
+        }
+    }
 
     @Test
-    public void test() {
-        String s = "2012";
-        System.out.println(s.substring(1));
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List getFriends() {
-        return friends;
-    }
-
-    public void setFriends(List friends) {
-        this.friends = friends;
+    public void icode() {
+        String ic = EmailUtils.getIdentifyingCode(20);
+        System.out.println(ic);
     }
 }

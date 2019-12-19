@@ -133,8 +133,8 @@ public class TeacherControllerServiceImpl extends BaseServiceImpl implements Tea
     }
 
     @Override
-    public TeacherEntity login(String name, String pw) {
-        return teacherDao.getTeacherByNameAndPw(name, pw);
+    public TeacherEntity login(String tcNum, String pw) {
+        return teacherDao.getTeacherByTcNumAndPw(tcNum, pw);
     }
 
     @Override

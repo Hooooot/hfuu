@@ -35,6 +35,7 @@ public class TeacherEntity implements Serializable {
     private String tcPw;
     private String tcSex;
     private String tcPhone;
+    private String tcEmail;
     private String tcAvatar;
     private Set<CourseEntity> cozsFromTc;
     private Set<TaskEntity> tasksFromTc;
@@ -99,6 +100,16 @@ public class TeacherEntity implements Serializable {
 
     public void setTcPhone(String tcPhone) {
         this.tcPhone = tcPhone;
+    }
+
+    @Basic
+    @Column(name = "tcEmail", nullable = true, length = 50)
+    public String getTcEmail() {
+        return tcEmail;
+    }
+
+    public void setTcEmail(String tcEmail) {
+        this.tcEmail = tcEmail;
     }
 
     @Basic
@@ -177,6 +188,10 @@ public class TeacherEntity implements Serializable {
 
             return false;
         }
+        if (!Objects.equals(tcEmail, that.tcEmail)) {
+
+            return false;
+        }
         return Objects.equals(tcAvatar, that.tcAvatar);
     }
 
@@ -188,23 +203,26 @@ public class TeacherEntity implements Serializable {
         result = 31 * result + (tcPw != null ? tcPw.hashCode() : 0);
         result = 31 * result + (tcSex != null ? tcSex.hashCode() : 0);
         result = 31 * result + (tcPhone != null ? tcPhone.hashCode() : 0);
+        result = 31 * result + (tcEmail != null ? tcEmail.hashCode() : 0);
         result = 31 * result + (tcAvatar != null ? tcAvatar.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex + ", " + depEntity.getDepName() + "]";
+        return "[#" + tcId + ": " + tcNum + ", " + tcName + ", " + tcSex + ", " + tcEmail + ", " +
+                tcPhone + ", " + tcAvatar + ", " + depEntity.getDepName() + "]";
     }
 
     public Map<String, Object> toMap() {
-        Map<String, Object> map = new HashMap<>(10);
+        Map<String, Object> map = new HashMap<>(11);
         map.put("tcId", tcId);
         map.put("tcNum", tcNum);
         map.put("tcName", tcName);
         map.put("tcPw", tcPw);
         map.put("tcSex", tcSex);
         map.put("tcPhone", tcPhone);
+        map.put("tcEmail", tcEmail);
         map.put("tcAvatar", tcAvatar);
         map.put("courseSet", cozsFromTc);
         map.put("taskSet", tasksFromTc);

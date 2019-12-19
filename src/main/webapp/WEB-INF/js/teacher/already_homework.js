@@ -1,8 +1,11 @@
-layui.use(['table', 'element', 'layer', "jquery"], function () {
+layui.extend({
+    FilePath:'../js/common/resolve_file_path'
+}).use(['table', 'element', 'layer', "jquery", "FilePath"], function () {
     let table = layui.table,
         element = layui.element,
         layer = layui.layer,
-        $ = layui.jquery;
+        $ = layui.jquery,
+        FilePath = layui.FilePath;
     window.preSubmit = [];
     window.nextSubmit = [];
 
@@ -31,11 +34,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                     "clazzNum": "${this.clazzNum}"
                 }
                 ,toolbar: '#toolBar' //开启头部工具栏，并为其绑定左侧模板
-                ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-                    title: '提示'
-                    ,layEvent: 'LAYTABLE_TIPS'
-                    ,icon: 'layui-icon-tips'
-                }]
+                ,defaultToolbar: ['filter', 'exports', 'print']
                 ,title: '用户数据表'
                 ,cols: [[
                     {type: 'checkbox', fixed: 'left'}
@@ -62,7 +61,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                                 return '<div style="text-align: center;color: red;">未提交</div>';
                             }
                         }}
-                    ,{field:'submit.score', title:'分数', align:"centexr", width:150, sort: true, templet: function(d){
+                    ,{field:'submit.score', title:'分数', align:"center", width:150, sort: true, templet: function(d){
                             if(d.submit !== undefined){
                                 return '<div style="text-align: center;color: green;">' + d.submit.score?d.submit.score:'未批改' + '</div>'
                             }else{
@@ -92,16 +91,17 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                             data = checkStatus.data;
                             //layer.alert(JSON.stringify(data));
                             break;
-                        case 'getCheckLength':
-                            data = checkStatus.data;
-                            layer.msg('选中了：'+ data.length + ' 个');
+                        case 'getTaskDetail':
+                            layer.open({
+                                        type: 2,
+                                        title: '任务详情',
+                                        content: './task_detail?taskId=${this.taskId}',
+                                        area: ['80%', '80%'],
+                                        maxmin: true,
+                                        });
                             break;
                         case 'isAll':
                             layer.msg(checkStatus.isAll ? '全选': '未全选');
-                            break;
-                        //自定义头工具栏右侧图标 - 提示
-                        case 'LAYTABLE_TIPS':
-                            layer.alert('这是工具栏右侧自定义的一个图标按钮');
                             break;
                     }
                 });
@@ -110,16 +110,19 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                     let rowData = obj.data;
                     // 批改作业
                     if(obj.event === 'correct'){
-                    let selectedRow;
+                    let selectedRow = [];
                         window.tableID = ${this.tableId}
                         window.nextSubmit = table.cache.${this.tableId}.concat();
                         for(let i = 0; i < window.nextSubmit.length; i++){
                             if(window.nextSubmit[i].stuNum === rowData.stuNum){
                                 selectedRow = window.nextSubmit.splice(i,1);
+                                i--;
+                                continue;
                             }
-                            //if(window.nextSubmit[i].submit.subState !== '待批阅'){
-                            //    window.nextSubmit.splice(i,1);
-                            //}
+                            if(!window.nextSubmit[i].submit || window.nextSubmit[i].submit.subState !== '待批阅'){
+                                window.nextSubmit.splice(i,1);
+                                i--;
+                            }
                         }
                         correctSubmit(selectedRow.pop());
                     }
@@ -160,7 +163,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
             , yes: function (index, layero) {
                 let scoreChange = true;
                 let score = layero.find('.submitScore').val();
-                if ((score < 100 && score > 0) || score === '') {
+                if ((score <= 100 && score >= 0) || score === '') {
                     if(rowData.submit.score.toString() === score){
                         scoreChange = false;
                     }else{
@@ -183,20 +186,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
             }
             , btn2: function (index, layero) {
                 let tableData = [];
-                let filePathString = rowData.submit.subFile;
-                if (filePathString===undefined || filePathString==='' || filePathString===null) {
-                    return false;
-                }
-                let files = filePathString.split("|");
-                files.forEach((file, index) => {
-                    let fileSplit = file.split(":");
-                    let f = {};
-                    f["filePath"] = fileSplit[0];
-                    f["fileName"] = fileSplit[1];
-                    f["no"] = index + 1;
-                    tableData.push(f);
-                });
-                tableData = tableData.slice(0, -1);
+                tableData = FilePath.resolvePath(rowData.submit.subFile);
                 parent.layui.layer.open({
                     type: 1
                     , closeBtn: 1
@@ -208,6 +198,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                                 </div>
                                 
                                 <script>
+                                console.log(${JSON.stringify(tableData)});
                                 layui.use(['table'], function () {
                                     let table = layui.table;
                                     table.render({
@@ -260,14 +251,12 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                 }
                 let ne = nextSubmit.shift();
                 if (ne === undefined) {
-                    parent.layui.layer.alert("恭喜！你已经批改完了所有作业！");
                     return true;
                 }
                 rowData.submit.score = score;
                 preSubmit.push(rowData);
                 let lay = parent.layui.$("#layui-layer" + index);
                 correctSubmit(ne, fullScreen, lay.width(), lay.height());
-
             }
             , btnAlign: 'c'
             , moveType: 1 //拖拽模式，0或者1
@@ -321,6 +310,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                 if (nextSubmit.length === 0) {
                     btn2.text(" 提交 ");
                 }
+                console.log(nextSubmit)
             }
             , full: function (layero) {
                 let content = layero.find('.submitContent');
@@ -363,5 +353,4 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
             $(this).data("loaded", "true");
         }
     });
-
 });

@@ -1,13 +1,14 @@
 package com.hfuu.web.controller.teacher;
 
 
-import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.others.ConstValues;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
 
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
  */
 @Controller
 @RequestMapping("")
-@SessionAttributes(names = {"teacher"})
+@SessionAttributes(names = {"teacher", "forgetPasswordTeacher"})
 public class TeacherLoginController {
     private static Logger log = Logger.getLogger(TeacherLoginController.class);
 
@@ -29,34 +30,34 @@ public class TeacherLoginController {
 
     @RequestMapping(value = {"/logintPage"}, method = RequestMethod.GET)
     public String toLogintPage() {
-        log.debug("跳转到：\"teacher/login\"");
+        log.debug("跳转到：teacher/login.jsp");
         return "teacher/login";
     }
 
-    @ModelAttribute
-    public void homeModel(String name, String pw, Model model) {
-        if (name == null || pw == null) {
-            return;
-        }
-        log.debug("name=" + name + ", pw=" + pw);
-        if (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null) {
-            return;
-        }
-        TeacherEntity tc = teacherControllerService.login(name, pw);
-        if (tc != null) {
-            model.addAttribute(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME, tc);
+    @RequestMapping(value = {"/teacher/forget_password"}, method = RequestMethod.GET)
+    public String toForgetPassword(){
+        log.debug("跳转到：teacher/forget_password.jsp");
+        return "teacher/forget_password";
+    }
+
+    @RequestMapping(value = {"/teacher/next_step"}, method = RequestMethod.GET)
+    public String toSendEmailPage(Model model){
+        if(model.asMap().get(ConstValues.FORGET_PWD_TC)!=null){
+            log.debug("跳转到:teacher/send_email_page.jsp");
+            return "teacher/send_email_page";
+        }else{
+            return "redirect: teacher/forget_password";
         }
     }
 
-    @RequestMapping(value = {"/teacher/login"}, method = RequestMethod.POST)
-    @ResponseBody
-    public String toHome(Model model) {
-        if (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME) != null) {
-            log.debug("跳转到:teacher/home.jsp");
-            return "teacher/home";
-        } else {
-            log.debug("登录失败");
-            return ConstValues.LOGIN_FAIL;
+    @RequestMapping(value = {"/teacher/new_password"}, method = RequestMethod.GET)
+    public String toNewPassword(Model model){
+        if(model.asMap().get(ConstValues.FORGET_PWD_TC)!=null){
+            log.debug("跳转到:teacher/send_email_page.jsp");
+            return "teacher/new_password";
+        }else{
+            return "redirect: teacher/forget_password";
         }
     }
+
 }

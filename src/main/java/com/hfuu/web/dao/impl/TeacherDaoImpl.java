@@ -20,11 +20,8 @@ import java.util.Map;
 @Repository("teacherDao")
 public class TeacherDaoImpl extends BaseDaoImpl<TeacherEntity> implements TeacherDao {
     @Override
-    public TeacherEntity getTeacherByNameAndPw(String name, String pw) {
-        TeacherEntity tc = new TeacherEntity();
-        tc.setTcName(name);
-        tc.setTcPw(pw);
-        List list = this.findByHql("from TeacherEntity tc where tc.tcName=? and tc.tcPw=?", name, pw);
+    public TeacherEntity getTeacherByTcNumAndPw(String tcNum, String pw) {
+        List list = this.findByHql("from TeacherEntity tc where tc.tcNum=? and tc.tcPw=?", tcNum, pw);
         if (list.size() != 0) {
             return (TeacherEntity) list.get(0);
         }

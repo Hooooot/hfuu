@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author : Ciel-08
@@ -27,5 +28,32 @@ public class TeacherServiceImpl extends BaseServiceImpl<TeacherEntity> implement
     @Override
     public BaseDao<TeacherEntity> getBaseDao() {
         return teacherDao;
+    }
+
+    @Override
+    public void update(String tcNum, String tcName, String tcSex, String tcPhone, String tcEmail) {
+        teacherDao.executeHql("update TeacherEntity tc set tc.tcName=?,tc.tcSex=?,tc.tcPhone=?,tc.tcEmail=? where tc.tcNum=?",
+                tcName, tcSex, tcPhone, tcEmail, tcNum);
+    }
+
+    @Override
+    public void update(String tcNum, String tcAvatar) {
+        teacherDao.executeHql("update TeacherEntity tc set tc.tcAvatar=? where tc.tcNum=?",
+                tcAvatar, tcNum);
+    }
+
+    @Override
+    public TeacherEntity getTeacherByTcNumAndTcEmail(String tcNum, String tcEmail) {
+        //noinspection unchecked
+        List<TeacherEntity> res = teacherDao.findByHql("from TeacherEntity tc where tc.tcNum=? and tc.tcEmail=?", tcNum, tcEmail);
+        if(res.size()>0){
+            return res.get(0);
+        }
+        return null;
+    }
+
+    @Override
+    public boolean updatePassword(String tcNum, String pwd) {
+        return teacherDao.executeHql("update TeacherEntity tc set tc.tcPw=? where tc.tcNum=?", pwd, tcNum) > 0;
     }
 }

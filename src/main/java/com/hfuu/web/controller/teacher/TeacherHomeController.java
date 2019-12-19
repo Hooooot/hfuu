@@ -8,6 +8,7 @@ import com.hfuu.web.entity.TeacherEntity;
 import com.hfuu.web.others.ConstValues;
 import com.hfuu.web.others.utils.TermUtils;
 import com.hfuu.web.service.TaskService;
+import com.hfuu.web.service.TeacherService;
 import com.hfuu.web.service.teacher.TeacherControllerService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -34,6 +35,8 @@ public class TeacherHomeController {
     TeacherControllerService teacherControllerService;
     @Resource
     TaskService taskService;
+    @Resource
+    TeacherService teacherService;
 
     @RequestMapping(value = {"/teacher/home"}, method = RequestMethod.GET)
     public String toHome(Model model) {
@@ -88,5 +91,25 @@ public class TeacherHomeController {
     public String toAccount() {
         log.debug("跳转到:teacher/account.jsp");
         return "teacher/account";
+    }
+
+    @RequestMapping(value = {"/teacher/task_detail"}, method = RequestMethod.GET)
+    public String toTaskDetail(@RequestParam int taskId, Model model) {
+        log.debug("跳转到:teacher/task_detail.jsp");
+        TaskEntity task = taskService.findById(taskId);
+        model.addAttribute("task", task);
+        return "teacher/task_detail";
+    }
+
+    @RequestMapping(value = {"/teacher/userinfo"}, method = RequestMethod.GET)
+    public String toUserInfo() {
+        log.debug("跳转到:teacher/userinfo.jsp");
+        return "teacher/userinfo";
+    }
+
+    @RequestMapping(value = {"/teacher/change_password"}, method = RequestMethod.GET)
+    public String toChangePassword() {
+        log.debug("跳转到:teacher/change_password.jsp");
+        return "teacher/change_password";
     }
 }

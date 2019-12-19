@@ -33,11 +33,7 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
             "cozName": "${this.cozName}"
         }
         ,toolbar: '#toolBar' //开启头部工具栏，并为其绑定左侧模板
-        ,defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            title: '提示'
-            ,layEvent: 'LAYTABLE_TIPS'
-            ,icon: 'layui-icon-tips'
-        }]
+        ,defaultToolbar: ['filter', 'exports', 'print']
         ,title: '用户数据表'
         ,cols: [[
             {type: 'checkbox', fixed: 'left'}
@@ -74,10 +70,6 @@ layui.use(['table', 'element', 'layer', "jquery"], function () {
                     break;
                 case 'isAll':
                     layer.msg(checkStatus.isAll ? '全选': '未全选');
-                    break;
-                //自定义头工具栏右侧图标 - 提示
-                case 'LAYTABLE_TIPS':
-                    layer.alert('这是工具栏右侧自定义的一个图标按钮');
                     break;
             }
         });
