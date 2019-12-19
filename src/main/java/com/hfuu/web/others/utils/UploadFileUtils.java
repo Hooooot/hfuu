@@ -40,8 +40,6 @@ public class UploadFileUtils {
         String md5 = null;
         try {
             md5 = DigestUtils.md5DigestAsHex(file.getBytes());
-            //  TODO
-            System.out.println("服务器计算的MD5：" + md5);
             // 用MD5做文件名
             FileUtils.copyInputStreamToFile(file.getInputStream(), new File(uploadedPath + pathInUploaded, md5));
         } catch (Exception e) {
@@ -65,8 +63,6 @@ public class UploadFileUtils {
             String[] paths = filePath.split(ConstValues.FILE_PATH_SEPARATOR);
             for (String path : paths) {
                 FileUtils.forceDelete(new File(uploadedPath + getFileRealPath(path)));
-                // TODO ：测试完成后应当考虑改为log.debug()
-                log.info("文件删除成功！");
             }
         } catch (Exception e) {
             log.error("删除文件失败", e);
