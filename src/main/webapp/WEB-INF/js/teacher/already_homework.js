@@ -158,15 +158,14 @@ layui.extend({
             , closeBtn: 1
             , area: width && height ? fullScreen ? ['60%', '80%'] : [width, height] : ['60%', '80%']
             , shade: 0.8
-            //,id: 'LAY_layuipro' //设定一个id，防止重复弹出
             , btn: ['上一份', '查看附件', '下一份']
             , yes: function (index, layero) {
                 let scoreChange = true;
                 let score = layero.find('.submitScore').val();
                 if ((score <= 100 && score >= 0) || score === '') {
-                    if(rowData.submit.score.toString() === score){
+                    if(rowData.submit.score.toString() === score) {
                         scoreChange = false;
-                    }else{
+                    } else {
                         rowData.submit.score = score;
                     }
                 } else {
@@ -198,7 +197,6 @@ layui.extend({
                                 </div>
                                 
                                 <script>
-                                console.log(${JSON.stringify(tableData)});
                                 layui.use(['table'], function () {
                                     let table = layui.table;
                                     table.render({
@@ -236,7 +234,7 @@ layui.extend({
             , btn3: function (index, layero) {
                 let scoreChange = true;
                 let score = layero.find('.submitScore').val();
-                if ((score < 100 && score > 0) || score === '') {
+                if ((score <= 100 && score >= 0) || score === '') {
                     if(rowData.submit.score.toString() === score){
                         scoreChange = false;
                     }else{

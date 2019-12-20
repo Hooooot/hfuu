@@ -27,8 +27,9 @@ layui.use(['table', 'element', 'layer', "jquery", "upload", "form"], function ()
                 return layer.msg('上传失败');
             }
             //上传成功
-            layer.alert(res.msg, function () {
-                window.location.reload();
+            layer.alert(res.msg, function (index) {
+                parent.layui.$("#tc_avatar").attr("src", "../uploaded/" + res.url);
+                layer.close(index);
             })
 
         }
@@ -46,8 +47,9 @@ layui.use(['table', 'element', 'layer', "jquery", "upload", "form"], function ()
         $.post("./set_info",
             data.field
             ,function (callback) {
-                layer.alert(callback.msg, function () {
+                layer.alert(callback.msg, function (index) {
                     window.location.reload();
+                    layer.close(index);
                 });
             });
         return false;

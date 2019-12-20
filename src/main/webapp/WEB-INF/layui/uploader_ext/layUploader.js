@@ -250,8 +250,9 @@ layui.extend({
                 $.post(formUrl,
                     formParams + "&enclosure=" + enclosure
                     , function (callback) {
-                        layer.msg(callback.msg, function () {
+                        layer.alert(callback.msg, function (index) {
                             location.reload();
+                            layer.close(index);
                         });
                     });
             } else {
@@ -309,9 +310,7 @@ layui.extend({
                         , dataType: "json"
                     }).then(function (data, textStatus, jqXHR) {
                         // 请求成功
-                        //TODO
-                        console.log("文件秒传");
-                        console.log(data);
+
                         //  返回值为0则表明文件已存在
                         if (data.code === 0) {
                             task.reject();

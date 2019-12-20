@@ -251,9 +251,8 @@ layui.use(['jquery', 'element', 'layer', 'upload'], function () {
                 tcNum: $(this).data("tcnum")
             }, function (callback) {
             if(callback.code === 0){
-                layer.alert(callback.msg, function (index) {
+                layer.alert(callback.msg, function () {
                     window.location.href = "../logintPage";
-                    layer.close(index);
                 });
             }else{
                 layer.alert(callback.msg);

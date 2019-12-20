@@ -179,7 +179,7 @@ public class TeacherResponseBodyController {
     @ResponseBody
     @RequestMapping(value = {"/teacher/layuiUploadAvatar"}, method = RequestMethod.POST, produces = "application/json;charset=utf8")
     public Map<String, Object> layuiUploadAvatar(@RequestParam MultipartFile file, @RequestParam String tcNum, HttpSession session, Model model) {
-        Map<String, Object> json = new HashMap<>(2);
+        Map<String, Object> json = new HashMap<>(3);
         String path = UploadFileUtils.uploadFile(session, file, "avatars/");
         String realPath = UploadFileUtils.getFileRealPath(path);
         teacherService.update(tcNum, realPath);
@@ -188,6 +188,7 @@ public class TeacherResponseBodyController {
         model.addAttribute(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME, tc);
         json.put("code", 0);
         json.put("msg", "上传成功！头像已更新！");
+        json.put("url", realPath);
         return json;
     }
 
