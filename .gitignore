@@ -1,2 +1,4 @@
 # Project exclude paths
 /.idea/
+/target/
+!/target/hfuu/WEB-INF/uploaded/

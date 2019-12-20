@@ -52,5 +52,4 @@ public class ConstValues {
      * */
     public static final String FORGET_PWD_TC = "forgetPasswordTeacher";
 
-
 }
