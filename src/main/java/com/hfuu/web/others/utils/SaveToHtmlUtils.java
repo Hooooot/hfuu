@@ -18,6 +18,11 @@ import java.util.UUID;
 public class SaveToHtmlUtils {
     private static Logger log = Logger.getLogger(SaveToHtmlUtils.class);
 
+    /**
+     * target路径下的uploaded文件夹，写入此文件夹会自动刷新文件目录，防止出现idea不刷新导致文件404的bug
+     * */
+    private static String toUploadPath = "\\WEB-INF\\uploaded\\";
+
     public static String saveContentToHtml(HttpSession session, String content) {
         return saveContentToHtml(session, content, "/richtext");
     }
@@ -33,7 +38,7 @@ public class SaveToHtmlUtils {
      * @since whh0987@foxmail.com于2019年12月19日 23点35分 重写，功能不变
      * */
     public static String saveContentToHtml(HttpSession session, String content, String innerFolder) {
-        String uploadedPath = session.getServletContext().getRealPath("/") + "\\WEB-INF\\uploaded\\";
+        String uploadedPath = session.getServletContext().getRealPath("/") + toUploadPath;
         //  32位UUID防止出现文件名重复
         String uuid = UUID.randomUUID().toString().replace("-", "");
         // 保存文件相对于uploaded的路径与文件名
@@ -55,13 +60,15 @@ public class SaveToHtmlUtils {
     }
 
     /**
-     * @param htmlPathAndName html文件 绝对路径
+     * @param session        HttpSession对象的实例
+     * @param pathInUploaded file要保存到uploaded文件夹中的位置，不需带文件名
      * @return 返回文件内容
      * @Description : 指定html文件获取文件内容
      * @author : Starry the Night
      * @date : 2019/10/23 19:46
      */
-    public static String getHtmlContent(String htmlPathAndName) {
+    public static String getHtmlContent(HttpSession session, String pathInUploaded) {
+        String htmlPathAndName = session.getServletContext().getRealPath("/") + toUploadPath + pathInUploaded;
         StringBuilder stringBuffer = new StringBuilder();
         try {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(htmlPathAndName), StandardCharsets.UTF_8));
@@ -77,14 +84,16 @@ public class SaveToHtmlUtils {
     }
 
     /**
-     * @param htmlPathAndName html文件 绝对路径
+     * @param session        HttpSession对象的实例
+     * @param pathInUploaded file要保存到uploaded文件夹中的位置，不需带文件名
      * @param content         修改文件内容
      * @Description :
      * @author: Starry the Night
      * @date : 2019/10/23 19:44
      */
-    public static void modifyHtmlContent(String htmlPathAndName, String content) {
-        String htmlContent = getHtmlContent(htmlPathAndName);
+    public static void modifyHtmlContent(HttpSession session, String pathInUploaded, String content) {
+        String htmlPathAndName = session.getServletContext().getRealPath("/") + toUploadPath + pathInUploaded;
+        String htmlContent = getHtmlContent(session, pathInUploaded);
         htmlContent = htmlContent.replaceAll(htmlContent, content);
         try {
             //建立文件输出流
@@ -92,7 +101,7 @@ public class SaveToHtmlUtils {
             oStreamWriter.append(htmlContent);
             oStreamWriter.close();
         } catch (Exception e) {
-
+            log.error(e.getStackTrace());
         }
 
     }

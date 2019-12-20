@@ -65,15 +65,14 @@ public class StudentController {
 
         if (subRichTextPath.length() == 0) {
             //第一次保存
-            htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content, "richtext");
+            htmlRelativePath = SaveToHtmlUtils.saveContentToHtml(session, content);
             studentControllerService.updateSubRichTextPath(taskId, stuNum, htmlRelativePath);
 
         } else {
             //非第一次保存
             Timestamp subTime = new Timestamp(System.currentTimeMillis());
             studentControllerService.updateSubmitSubTime(subId, subTime);
-            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\" + subRichTextPath;
-            SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
+            SaveToHtmlUtils.modifyHtmlContent(session, subRichTextPath, content);
         }
 
         result.put("success", "true");
@@ -106,9 +105,7 @@ public class StudentController {
             //保存后提交
             Timestamp subTime = new Timestamp(System.currentTimeMillis());
             studentControllerService.updateSubmitSubTimeAndSubState(subId, subTime, "待批阅");
-
-            String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\" + subRichTextPath;
-            SaveToHtmlUtils.modifyHtmlContent(htmlPathAndName, content);
+            SaveToHtmlUtils.modifyHtmlContent(session, subRichTextPath, content);
         }
         result.put("success", "true");
         return result;
@@ -119,11 +116,10 @@ public class StudentController {
     public Map<String, Object> getContentOfHtml(HttpSession session, String subRichTextPath) {
         Map<String, Object> result = new HashMap<>(2);
 
-        String htmlPathAndName = session.getServletContext().getRealPath("/") + "..\\..\\src\\main\\webapp\\WEB-INF\\uploaded\\" + subRichTextPath;
         if (subRichTextPath.length() == 0) {
             result.put("data", " ");
         } else {
-            String content = SaveToHtmlUtils.getHtmlContent(htmlPathAndName);
+            String content = SaveToHtmlUtils.getHtmlContent(session, subRichTextPath);
             result.put("data", content);
         }
 
