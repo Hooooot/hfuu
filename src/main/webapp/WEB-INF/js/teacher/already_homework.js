@@ -156,7 +156,7 @@ layui.extend({
             type: 1
             , title: ' '
             , closeBtn: 1
-            , area: width && height ? fullScreen ? ['60%', '80%'] : [width, height] : ['60%', '80%']
+            , area: width && height ? fullScreen ? ['60%', '80%'] : [width+"px", height+"px"] : ['60%', '80%']
             , shade: 0.8
             , btn: ['上一份', '查看附件', '下一份']
             , yes: function (index, layero) {
@@ -274,14 +274,17 @@ layui.extend({
                                     </div>
                                 </div>
                            </div>
-                           <iframe class="submitContent" src="../uploaded/${rowData.submit.subRichTextPath}" height=${unfullScreenHeight} width="99%"
-                           >您的浏览器无法正常显示，请更换浏览器！</iframe>
+                           <iframe class="submitContent" 
+                           src="../uploaded/${rowData.submit.subRichTextPath===null?"others/null_file.html":rowData.submit.subRichTextPath}"
+                           height=${unfullScreenHeight} width="99%">您的浏览器无法正常显示，请更换浏览器！</iframe>
                            <div class="layui-form layui-form-pane" style="margin:0 auto;width: 309px;">
                                  <div class="layui-form-item">
                                     <label class="layui-form-label">分数：</label>
                                     <div class="layui-input-inline">
-                                        <input type="number" placeholder="请输入分数：0-100" value="${rowData.submit.score ? rowData.submit.score : ''}"
-                                        autocomplete="off" class="layui-input submitScore" oninput="value=value.replace(/[^\\d^\\.]/g,'').slice(0,3)"
+                                        <input type="number" placeholder="请输入分数：0-100" 
+                                        value="${rowData.submit.score ? rowData.submit.score : ''}"
+                                        autocomplete="off" class="layui-input submitScore" 
+                                        oninput="value=value.replace(/[^\\d^\\.]/g,'').slice(0,3)"
                                         maxlength="3">
                                     </div>
                                  </div>
@@ -308,7 +311,6 @@ layui.extend({
                 if (nextSubmit.length === 0) {
                     btn2.text(" 提交 ");
                 }
-                console.log(nextSubmit)
             }
             , full: function (layero) {
                 let content = layero.find('.submitContent');

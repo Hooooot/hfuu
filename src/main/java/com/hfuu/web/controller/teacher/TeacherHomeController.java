@@ -66,8 +66,6 @@ public class TeacherHomeController {
     @RequestMapping(value = {"/teacher/already_homework"}, method = RequestMethod.GET)
     public String toAlreadyHomework(String term, Model model) {
         TeacherEntity tc = (TeacherEntity) (model.asMap().get(ConstValues.TEACHER_LOGGED_IN_INSTANCE_NAME));
-        // TODO
-        System.out.println("term:" + term);
         Map<ClassEntity, List<TaskEntity>> clazz = teacherControllerService.getClazzAndTaskByTcNumAndTerm(tc.getTcNum(), TermUtils.getCurrentTerm());
         model.addAttribute("clazzs", clazz);
         log.debug("跳转到:teacher/already_homework.jsp");

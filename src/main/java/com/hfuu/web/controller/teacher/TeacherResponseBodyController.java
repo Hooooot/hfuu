@@ -212,7 +212,7 @@ public class TeacherResponseBodyController {
         Map<String, Object> json = new HashMap<>(2);
         int num;
         try {
-            num = submitService.updateScoreAndStateById(subId, score, "已批改");
+            num = submitService.updateScoreAndStateById(subId, score, "已批阅");
         } catch (Exception e) {
             json.put("code", 0);
             json.put("msg", "服务器内部错误！提交失败！");

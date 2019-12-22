@@ -27,10 +27,10 @@ public class EmailUtils {
      * @date 2019年12月19日 01点08分
      */
     public static void sendEmail(String subject, String content, String receiver) throws MessagingException {
-        // 发件人邮箱
-        String sender = "1667239950@qq.com";
-        // 发件人邮箱令牌
-        String token = "ytprfxrevyidcgjb";
+        // TODO 请填写发件人的QQ邮箱
+        String sender = "";
+        // TODO 请填写发件人的QQ邮箱的SMTP令牌
+        String token = "";
 
         Properties props = new Properties();
         // 设置用户的认证方式
