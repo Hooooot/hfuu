@@ -1,0 +1,63 @@
+CREATE DATABASE  IF NOT EXISTS `hfuutest` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `hfuutest`;
+-- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
+--
+-- Host:     Database: hfuutest
+-- ------------------------------------------------------
+-- Server version	8.0.17
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+ SET NAMES utf8 ;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `course`
+--
+
+DROP TABLE IF EXISTS `course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `course` (
+  `cozId` int(11) NOT NULL AUTO_INCREMENT,
+  `cozNum` char(9) DEFAULT NULL,
+  `cozName` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `classNum` char(7) DEFAULT NULL,
+  `tcNum` char(10) DEFAULT NULL,
+  `term` char(3) DEFAULT NULL,
+  PRIMARY KEY (`cozId`),
+  KEY `course_ibfk_1` (`classNum`),
+  KEY `course_ibfk_2` (`tcNum`),
+  CONSTRAINT `FKhpg2lwhgrhx1dku33lc0w8tdm` FOREIGN KEY (`classNum`) REFERENCES `clazz` (`classNum`),
+  CONSTRAINT `FKoxgj08l00w092rn5p5kqlfy8` FOREIGN KEY (`tcNum`) REFERENCES `teacher` (`tcNum`),
+  CONSTRAINT `course_ibfk_1` FOREIGN KEY (`classNum`) REFERENCES `clazz` (`classNum`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `course_ibfk_2` FOREIGN KEY (`tcNum`) REFERENCES `teacher` (`tcNum`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `course`
+--
+
+LOCK TABLES `course` WRITE;
+/*!40000 ALTER TABLE `course` DISABLE KEYS */;
+INSERT INTO `course` VALUES (5,'041330702','数据结构与算法','1704092','1706072099',NULL),(6,'041412601','Java Web技术I','1604012','1604012001',NULL),(14,'041311901','嵌入式系统','1604012','1604012003','192'),(15,'041311301','计算机组成与结构','1604011','1604012003','192'),(16,'041311301','计算机组成与结构','1604012','1604012003','192'),(17,'041310801','微型计算机原理与接口技术','1604011','1604012003','191'),(18,'041310801','微型计算机原理与接口技术','1604012','1604012003','191'),(19,'041310801','微型计算机原理与接口技术','1704092','1604012003','191'),(20,'041311100','web开发','1704092','1604012002','191');
+/*!40000 ALTER TABLE `course` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2020-01-08 17:57:38
