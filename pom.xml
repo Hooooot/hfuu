@@ -26,7 +26,7 @@
         <mysqlVersion>8.0.17</mysqlVersion>
         <c3p0Version>0.9.5.3</c3p0Version>
         <jacksonVersion>2.9.8</jacksonVersion>
-        <fastJsonVersion>1.2.62</fastJsonVersion>
+        <fastJsonVersion>1.2.83</fastJsonVersion>
         <gsonVersion>2.8.6</gsonVersion>
         <emailVersion>1.4.7</emailVersion>
         <jacksonVersion>2.9.8</jacksonVersion>
